@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
+<!--  namespace 基于接口的编程，必须是dao接口全名称 -->
+<mapper namespace="com.crmsystem.crm.dao.RightDao">
+    <select id="findGradeByRolesId" parameterType="Integer" resultType="int">
+        select grade from `right` where rolesId=#{rolesId}
+    </select>
+</mapper>

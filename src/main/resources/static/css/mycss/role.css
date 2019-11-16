@@ -1,0 +1,15 @@
+
+.tree_left{box-sizing:border-box;overflow-y: auto;width:76%;border: 1px #ccc solid;;border-radius: 6px;margin-right: 1%;margin-left: 90px;height: 400px;}
+.tree_left_top{margin: 6px}
+.tree_input input{border: 1px #ccc solid;margin:3px 0 0 10px;border-radius: 4px;
+}
+.layui-layer-title{background:url(../../images/righttitlebig.png) repeat-x;font-weight:bold;color:#46647e; border:1px solid #c1d3de;height: 33px;line-height: 33px;}
+.tabe_bot label,.right label{width: 70px;text-align: right;font-size: 14px;font-weight: 900;color: #46647e}
+.l_left{float: left}
+.tabe_bot input,.tabe_bot  select,.right input,.right input{width: 180px;height: 30px;border-radius: 6px;margin:0 20px 0 0;border: none;border: 1px #ccc solid}
+.tabe_btn{width: 60px;height: 30px;background-color: #68b86c;border: none;border-radius: 6px;color: #fff}
+.right{width: 39%;border: 1px #c1d3de solid;border-top: none}
+.right textarea{width: 80%;height: 60px;resize: none;border-radius: 6px;margin-bottom: 20px;border: 1px #ccc solid}
+.bot_btn{width: 150px;height: 30px;margin: 20px 0 0 40%}
+.bot_btn .btn{width: 60px;height: 30px;background-color: #68b86c;border: none;border-radius: 6px;color: #fff;margin-right: 15px}
+.bot_btn .btn1{background-color: #c1d3de;border: none;border-radius: 6px;color: #000;margin-right: 0}

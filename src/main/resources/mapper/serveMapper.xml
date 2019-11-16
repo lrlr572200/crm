@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
+<!--  namespace 基于接口的编程，必须是dao接口全名称 -->
+<mapper namespace="com.crmsystem.crm.dao.ServeDao">
+    <!--添加服务-->
+    <insert id="addServe" parameterType="Serve">
+        insert into serve(addCode,details,states,empCode,meet,userName,phone,
+        deptId,addTime,remark)
+        values(#{addCode},#{details},#{states},#{empCode},#{meet},#{userName},
+        #{phone},#{deptId},#{addTime},#{remark})
+    </insert>
+    <!--过滤查询服务总数量-->
+    <select id="findServeCount" resultType="int" parameterType="Serve">
+        select count(0) from serve s,emp e where s.addCode=e.empCode
+        <if test="serve.addTime != null">
+            and s.addTime=#{serve.addTime}
+        </if>
+        <if test="serve.phone != null and serve.phone != ''">
+            and s.phone=#{serve.phone}
+        </if>
+    </select>
+    <!--分页过滤查看服务-->
+    <select id="findServePage"  resultType="Serve">
+        select s.serveId,s.addCode,s.details,s.states,s.empCode,s.meet,s.userName,s.phone,
+        s.deptId,s.addTime,s.remark,e.empName,d.deptName from serve s,emp e,dept d where
+        s.addCode=e.empCode and d.deptId=s.deptId
+        <if test="serve.addTime != null">
+            and s.addTime=#{serve.addTime}
+        </if>
+        <if test="serve.phone != null and serve.phone != ''">
+            and s.phone=#{serve.phone}
+        </if>
+        ORDER BY s.addTime desc
+        LIMIT #{pageIndex},#{pageSize}
+    </select>
+
+    <sql id="CommonSql">
+        <if test="serve.states!=null and serve.states!='' ">
+            and states=#{serve.states}
+        </if>
+        <if test="serve.empCode!=null and serve.empCode!='' ">
+            and empCode=#{serve.empCode}
+        </if>
+        <if test="serve.deptId!=null">
+            and deptId=#{serve.deptId}
+        </if>
+        <if test="serve.userName!=null and serve.userName!='' ">
+            and userName like CONCAT('%',#{serve.userName},'%')
+        </if>
+    </sql>
+
+    <!--李国庆分页检索sql-->
+    <select id="findServePaging" resultType="Serve">
+        SELECT serveId,addCode,(SELECT empName FROM emp WHERE emp.`empCode`=serve.`addCode`) AS empName,
+        details,states,empCode,(SELECT empName FROM emp WHERE emp.`empCode`=serve.empCode) AS solvePeople,
+        meet,userName,phone,deptId,(SELECT deptName FROM dept WHERE dept.`deptId`=serve.`deptId`) AS deptName,
+        `addtime`,remark FROM serve
+        <where>
+            <include refid="CommonSql"></include>
+        </where>
+        ORDER BY `addtime` DESC limit #{pageIndex},#{pageSize} ;
+    </select>
+
+    <!--李国庆分页检索统计数量sql-->
+    <select id="fintServeCot" resultType="int" parameterType="Serve">
+        select count(serveId) from serve
+        <where>
+            <include refid="CommonSql"></include>
+        </where>
+    </select>
+
+    <!--修改的方法-->
+    <update id="updServe" parameterType="Serve" >
+        update serve
+        <trim prefix="set" suffixOverrides=",">
+            <if test="serve.userName!=null and serve.userName!='' ">
+                userName=#{serve.userName},
+            </if>
+            <if test="serve.phone!=null and serve.phone!='' ">
+                phone=#{serve.phone},
+            </if>
+            <if test="serve.details!=null and serve.details!='' ">
+                details=#{serve.details},
+            </if>
+            <if test="serve.addTime!=null ">
+                addTime=#{serve.addTime},
+            </if>
+            <if test="serve.states!=null and serve.states!='' ">
+                states=#{serve.states},
+            </if>
+            <if test="serve.addCode!=null and serve.addCode!='' ">
+                addCode=#{serve.addCode},
+            </if>
+            <if test="serve.deptId!=null ">
+                deptId=#{serve.deptId},
+            </if>
+            <if test="serve.empCode!=null and serve.empCode!='' ">
+                empCode=#{serve.empCode},
+            </if>
+            <if test="serve.meet!=null and serve.meet!='' ">
+                meet=#{serve.meet},
+            </if>
+            <if test="serve.remark!=null and serve.remark!='' ">
+                remark=#{serve.remark},
+            </if>
+        </trim>
+        WHERE serveId=#{serve.serveId}
+    </update>
+
+
+
+
+</mapper>

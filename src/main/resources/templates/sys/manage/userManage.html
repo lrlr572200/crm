@@ -1,0 +1,166 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/info-mgt.css" />
+    <link rel="stylesheet" href="/css/mycss/person_infor.css"/>
+
+    <script src="/js/jquery.js"></script>
+    <title>用户管理</title>
+</head>
+
+<body>
+
+<div class="title"><h2>员工信息管理</h2></div>
+<div class="query">
+    <div class="tabe_bot">
+        <div class="l_left">
+            <label>编号：</label>
+            <input type="text" name="empCode" value="" id="empCode"  style="width: 100px;">
+        </div>
+        <div class="l_left">
+            <label>部门：</label>
+            <select name="deptId" id="deptId"  style="width: 100px;">
+                <option value="">全部</option>
+            </select>
+        </div>
+        <div class="l_left">
+            <label>职位</label>
+            <select name="rolesId" id="rolesId"  style="width: 100px;">
+                <option value="">全部</option>
+            </select>
+        </div>
+        <div class="l_left">
+            <label>状态</label>
+            <select name="states" id="states"  style="width: 100px;">
+                <option value="">全部</option>
+            </select>
+        </div>
+
+
+        <button class="tabe_btn" onclick="but()" >查询</button>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="table-operate ue-clear" id="nave">
+        <a href="#" class="add"  onclick="add()">添加</a>
+        <a href="#" class="del"  onclick="del()">删除</a>
+</div>
+<div class="table-box">
+    <table id="table" class="table_style" ></table>
+</div>
+<div class="pagination ue-clear"></div>
+
+
+<!--模态框1-->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">查看个人详情</h4>
+            </div>
+            <div class="modal-body">
+                <table border="0" cellpadding="0" cellspacing="0" id="per-info"
+                       style="width: 550px;height: 100%" >
+                    <tr height="50px" width="550px">
+                        <td width="420px" colspan="4">
+                            <p id="title-p"><span id="name" >姓名</span>
+                            </p>
+                        </td>
+                        <td width="130px" colspan="2">
+                            <img th:src="@{/images/image.jpg}" width="130px" id="head"/>
+                        </td>
+                    </tr>
+                    <tr height="40px" width="550px" class="tr1">
+                        <td  class="td1">性别:</td>
+                        <td  id="sex">性别</td>
+                        <td  class="td1">编号:</td>
+                        <td  width="130px" id="id">编号</td>
+                        <td  class="td1"></td>
+                        <td ></td>
+
+                    </tr >
+                    <tr height="40px" width="550px" class="tr1">
+                        <td  class="td1">部门:</td>
+                        <td id="dept">部门</td>
+                        <td  class="td1">密码:</td>
+                        <td  id="pwd">密码</td>
+                        <td class="td1"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="40px" width="550px" class="tr1">
+                        <td  class="td1">职位:</td>
+                        <td id="roles">职位</td>
+                        <td class="td1">状态:</td>
+                        <td id="sta">状态</td>
+                        <td class="td1"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="40px" width="550px" class="tr1">
+                        <td  class="td1">薪资:</td>
+                        <td id="sal">工资</td>
+                        <td  class="td1">年龄:</td>
+                        <td id="bir">年龄</td>
+                        <td class="td1"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="40px" width="550px" class="tr1">
+                        <td  class="td1">绩效:</td>
+                        <td id="per">绩效分</td>
+                        <td class="td1">是否修改:</td>
+                        <td id="isn">修改</td>
+                        <td class="td1"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="40px" width="550px" class="tr1">
+                        <td  class="td1">邮箱:</td>
+                        <td id="emai">邮箱</td>
+                        <td class="td1">入职时间:</td>
+                        <td id="entt">时间</td>
+                        <td class="td1"></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--模态框2-->
+<div class="modal fade" id="alertModel" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px;">
+            <div class="modal-header" style="height: 50px;">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" style="text-align: center;vertical-align: middle;">
+                <p style="color: blue;font-family: 宋体;font-size: 20px;font-weight: bolder" id="info-modal">
+
+                </p>
+            </div>
+            <div class="modal-footer" style="height: 50px;text-align: center;vertical-align: middle;" >
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.js"></script>
+<script src="/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="/js/myjs/userManage.js"></script>
+
+
+</html>

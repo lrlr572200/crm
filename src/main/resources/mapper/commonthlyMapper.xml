@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crmsystem.crm.dao.CommonthlyDao">
+    <!--修改公司月报-->
+    <update id="updateCommonthly" parameterType="Commonthly">
+        UPDATE commonthly set `year`=#{year},`month`=#{month},
+        sumMoney=#{sumMoney},basis=#{basis},
+ratio=#{ratio} where id=#{id}
+    </update>
+    <!--创建月报-->
+    <insert id="addCommonthly" parameterType="Commonthly">
+        insert INTO commonthly(`year`,`month`,sumMoney,basis,ratio)
+VALUES(#{year},#{month},#{sumMoney},#{basis},#{ratio})
+    </insert>
+    <!--查看当前月份的公司月报-->
+    <select id="findCommonthlyByYM" parameterType="Commonthly" resultType="Commonthly">
+        select id,`year`,`month`,sumMoney,basis,ratio from commonthly
+        where `year`=#{year} and `month`=#{month}
+    </select>
+</mapper>

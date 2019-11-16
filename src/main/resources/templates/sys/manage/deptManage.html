@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/info-mgt.css" />
+    <link rel="stylesheet" href="/css/jquery.treetable.css" />
+    <link rel="stylesheet" href="/css/jquery.treetable.theme.default.css" />
+    <link rel="stylesheet" href="/css/mycss/part.css" />
+    <title>部门管理</title>
+</head>
+
+<body>
+<div class="title"><h2>部门管理</h2></div>
+<div class="query">
+    <div class="tabe_bot">
+        <div class="l_left"><label>部门名称：</label><input type="text" placeholder="请输入部门名称或部门编号"></div>
+
+
+        <button class="tabe_btn ">查询</button>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="table-operate ue-clear">
+    <a href="#" class="add" id="addpart" onClick="openlayer()">添加</a>
+
+
+</div>
+
+<div class="table-box">
+    <table id="example-advanced"  class="tableztree01">
+
+        <tr class="thead_tr"><td style="padding-left: 10px;font-weight: bold">编号</td><td style="font-weight: bold">部门名</td><td style="font-weight: bold">所属部门编号</td><td style="font-weight: bold">操作</td></tr>
+        <tbody>
+        <tr data-tt-id="0">
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td ><a href="#">删除</a> <a href="#" onClick="openlayer()">修改</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="pagination ue-clear"></div>
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script src="/js/jquery.treetable.js"></script>
+<script src="/js/layer_v2.1/layer/layer.js"></script>
+<script src="/js/myjs/deptManage.js"></script>
+</html>

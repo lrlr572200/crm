@@ -1,0 +1,15 @@
+.tree_left{box-sizing:border-box;overflow-y: auto;width:19%;border: 1px #c1d3de solid;margin-right: 1%;border-top:none;}
+.tree_left h6,.tree_right h6{line-height: 30px;font-weight: bold;padding-left: 6px ;color: #000;font-size: 14px}
+.tree_left_top{margin: 6px}
+.tree_input input{border: 1px #ccc solid;margin:3px 0 0 10px;border-radius: 4px;
+}
+.layui-layer-title{background:url(../../images/righttitlebig.png) repeat-x;font-weight:bold;color:#46647e; border:1px solid #c1d3de;height: 33px;line-height: 33px;}
+.tabe_bot label{width: 70px;text-align: right;font-size: 14px;font-weight: 900;color: #46647e}
+.l_left{float: left}
+.tabe_bot input,.tabe_bot  select{width: 180px;height: 30px;border-radius: 6px;margin:0 20px 0 0;border: none;border: 1px #ccc solid}
+.tabe_btn{width: 60px;height: 30px;background-color: #68b86c;border: none;border-radius: 6px;color: #fff}
+
+div#rMenu {position:absolute; visibility:hidden; top:0; background-color: #99c9db;text-align: left;padding: 2px;z-index: 999}
+div#rMenu ul li{ margin: 1px 0;padding: 5px 15px;cursor: pointer;list-style: none outside none;background-color: #5a8cc4;color: #fff  }
+div#rMenu ul li:hover{color: #000;background-color: #ccc}
+#rMenu ul{margin: 0;padding: 0}

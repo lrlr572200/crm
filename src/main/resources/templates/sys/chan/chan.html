@@ -1,0 +1,73 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/info-mgt.css" />
+    <link rel="stylesheet" href="/css/mycss/notice.css" type="text/css"/>
+    <style>
+        .mains{
+            width: 120px;
+            height: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+    </style>
+    <title>机会管理</title>
+</head>
+
+<body onload="Noticeload()">
+<div class="title"><h2>机会管理</h2></div>
+<div class="query">
+    <form action="/sys/notice.html" method="post">
+        <div class="tabe_bot">
+            <div class="l_left"><label>状态：</label>
+                <input type="text" placeholder="请输入状态" id="noticePuer" name="states" value=""></div>
+            <div class="l_left"><label>时间：</label>
+                <input type="date" id="demo" placeholder="输入年月" name="addTime" /></div>
+            <input type="button" onclick="button()" value="查询" class="tabe_btn">
+            <div class="clear"></div>
+        </div>
+    </form>
+</div>
+<div class="table-operate ue-clear">
+        <a href="/sys/addChan.html" class="add">添加</a>
+</div>
+<div class="table-box">
+    <table id="table" class="table_style table table-hover table-striped">
+        <tbody>
+
+
+
+        </tbody>
+        <thead>
+        <tr>
+            <th style="text-align: center; vertical-align: middle; " data-field="ID" tabindex="0"><div class="th-inner ">机会名称</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; vertical-align: middle; " data-field="ID" tabindex="0"><div class="th-inner ">来源</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; vertical-align: middle; " data-field="TITLE" tabindex="0"><div class="th-inner ">创建时间</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; vertical-align: middle; " data-field="PUBLISHER" tabindex="0"><div class="th-inner ">录入人</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; " data-field="PUBTIME" tabindex="0"><div class="th-inner ">分配状态</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; " data-field="PUBTIME" tabindex="0"><div class="th-inner ">所属部门</div><div class="fht-cell"></div></th>
+            <!--<th style="text-align: center; " data-field="" tabindex="0"><div class="th-inner ">操作</div><div class="fht-cell"></div></th>-->
+        </tr>
+        </thead>
+    </table>
+    <span id="page"></span>
+    <input type="hidden" value="1" id="pageIndex">
+</div>
+<div class="pagination ue-clear"></div>
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.js"></script>
+<script src="/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="/js/date/js/laydate.js"></script>
+<script src="/js/layer_v2.1/layer/layer.js"></script>
+<script src="/js/myjs/chan.js"></script>
+<!--<script src="/js/notice.js"></script>-->
+
+</html>

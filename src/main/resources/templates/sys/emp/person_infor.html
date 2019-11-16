@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/info-mgt.css"/>
+    <link rel="stylesheet" href="/css/mycss/person_infor.css"/>
+    <script src="/js/jquery.js"></script>
+
+    <title>我的个人信息</title>
+</head>
+
+<body>
+<div class="title" style="height:31px"><h2 style="margin-top: auto">个人信息</h2></div>
+<div id="div-info">
+    <table border="0" cellpadding="0" cellspacing="0" id="per-info">
+        <tr height="50px">
+            <td  colspan="6">
+                <p id="title-p"><span id="name" th:text="${emp.getEmpName()}"></span>
+                </p>
+                <p class="cord">编号：<span th:text="${emp.getEmpCode()}"></span></p>
+            </td>
+            <td width="132px" colspan="2">
+                <img th:src="${emp.getHead()}" width="130px" id="head"/>
+            </td>
+        </tr>
+        <tr height="40px" class="tr1">
+            <td width="92px" class="td1">部门:</td>
+            <td width="110px" th:text="${emp.getDeptName()}"></td>
+            <td width="92px" class="td1">薪资:</td>
+            <td width="110px"><span th:text="${emp.getSalary()}"></span>元</td>
+            <td width="92px" class="td1">入职时间:</td>
+            <td width="110px" th:text="${#dates.format(emp.getEntryTime(),'yyyy-MM-dd')}"></td>
+            <td width="92px" class="td1">状态:</td>
+            <td width="110px" th:text="${emp.getStates()}"></td>
+            <td width="100px" class="td1"></td>
+            <td width="32px"></td>
+
+        </tr>
+        <tr height="40px" class="tr1">
+            <td class="td1">职位:</td>
+            <td th:text="${emp.getRoleName()}"></td>
+            <td class="td1">绩效:</td>
+            <td th:text="${emp.getPerformance()}"></td>
+            <td class="td1">生&nbsp;&nbsp;日:</td>
+            <td th:text="${#dates.format(emp.getBirthday(),'yyyy-MM-dd')}"></td>
+            <td class="td1">邮箱:</td>
+            <td th:text="${emp.getEmail()}"></td>
+            <td class="td1"></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <div th:if="${emp.getRolesId()}==4">
+        <div id="user-info">
+            <div id="user-nav">我&nbsp;的&nbsp;客&nbsp;户</div>
+            <from>
+                <input type="hidden" name="empCode" id="empCode" th:value="${emp.getEmpCode()}" >
+                <input type="hidden" name="pageIndex" id="pageIndex" value="">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td class="find-info">
+                            状态：
+                            <select name="states" class="sel1" id="states">
+                                <option value="">全部</option>
+                                <option value="已成交">已成交</option>
+                                <option value="意向客户">意向客户</option>
+                                <option value="已跟进">已跟进</option>
+                                <option value="新创建">新创建</option>
+                                <option value="已放弃">已放弃</option>
+                            </select>
+                        </td>
+                        <td class="find-info">
+                            客户类型：
+                            <select name="userType" class="sel1" id="userType">
+                                <option value="">全部</option>
+                                <option value="普通客户">普通客户</option>
+                                <option value="大客户">大客户</option>
+                                <option value="VIP客户">VIP客户</option>
+                            </select>
+                        </td>
+                        <td class="find-info">
+                            来源：
+                            <select name="source" class="sel1" id="source">
+                                <option value="">全部</option>
+                                <option value="400电话">400电话</option>
+                                <option value="官网咨询">官网咨询</option>
+                                <option value="到司咨询">到司咨询</option>
+                                <option value="自主开发">自主开发</option>
+                            </select>
+                        </td>
+                        <td class="find-info">
+                            信誉等级：
+                            <select name="creditGrade" class="sel1" id="creditGrade">
+                                <option value="">全部</option>
+                                <option value="A级">A级</option>
+                                <option value="B级">B级</option>
+                                <option value="C级">C级</option>
+                                <option value="S级">S级</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="find-info">注册时间：
+                            <input type="date" name="beginTime" class="sel2" id="beginTime" />~
+                            <input type="date" name="endTime" class="sel2" id="endTime" />
+                        </td>
+                        <td class="find-info"></td>
+                        <td class="find-info"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="find-info">
+                            <input type="button" value="查&nbsp;找" onclick="javascript:getUserInfo(1)" id="sub1"/>
+                        </td>
+                        <td class="find-info"></td>
+                        <td class="find-info"></td>
+                    </tr>
+                </table>
+            </from>
+            <from>
+                <table border="1" cellpadding="0" cellspacing="0" width="90%" id="info-list" align="center"
+                       style="text-align: center;border-color:ghostwhite;vertical-align: center ">
+
+                </table>
+                <table id="info-list1">
+
+                </table>
+            </from>
+            <div id="form1"></div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+
+<script src="/js/myjs/person_infor.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.js"></script>
+<script src="/js/bootstrap-table-zh-CN.min.js"></script>
+
+
+</html>

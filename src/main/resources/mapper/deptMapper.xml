@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crmsystem.crm.dao.DeptDao">
+
+    <!--查找直属下属部门根据父类id-->
+    <select id="findDeptByParentid" parameterType="int" resultType="Dept">
+        SELECT deptId,deptname,parentId FROM dept WHERE parentId=#{deptId}
+    </select>
+
+    <!--条件查询部门-->
+    <select id="findDept"  resultType="Dept">
+        SELECT deptId,deptname,parentId FROM dept
+    </select>
+</mapper>

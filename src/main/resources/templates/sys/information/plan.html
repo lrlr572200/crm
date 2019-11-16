@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/info-mgt.css" />
+    <link rel="stylesheet" href="/css/mycss/plan.css" />
+    <title>审核计划表</title>
+</head>
+
+<body>
+<div class="title"><h2>计划审核表</h2></div>
+<div class="table-box">
+    <table id="table" class="table_style"></table>
+</div>
+<div class="pagination ue-clear"></div>
+<!--模态框-->
+<div class="modal fade" id="alertModel" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px;">
+            <div class="modal-header" style="height: 50px;">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" style="text-align: center;vertical-align: middle;">
+                <p style="color: blue;font-family: 宋体;font-size: 20px;font-weight: bolder" id="info-modal">
+
+                </p>
+            </div>
+            <div class="modal-footer" style="height: 50px;text-align: center;vertical-align: middle;" >
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.js"></script>
+<script src="/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="/js/date/js/laydate.js"></script>
+<script src="/js/myjs/plan.js"></script>
+<script src="/js/layer_v2.1/layer/layer.js"></script>

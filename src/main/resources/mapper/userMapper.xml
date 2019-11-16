@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crmsystem.crm.dao.UserDao">
+    <!--根据客户ID修改客户类型-->
+    <update id="updateUserUserTypeById" parameterType="User">
+        update `user` set userType=#{user.userType} where userId=#{user.userId}
+    </update>
+    <!--根据客户ID修改客户信誉等级-->
+    <update id="updateUserCreditGradeById" parameterType="User">
+        update `user` set creditGrade=#{user.creditGrade} where userId=#{user.userId}
+    </update>
+    <!--根据客户ID修改状态-->
+    <update id="updateUserStatesById" parameterType="User">
+        update `user` set states=#{user.states}  where userId=#{user.userId}
+    </update>
+    <!--根据客户ID查询客户信息-->
+    <select id="findUserById" resultType="User" parameterType="Integer">
+        select u.userId,u.userName,u.sex,u.phone,u.states,u.source,u.empCode,u.userType,
+u.creditGrade,u.addTime,u.remark,e.empName from user u,emp e
+where e.empCode=u.empCode and userId=#{userId}
+    </select>
+
+    <!--声明sql片段-->
+    <sql id="sqlCommon">
+        <if test="userCondition.empCode!=null and userCondition.empCode!='' ">
+            and empCode=#{userCondition.empCode}
+        </if>
+        <if test="userCondition.states!=null and userCondition.states!='' ">
+            and states=#{userCondition.states}
+        </if>
+        <if test="userCondition.userType!=null and userCondition.userType!='' ">
+            and userType=#{userCondition.userType}
+        </if>
+        <if test="userCondition.source!=null and userCondition.source!='' ">
+            and source=#{userCondition.source}
+        </if>
+        <if test="userCondition.creditGrade!=null and userCondition.creditGrade!='' ">
+            and creditGrade=#{userCondition.creditGrade}
+        </if>
+        <if test="userCondition.beginTime!= null ">
+            and `addtime`>=#{userCondition.beginTime}
+        </if>
+        <if test="userCondition.endTime!=null ">
+            and `addtime` &lt;=#{userCondition.endTime}
+        </if>
+    </sql>
+
+    <!--分页检索客户信息动态sql-->
+    <select id="findUserPaging" resultType="User" >
+        SELECT userId,userName,sex,(SELECT g.sex FROM gender g WHERE g.id=user.`sex` ) AS strSex,phone,states,
+        source,empCode,(SELECT e.empName FROM emp e WHERE e.empCode=user.`empCode`) AS empName,userType,creditGrade,
+        `addtime`,remark FROM `user`
+        <where>
+            <!-- 引用sql片段 -->
+            <include refid="sqlCommon"></include>
+        </where>
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+    <!--计算员工信息条数，动态sql-->
+    <select id="findUserCount" resultType="int">
+        select count(userId) from user
+        <where>
+            <!-- 引用sql片段 -->
+            <include refid="sqlCommon"></include>
+        </where>
+    </select>
+
+</mapper>

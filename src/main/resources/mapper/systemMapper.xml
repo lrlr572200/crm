@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
+<!--  namespace 基于接口的编程，必须是dao接口全名称 -->
+<mapper namespace="com.crmsystem.crm.dao.SystemDao">
+    <!--查看机会分配变量-->
+    <select id="findChanValue" resultType="String" parameterType="String">
+        select `value` from system where `name`=#{name}
+    </select>
+    <!--修改机会分配变量-->
+    <update id="updateChanValue">
+        update system set value=#{value} where name=#{name};
+    </update>
+</mapper>

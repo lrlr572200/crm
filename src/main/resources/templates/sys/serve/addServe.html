@@ -1,0 +1,90 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>消息详情</title>
+    <link href="/css/tail.css" rel="stylesheet" type="text/css" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script>
+        function change() {
+            var height01 = $(window).height();
+            $(".top").css('height', height01 - 35+"px");
+        }
+    </script>
+</head>
+
+<body style="border-radius: 8px" onload="change(),init()">
+<form id="form_demo" action="/sys/addServes.html" method="post">
+    <div class="top">
+        <div>
+            <div class="top_out">
+                <table class="table" >
+                    <tbody>
+                    <tr>
+                        <td style="border-top: none" >服务详情：</td>
+                        <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"  name ="details" minlength="2"  required id="tit"></td>
+                    </tr>
+                    <tr>
+                        <td>所属部门：<p></p>维护人：</td>
+                        <td colspan="6">
+                            <input type="text" readonly="readonly" id="deptName">
+                            <!--隐藏域-->
+                            <input type="hidden" name="deptId" id="deptId">
+                            <input type="text" name="empCode" readonly="readonly">
+                            <!--服务分配变量-->
+                            <input type="hidden" id="value" name="value" th:value="${value}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>客户姓名：</td>
+                        <td  style="text-align: left"><input type="text" name="userName"></td>
+                        <td>联系方式：</td>
+                        <td colspan = "3" style="text-align: left"><input type="text" name="phone" class="long_text" id="demo"></td>
+                    </tr>
+                    <tr>
+                        <!--<td>性别：</td>
+                        <td  style="text-align: left"><select id="sex" name="sex">
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                        </select></td>-->
+                        <td>备注：</td>
+                        <td colspan = "3" style="text-align: left"><input type="text" name="remark" class="long_text" id="remark"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="bot_btn">
+            <input class="btn" type="submit" value="创建"/>
+            <button class="btn btn1"><a href="/sys/serve.html" target="iframe">返回</a></button>
+        </div>
+    </div>
+</form>
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script>
+    $(function () {
+        var v=$("#value").val();
+        if(v=="1")
+        {
+            $("#deptId").val(8);
+            $("#deptName").val("销售一部");
+        }
+        if(v=="2")
+        {
+            $("#deptId").val(9);
+            $("#deptName").val("销售二部");
+        }
+        if(v=="3")
+        {
+            $("#deptId").val(10);
+            $("#deptName").val("销售三部");
+        }
+    })
+</script>
+
+
+</html>

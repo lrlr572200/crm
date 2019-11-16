@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
+<!--  namespace 基于接口的编程，必须是dao接口全名称 -->
+<mapper namespace="com.crmsystem.crm.dao.ChanDao">
+    <!--创建机会-->
+    <insert id="addChan" parameterType="Chan">
+        INSERT INTO chan(chanName,source,addTime,addCode,deptId,empCode,
+        states,userName,sex,phone)
+        VALUES (#{chanName},#{source},#{addTime},#{addCode},#{deptId},#{empCode},
+        #{states},#{userName},#{sex},#{phone})
+    </insert>
+    <!--查询总条数-->
+    <select id="findChanCount" resultType="int" >
+        select count(0) from chan c,emp e where c.addCode=e.empCode
+        <if test="chan.addTime != null">
+            and c.addTime=#{chan.addTime}
+        </if>
+        <if test="chan.states != null and chan.states!=''">
+            and c.states=#{chan.states}
+        </if>
+    </select>
+    <!--分页过滤查询机会-->
+    <select id="findChanPage" resultType="Chan">
+        select c.chanId,c.chanName,c.source,c.addTime,c.addCode,c.deptId,d.deptName,c.empCode,c.states,c.userName,
+        c.sex,c.phone,e.empName from chan c,emp e,dept d where c.addCode=e.empCode and d.deptId=c.deptId
+        ORDER BY addTime desc
+        <if test="chan.addTime != null">
+            and c.addTime=#{chan.addTime}
+        </if>
+        <if test="chan.states != null and chan.states!=''">
+            and c.states=#{chan.states}
+        </if>
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+
+    <!--分页过滤查询未分配机会-->
+    <select id="findChanByDid"  resultType="Chan">
+        SELECT userName,(SELECT sex FROM gender g WHERE g.id=c.sex) AS strSex,
+        phone,chanName,source,addTime,(SELECT empName FROM emp e WHERE e.empCode=c.empCode) AS empName,
+        states FROM chan c WHERE
+        <if test="deptId!=null">
+        c.deptId=#{deptId}
+        </if>
+        AND c.states='未分配'
+        limit #{pageIndex},#{pageSize}
+    </select>
+    <!--查询总条数-->
+    <select id="findChanCountByDid" resultType="int">
+        SELECT COUNT(0) FROM chan c WHERE
+        <if test="deptId!=null">
+             c.deptId=#{deptId}
+        </if>
+            AND c.states='未分配'
+    </select>
+    
+
+    <!--定义sql片段-->
+    <sql id="CommonSql">
+        <if test="chan.empCode!=null and chan.empCode!=''">
+            and empCode=#{chan.empCode}
+        </if>
+        <if test="chan.source!=null and chan.source!=''">
+            and source=#{chan.source}
+        </if>
+        <if test="chan.addCode!=null and chan.addCode!='' ">
+            and addCode=#{chan.addCode}
+        </if>
+        <if test="chan.deptId!=null  ">
+            and deptId=#{chan.deptId}
+        </if>
+        <if test="chan.states!=null and chan.states!='' ">
+            and states=#{chan.states}
+        </if>
+    </sql>
+
+
+    <!--李国庆写的分页过滤检索sql-->
+    <select id="findChanPaging" resultType="Chan">
+        SELECT chanId,chanName,source,`addtime`,addCode,(SELECT e.empName FROM emp e WHERE e.`empcode`=chan.`addCode` ) AS empName,
+        deptId,(SELECT d.deptname FROM dept d WHERE d.`deptId`=chan.`deptId` ) AS deptName,empCode,
+        (SELECT e.empName FROM emp e WHERE e.`empCode`=chan.`empCode` ) AS vindicator,states,userName,sex,
+        (SELECT sex FROM gender WHERE gender.`id`=chan.`sex` ) AS strSex,phone FROM chan
+        <where>
+            <!-- 引用sql片段 -->
+            <include refid="CommonSql"></include>
+        </where>
+        ORDER BY addTime desc limit #{pageIndex},#{pageSize}
+    </select>
+
+    <!--李国庆写的分页数据量统计sql-->
+    <select id="findChanCot" resultType="int" parameterType="Plan">
+        select count(chanId) from chan
+        <where>
+            <!-- 引用sql片段 -->
+            <include refid="CommonSql"></include>
+        </where>
+    </select>
+
+
+    <select id="findSource" resultType="String">
+        SELECT source FROM chan GROUP BY source
+    </select>
+
+
+</mapper>

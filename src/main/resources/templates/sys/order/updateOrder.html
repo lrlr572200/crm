@@ -1,0 +1,115 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+
+    <link href="/css/all.css" rel="stylesheet" type="text/css">
+    <link href="/js/editor/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/js/editor/css/froala_editor.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body style="background-color: #e6ecf5">
+<div class="book_con01">
+    <form id="form_demo" action="/sys/updateOrder.html" method="post">
+    <h1 class="book_h01">北大青鸟硕果留存订单详情</h1>
+    <p class="book_p"><span class="book_titSpan" style="margin-right: 8px;">出单日期：<span th:text="${#dates.format(order.addTime,'yyyy-MM-dd')}"></span>
+        <a style="margin-left: 10px;">合同编号：<input type="text" name="pactCode"/></a></span></p>
+       <p class="book_p">
+        <table class="book_table" border="1" cellpadding="10">
+    <tr>
+        <td>
+        <label class="td_label">订单明细：</label>
+    </td>
+        <td th:text="${order.main}"></td>
+        <td>
+            <label class="td_label">客户姓名：</label>
+        </td>
+        <td th:text="${order.userName}"></td>
+        <td>
+            <label class="td_label">总金额：</label>
+        </td>
+        <td th:text="${order.sumMoney}"></td>
+
+    </tr>
+    <tr><td>
+        <label class="td_label">部门名称：</label>
+    </td>
+        <td colspan="3" th:text="${order.deptName}"></td>
+        <td>
+            <label class="td_label">部门编号：</label>
+        </td>
+        <td th:text="${order.deptId}"></td>
+
+    </tr>
+        <tr><td>
+            <label class="td_label">创建人：</label>
+        </td>
+            <td colspan="3" th:text="${order.empName1}"></td>
+            <td>
+                <label class="td_label">创建人编号：</label>
+            </td>
+            <td th:text="${order.addCode}"></td>
+
+        </tr>
+        <tr>
+            <td>
+                <label class="td_label">成交人：</label>
+            </td>
+            <td th:text="${order.empName}"></td>
+            <td>
+                <label class="td_label">成交人编号：</label>
+            </td>
+            <td th:text="${order.empCode}"></td>
+            <td>
+                <label class="td_label">状态：</label>
+            </td>
+            <td ><select name="states">
+                <option value="新创建">新创建</option>
+                <option value="已发货">已发货</option>
+                <option value="已完成">已完成</option>
+            </select></td>
+            <input type="hidden" name="orderId" th:value="${order.orderId}" />
+        </tr>
+
+<tr>
+    <td colspan="6">
+        注：</br>
+        1：本订单需部门经理添加合同编号方可有效。</br>
+        2：必须严格公司规定，擅自修改，该单无效。</br>
+        3：此单由经理修改状态后存档。
+    </td>
+</tr>
+        <tr>
+            <td colspan="6" style="text-align: center">
+                <input type="submit" value="提交"/>
+                <input type="button" value="关闭" id="button"/>
+            </td>
+        </tr>
+
+</table>
+
+    </p>
+    </form>
+</div>
+<script  src="/js/jquery.js"></script>
+
+<script src="/js/date/js/laydate.js"></script>
+
+<script>
+    !function(){
+        laydate.skin('danlan');//
+        laydate({elem: '#demo'});
+        laydate({elem: '#demo1'});//
+    }();
+
+    $("#button").click(function () {
+        location.href="/sys/order.html";
+    })
+</script>
+</body>
+</html>
+
+

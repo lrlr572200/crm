@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
+<!--  namespace 基于接口的编程，必须是dao接口全名称 -->
+<mapper namespace="com.crmsystem.crm.dao.EmpDao">
+    <!--根据部门编号查看不是经理的销售代表-->
+    <select id="findEmpByDeptAndRolesId" resultType="String">
+        select empName from emp where deptId=#{deptId} and rolesId!=#{rolesId}
+    </select>
+
+    <!--员工登录sql-->
+    <select id="login" resultType="Emp">
+        SELECT empCode,PASSWORD,empName,sex,(select g.sex from gender g where g.id=emp.sex ) AS strSex,
+        deptId,(select d.deptName from dept d where d.deptId=emp.deptId ) as deptName,
+        rolesId,(select r.rolesName from roles r where r.rolesId=emp.rolesId ) as roleName,
+        alert,entryTime,states,birthday,head,salary,performance,email
+        from emp where empCode=#{empCode} and password=#{password}
+    </select>
+
+    <!--根据员工编号查找员工-->
+    <select id="findEmpByCode" resultType="Emp" parameterType="String">
+        SELECT empCode,PASSWORD,empName,sex,(select g.sex from gender g where g.id=emp.sex ) AS strSex,
+        deptId,(select d.deptName from dept d where d.deptId=emp.deptId ) as deptName,
+        rolesId,(select r.rolesName from roles r where r.rolesId=emp.rolesId ) as roleName,
+        alert,entryTime,states,birthday,head,salary,performance,email
+        FROM emp WHERE empCode=#{empCode};
+    </select>
+
+    <!--查找员工上级的方法-->
+    <select id="findEmpSuperior" resultType="Emp" >
+        SELECT empCode,PASSWORD,empName,sex,(select g.sex from gender g where g.id=emp.sex ) AS strSex,
+        deptId,(select d.deptName from dept d where d.deptId=emp.deptId ) as deptName,
+        rolesId,(select r.rolesName from roles r where r.rolesId=emp.rolesId ) as roleName,
+        alert,entryTime,states,birthday,head,salary,performance,email
+        from emp
+        <where>
+            <if test="rolesId==4 ">
+                and deptId=#{deptId} and rolesId=3
+            </if>
+            <if test="rolesId==3">
+                and rolesId=2
+            </if>
+        </where>
+    </select>
+    
+    <!--sql片段-->
+    <sql id="sqlCommon">
+        <if test="emp.empCode!=null and emp.empCode!='' ">
+            and empCode like   CONCAT('%',#{emp.empCode},'%')
+        </if>
+        <if test="emp.password!=null and emp.password!='' ">
+            and password=#{emp.password}
+        </if>
+        <if test="emp.empName!=null and emp.empName!='' ">
+            and empName=#{emp.empName}
+        </if>
+        <if test="emp.sex!=null">
+            and sex=#{emp.sex}
+        </if>
+        <if test="emp.deptId!=null">
+            and deptId=#{emp.deptId}
+        </if>
+        <if test="emp.rolesId!=null">
+            and rolesId=#{emp.rolesId}
+        </if>
+        <if test="emp.salary!=null  and emp.salary>0.0 ">
+            and salary=#{emp.salary}
+        </if>
+        <if test="emp.states!=null and emp.states!='' ">
+            and states=#{emp.states}
+        </if>
+        <if test="emp.email!=null and emp.email!='' ">
+            and email=#{emp.email}
+        </if>
+    </sql>
+    
+    <!--分页条件检索的方法-->
+    <select id="findEmpPaging" resultType="Emp">
+        SELECT empCode,PASSWORD,empName,sex,(select g.sex from gender g where g.id=emp.sex ) AS strSex,
+        deptId,(select d.deptName from dept d where d.deptId=emp.deptId ) as deptName,
+        rolesId,(select r.rolesName from roles r where r.rolesId=emp.rolesId ) as roleName,
+        alert,entryTime,states,birthday,head,salary,performance,email
+        from emp
+        <where>
+            <!--引用sql片段-->
+            <include refid="sqlCommon"></include>
+        </where>
+        ORDER BY deptid ASC limit #{pageIndex},#{pageSize}
+    </select>
+    
+    <!--分页查询条件检索统计数据量-->
+    <select id="findEmpCot" resultType="int" parameterType="Emp">
+        select count(empCode) from emp 
+        <where>
+            <include refid="sqlCommon"></include>
+        </where>
+    </select>
+
+    <!--查找员工状态的方法-->
+    <select id="findDeptStates" resultType="String">
+        SELECT states FROM emp GROUP BY states
+    </select>
+
+
+</mapper>

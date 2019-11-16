@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
+<!--  namespace 基于接口的编程，必须是dao接口全名称 -->
+<mapper namespace="com.crmsystem.crm.dao.OrderDao">
+    <!--//根据部门名查看  合同编号不为空时的销售总额-->
+    <select id="findSumMoneyAndPactCodeByDeptName"  resultType="Double">
+        select SUM(sumMoney) from `order` o,emp e,dept d where o.empCode=e.empCode
+ and d.deptId=e.deptId and addTime BETWEEN #{starTime} and #{endTime}
+ and pactCode!=#{space} and d.deptName=#{deptName}
+    </select>
+
+
+    <!--根据角色名称查看 合同编号不为空时的总销售额-->
+    <select id="findSumMoneyAndPactCode" resultType="Double">
+        select SUM(sumMoney) from `order` o,emp e where o.empCode=e.empCode and addTime
+        BETWEEN #{starTime} and #{endTime}
+        and e.empName=#{empName} and pactCode!=#{space}
+    </select>
+
+    <!--删除订单-->
+    <delete id="delOrder" parameterType="Integer">
+        delete from `order` where orderId=#{orderId}
+    </delete>
+
+    <!--修改订单状态和合同编号-->
+    <update id="updateSPbyOrderId">
+        update `order` set states=#{states},pactCode=#{pactCode}
+        where orderId=#{orderId}
+    </update>
+
+
+    <!--根据Id查看订单信息-->
+    <select id="findOrderById" parameterType="Integer" resultType="Order">
+        select o.orderId,d.deptId,d.deptName,o.addTime,o.addCode,e1.empName empName1,o.sumMoney,
+        o.userId,u.userName,o.pactCode,o.states,o.main,o.empCode,e.empName,o.remark from
+        `order` o,emp e,emp e1,`user` u,dept d where
+        o.empCode=e.empCode and e1.empCode=o.addCode and u.userId=o.userId and d.deptId=e.deptId
+        and o.orderId=#{orderId}
+    </select>
+
+
+    <!--//根据客户Id查看客户消费次数和消费总金额-->
+    <select id="findCountAndMoney" resultType="com.crmsystem.crm.util.CmSum" >
+        select count(pactCode)  times,SUM(sumMoney) amount
+        from `order` where userId=#{userId}
+        and pactCode!=#{space}
+    </select>
+
+
+    <!--添加订单-->
+    <insert id="addOrder" parameterType="Order">
+        INSERT INTO `order`(addTime,addCode,sumMoney,userId,pactCode,states,main,
+        empCode,remark)
+        VALUES(#{addTime},#{addCode},#{sumMoney},#{userId},#{pactCode},#{states},
+        #{main},#{empCode},#{remark})
+    </insert>
+    <!--过滤查询订单总数量-->
+    <select id="findOrderCount" parameterType="Order" resultType="int">
+        select count(0) from
+        `order` o,emp e,emp e1,`user` u,dept d where
+        o.empCode=e.empCode and e1.empCode=o.empCode and u.userId=o.userId and d.deptId=e.deptId
+        <if test="order.addTime != null">
+            and o.addTime=#{order.addTime}
+        </if>
+        <if test="order.userName != null and order.userName != ''">
+            and u.userName=#{order.userName}
+        </if>
+        <if test="order.rolesId == 4">
+            and o.empCode=#{order.empCode}
+        </if>
+        <if test="order.rolesId == 3">
+            and d.deptId=#{order.deptId}
+        </if>
+        order by o.addTime desc
+    </select>
+    <!--分页过滤查询订单-->
+    <select id="findOrderPage" resultType="Order">
+        select o.orderId,d.deptId,d.deptName,o.addTime,o.addCode,e1.empName empName1,o.sumMoney,
+        o.userId,u.userName,o.pactCode,o.states,o.main,o.empCode,e.empName,o.remark from
+        `order` o,emp e,emp e1,`user` u,dept d where
+        o.empCode=e.empCode and e1.empCode=o.addCode and u.userId=o.userId and d.deptId=e.deptId
+        <if test="order.addTime != null">
+            and o.addTime=#{order.addTime}
+        </if>
+        <if test="order.userName != null and order.userName != ''">
+            and u.userName=#{order.userName}
+        </if>
+        <if test="order.rolesId == 4">
+            and o.empCode=#{order.empCode}
+        </if>
+        <if test="order.rolesId == 3">
+            and d.deptId=#{order.deptId}
+        </if>
+        order by o.addTime desc,o.orderId desc
+        LIMIT #{pageIndex},#{pageSize}
+    </select>
+</mapper>

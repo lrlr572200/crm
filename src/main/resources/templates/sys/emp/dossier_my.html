@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人档案</title>
+    <link rel="stylesheet" href="/css/info-mgt.css"/>
+    <link rel="stylesheet" href="/css/base.css"/>
+    <link rel="stylesheet" href="/css/mycss/dossier_my.css"/>
+</head>
+<body onload="change()" onresize="change()">
+<div class="title"><h2>个人档案</h2></div>
+<!--<div class="table-operate ue-clear">
+    <a href="#" class="add"  onclick="openlayer()" id="addPup">添加</a>
+    <a href="javascript:;" class="del">删除</a>
+
+</div>-->
+<div class="resource">
+    <div class="resource_main">
+        <div class="resource_main_top">
+            <div class="l_left resource_box">
+                <a th:href="@{/sys/person_infor.html(empCode=${session.session.getEmpCode()})}" target="iframe">
+                    <div class="img_div">
+                        <img src="/images/myflie.png"/>
+                    </div>
+                    <p style="text-align: center;font-weight: bold">我的资料</p>
+
+                </a>
+            </div>
+            <div class="l_left resource_box">
+                <a th:href="@{/sys/person_plan.html(empCode=${session.session.getEmpCode()})}" target="iframe">
+                    <div class="img_div">
+                        <img src="/images/myflie.png"/>
+                    </div>
+                    <p style="text-align: center;font-weight: bold">我的销售计划</p>
+
+                </a>
+            </div>
+            <div class="l_left resource_box" th:if="${session.session.rolesId}==4">
+                <a href="/sys/my_chan.html" target="iframe">
+                    <div class="img_div">
+                        <img src="/images/myflie.png"/>
+                    </div>
+                    <p style="text-align: center;font-weight: bold">我的机会</p>
+                </a>
+            </div>
+            <div class="l_left resource_box" th:if="${session.session.rolesId}==4">
+                <a href="/sys/my_serve.html" target="iframe">
+                    <div class="img_div">
+                        <img src="/images/myflie.png"/>
+                    </div>
+                    <p style="text-align: center;font-weight: bold">我的服务</p>
+                </a>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+<div class="pup_div01" id="pup01">
+    <h5 class="h_style01">添加信息</h5>
+    <p><label class="label01">文件名称：</label><i class="i_start"></i> <input type="text" placeholder="请输入项目名称"
+                                                                          class="pup_input"/></p>
+    <p><label class="label01">项目类型：</label><i class="i_start"></i> <select>
+        <option>请选择类型</option>
+    </select></p>
+    <p><label class="label01">上传图片：</label><i class="i_start"></i> <input type="file"/></p>
+    <p><label class="label01">是否有效：</label><a class="radio_a">有效</a><input type="radio" class="radio_input"
+                                                                           name="select01" checked="checked"/><a
+            class="radio_a" style="margin-left: 15px;">无效</a><input type="radio" class="radio_input" name="select01"/>
+    </p>
+    <p><label class="label01 note_label">备注：</label><textarea class="textarea01"></textarea></p>
+    <div class="p_line">
+        <p class="p_but"><input type="button" value="保存" class="save_but"/><input type="button" value="关闭"
+                                                                                  class="close_but" id="close01"/></p>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/myjs/dossier_my.js"></script>
+</html>

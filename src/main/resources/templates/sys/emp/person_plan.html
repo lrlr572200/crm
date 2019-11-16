@@ -1,0 +1,150 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/info-mgt.css" />
+    <link rel="stylesheet" href="/css/mycss/person_plan.css" />
+    <title>我的销售计划</title>
+</head>
+
+<body>
+<div class="title"><h2>我的销售计划</h2></div>
+<div class="query">
+    <div class="tabe_bot">
+        <div class="l_left">
+            <label>年份：</label>
+            <select name="planYear"  id="planYear">
+                <option value="">全部</option>
+            </select>
+        </div>
+        <div class="l_left">
+            <label>月份：</label>
+            <select name="planMonth" id="planMonth">
+                <option value="">全部</option>
+            </select>
+        </div>
+        <div class="l_left">
+            <label>状态：</label>
+            <select name="states"  id="states">
+                <option value="">全部</option>
+                <option value="新创建">新创建</option>
+                <option value="已提交">已提交</option>
+                <option value="已打回">已打回</option>
+                <option value="已审核">已审核</option>
+            </select>
+        </div>
+        <input type="hidden" name="empCode" th:value="${session.session.empCode}" id="empCode" >
+        <input type="hidden" name="deptId" th:value="${session.session.deptId}"  id="deptId">
+        <input type="hidden" name="rolesId" th:value="${session.session.rolesId}" id="rolesId">
+        <input type="hidden" name="pageIndex" value="" id="pageIndex">
+        <button class="tabe_btn" onclick="but()" >查询</button>
+
+        <button class="tabe_btn" onclick="getMeDept()" id="myDept" th:if="${session.session.rolesId}!=4">查看我部</button>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="table-operate ue-clear" id="nave">
+    <a href="#" class="add"  onclick="add()">添加</a>
+
+</div>
+<div class="table-box">
+    <table id="table" class="table_style"></table>
+</div>
+<div class="pagination ue-clear"></div>
+
+<!--添加模态框-->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">添加销售计划</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control"
+                               name="planYear" id="plan_Year" value="" readonly="readonly"
+                               style="width: 20%;display: inline;font-size: 15px"  >
+                        <label style="font-size: 15px">年</label>
+                        <input type="text" class="form-control" readonly="readonly"
+                               name="planMonth" id="plan_Month" value="" style="width: 20%;display: inline;font-size: 15px" >
+                        <label style="font-size: 15px">月</label>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 15px">状态</label>
+                        <input type="text" class="form-control" name="states"
+                               value="新创建" id="state" readonly="readonly"
+                               style="display: inline;font-size: 15px">
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 15px">创建者</label>
+                        <input type="text" class="form-control" name="createEmpName"
+                               th:value="${session.session.empName}" id="createEmpName"  readonly="readonly"
+                               style="display: inline;font-size: 15px">
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 15px">计划销售额</label>
+                        <input type="text" class="form-control" name="planMoney" id="planMoney" value="" style="display: inline;font-size: 15px" >
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 15px">计划发展客户数量</label>
+                        <input type="text" class="form-control" name="planAdd" id="planAdd" value="" style="display: inline;font-size: 15px"  >
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size: 15px;display: inline;font-size: 15px" >计划提要</label>
+                        <input type="text" class="form-control" name="content" id="content" value="" style="display: inline;font-size: 15px" >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 50px"
+                        id="save" onclick="addPan(0)">保存</button>
+                <button type="button" class="btn btn-primary"  style="width: 50px"
+                        id="refer"  onclick="addPan(1)">提交</button>
+                <button type="button" class="btn btn-primary"  style="width: 50px"
+                        id="updRefer"  onclick="updPann()">提交</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--模态框2-->
+<div class="modal fade" id="alertModel" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px;">
+            <div class="modal-header" style="height: 50px;">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" style="text-align: center;vertical-align: middle;">
+                <p style="color: blue;font-family: 宋体;font-size: 20px;font-weight: bolder" id="info-modal"></p>
+            </div>
+            <div class="modal-footer" style="height: 50px;text-align: center;vertical-align: middle;" >
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 60px;display: none;"
+                        id="yes" onclick="theyes()">确定</button>
+                <button type="button" class="btn btn-primary"  style="width: 60px;display: none;"
+                        id="no"  onclick="theno()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.js"></script>
+<script src="/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="/js/date/js/laydate.js"></script>
+<script src="/js/myjs/year_month.js"></script>
+<script src="/js/myjs/person_plan.js"></script>
+<script src="/js/layer_v2.1/layer/layer.js"></script>
+
+</html>

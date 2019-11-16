@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>酒店日统计</title>
+
+
+    <link href="/css/all.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body style="background-color: #e6ecf5">
+<div class="book_con01">
+   <form action="/sys/deptMonthlys.html" method="post">
+<p class="book_p"><label>统计时间：</label>
+
+    <select id="year" name="year">
+
+    </select>
+    <a style="margin-left: 5px;margin-right: 5px;">年</a>
+    <select id="month" name="month">
+
+    </select>
+    <a style="margin-left: 5px;margin-right: 5px;">月</a>
+    <input type="button" onclick="button()" value="统计" class="find_but" style="margin-left: 10px;"/>
+
+    </p>
+    </form>
+    <p class="book_p">
+        <table class="book_table" border="1" cellpadding="10">
+    <tr>
+        <td class="tr_color" colspan="4">
+      <span id="deptName"></span>月报表
+    </td>
+
+
+    </tr>
+    <tr>
+        <td><label class="td_label">销售总金额</label></td>
+        <td colspan="3"  style="color: red" id="sumMoney"></td>
+    </tr>
+    <tr>
+        <td><label class="td_label">年份</label></td>
+        <td id="years" style="color: red"></td>
+        <td><label class="td_label">月份</label></td>
+        <td id="months" style="color: red"></td>
+    </tr>
+    <tr>
+        <td><label class="td_label">部门ID</label></td>
+        <td  style="color: red" id="deptId"></td>
+        <td><label class="td_label">部门名称</label></td>
+        <td  style="color: red" id="deptName2"></td>
+
+    </tr>
+    <tr>
+        <td><label class="td_label">同比</label></td>
+        <td  style="color: red" id="basis"></td>
+        <td><label class="td_label">环比</label></td>
+        <td  style="color: red" id="ratio"></td>
+
+    </tr>
+
+
+
+</table>
+    <p class="my_static" id="chart">
+    </p>
+    <!--<div id="input">
+        <input type="hidden" id="1" value="10"/>
+    </div>-->
+    <p class="book_foot"><input type="button" value="导出"/><input type="button" value="打印"/><input type="button" value="关闭"/></p>
+</div>
+<script  src="/js/jquery.js"></script>
+<script  src="/js/echarts/echarts.js"></script>
+<script  src="/js/myjs/deptMonthly.js"></script>
+<script >
+
+</script>
+</body>
+</html>

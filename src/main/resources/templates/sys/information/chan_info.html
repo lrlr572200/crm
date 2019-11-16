@@ -1,0 +1,55 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/info-mgt.css" />
+    <link rel="stylesheet" href="/css/mycss/person_plan.css" />
+    <title>客户资源管理</title>
+</head>
+
+<body>
+<div class="title"><h2>客户资源管理</h2></div>
+<div class="table-box">
+    <table id="table" class="table_style"></table>
+</div>
+<div class="pagination ue-clear"></div>
+
+<!--添加模态框-->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">修改资源分配</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label style="font-size: 15px">分配员工</label>
+                        <input type="text" class="form-control" name="states"
+                               value="新创建" id="state" readonly="readonly"
+                               style="display: inline;font-size: 15px">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 50px"
+                        onclick="addPan()">保存</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.js"></script>
+<script src="/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="/js/date/js/laydate.js"></script>
+<script src="/js/myjs/chan_info.js"></script>
+<script src="/js/layer_v2.1/layer/layer.js"></script>

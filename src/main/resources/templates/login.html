@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>客户关系管理系统——登录平台</title>
+    <link href="/css/login.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="div_top">客户关系管理系统</div>
+<div class="login">
+    <div class="message">用户登录</div>
+    <div id="darkbannerwrap"></div>
+
+    <form action="/login.html" method="post">
+        <input name="empCode" placeholder="用户名" required="" type="text" id="user">
+        <hr class="hr15">
+        <input name="password" placeholder="密码" required="" type="password" id="pass">
+        <hr class="hr15">
+        <input value="登录" style="width:100%;" type="submit" id="login_btn">
+        <p th:text="${msg}"></p>
+        <hr class="hr20">
+        <a onClick="alert('请联系管理员')">忘记密码</a>
+    </form>
+
+</div>
+
+<div class="copyright">版权所有@<span style="color:#f77118">2019 </span>硕果留存小组</div>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/myjs/login.js" ></script>
+</body>
+</html>

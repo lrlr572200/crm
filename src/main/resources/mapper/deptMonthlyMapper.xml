@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crmsystem.crm.dao.DeptmonthlyDao">
+    <!--修改当前月份的报表-->
+    <update id="updateDeptMonthly" parameterType="Deptmonthly">
+        UPDATE deptmonthly set `year`=#{year},`month`=#{month},sumMoney=#{sumMoney},
+        deptId=#{deptId},basis=#{basis},ratio=#{ratio} where id=#{id}
+    </update>
+    <!--获取当前月份的部门报表-->
+    <select id="findDeptMonthlyByYM" parameterType="Deptmonthly" resultType="Deptmonthly">
+        select m.id,`year`,`month`,sumMoney,m.deptId,basis,ratio,d.deptName
+        from deptmonthly m,dept d
+        where m.deptId=d.deptId and `month`=#{month} and `year`=#{year}
+        and m.deptId=#{deptId}
+    </select>
+    <!--创建当前月报表-->
+    <insert id="addDeptMonthly" parameterType="Deptmonthly">
+        INSERT into deptmonthly(`year`,`month`,sumMoney,deptId,basis,ratio)
+        VALUES(#{year},#{month},#{sumMoney},#{deptId},#{basis},#{ratio})
+    </insert>
+</mapper>

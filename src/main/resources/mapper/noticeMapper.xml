@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
+<!--  namespace 基于接口的编程，必须是dao接口全名称 -->
+<mapper namespace="com.crmsystem.crm.dao.NoticeDao">
+    <!--修改公告-->
+    <update id="updateNotice" parameterType="Notice">
+        UPDATE notice set title=#{title},theme=#{theme},mains=#{mains},
+        publishTime=#{publishTime},
+        states=#{states} where noticeId=#{noticeId}
+    </update>
+    <!--删除公告-->
+    <delete id="delNotice" parameterType="Integer">
+        DELETE from notice where noticeId=#{noticeId};
+    </delete>
+    <!--添加公告-->
+    <insert id="addNotice" parameterType="Notice">
+        INSERT into notice(theme,title,mains,publishTime,empCode,states)
+        VALUES(#{theme},#{title},#{mains},#{publishTime},#{empCode},#{states})
+    </insert>
+    <!--查询一个公告-->
+    <select id="findANotice" resultType="com.crmsystem.crm.util.NoticeUtil">
+        select n.noticeId,n.title,n.theme,n.mains,n.publishTime,n.empCode,
+n.states,e.empName from notice n,emp e where e.empCode=n.empCode and noticeId=#{noticeId}
+    </select>
+    <!--查询所有公告-->
+    <select id="findAllNotice" resultType="com.crmsystem.crm.util.NoticeUtil">
+        select n.noticeId,n.title,n.theme,n.mains,n.publishTime,n.empCode,
+        n.states,e.empName from notice n join emp e on n.empCode=e.empCode
+        ORDER BY publishTime desc
+    </select>
+    <!--分页、过滤查询公告-->
+    <select id="findNoticePage" resultType="com.crmsystem.crm.util.NoticeUtil">
+        select n.noticeId,n.title,n.theme,n.mains,n.publishTime,n.empCode,
+        n.states,e.empName from notice n,emp e where e.empCode=n.empCode
+        <if test="notice.title!=null and notice.title!='' ">
+            and n.title like CONCAT('%',#{notice.title},'%')
+        </if>
+        <if test="notice.empName!=null and notice.empName!=''">
+            and e.empName=#{notice.empName}
+        </if>
+        <if test="notice.publishTime!=null ">
+            and n.publishTime=#{notice.publishTime}
+        </if>
+        and n.states=#{notice.states}
+        ORDER BY n.publishTime desc,noticeID desc
+        LIMIT #{pageIndex},#{pageSize}
+    </select>
+    <!--查询公告总数量-->
+    <select id="findNoticeCount" resultType="int">
+        select count(0) from notice n,emp e where e.empCode=n.empCode
+        <if test="notice.title!=null and notice.title!='' ">
+            and n.title like CONCAT('%',#{notice.title},'%')
+        </if>
+        <if test="notice.empName!=null and notice.empName!=''">
+            and e.empName=#{notice.empName}
+        </if>
+        <if test="notice.publishTime!=null " >
+            and n.publishTime=#{notice.publishTime}
+        </if>
+        and n.states=#{notice.states}
+    </select>
+</mapper>

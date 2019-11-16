@@ -1,0 +1,100 @@
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/mycss/add_emp.css" rel="stylesheet" type="text/css" />
+    <style>
+
+    </style>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script>
+        function change() {
+            var height01 = $(window).height();
+            $(".top").css('height', height01 - 35+"px");
+        }
+    </script>
+</head>
+
+<body style="border-radius: 8px" onload="change()">
+<div class="title"><h2>创建用户</h2></div>
+<div class="top">
+    <div>
+        <div class="top_out">
+            <table class="table" >
+                <tbody>
+                <tr>
+                    <td>姓名：</td>
+                    <td  style="text-align: left"><input type="text" name="empName" id="empName"></td>
+                    <td>性别：</td>
+                    <td colspan = "3" style="text-align: left">  <select name="sex" id="sex">
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>编号：</td>
+                    <td  style="text-align: left"><input type="text" name="empCode" id="empCode" readonly="readonly"></td>
+                    <td>密码：</td>
+                    <td colspan = "3" style="text-align: left">
+                        <input type="text" class="long_text" id="password" name="password" value="0000" readonly="readonly"></td>
+                </tr>
+                <tr>
+                    <td>所属部门：</td>
+                    <td  style="text-align: left">
+                        <select name="deptId" id="deptId">
+
+                        </select>
+                    </td>
+                    <td>角色：</td>
+                    <td colspan = "3" style="text-align: left">
+                        <select name="rolesId" id="rolesId">
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>是否修改：</td>
+                    <td  style="text-align: left"><input type="text" name="alert" id="alert"></td>
+                    <td>在职状态：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" name="states" id="states" class="long_text"></td>
+                </tr>
+                <tr>
+                    <td>生日：</td>
+                    <td  style="text-align: left"><input type="date" name="birthday" id="birthday"></td>
+                    <td>邮箱：</td>
+                    <td colspan = "3" style="text-align: left">
+                        <input type="email" name="email" id="email">
+                    </td>
+                </tr>
+                <tr>
+                    <td>薪资：</td>
+                    <td  style="text-align: left"><input type="text" name="salary" id="salary"></td>
+                    <td>绩效分：</td>
+                    <td colspan = "3" style="text-align: left"><input type="text" name="performance" id="performance" class="long_text"></td>
+                </tr>
+                <tr>
+                    <td >头像：</td>
+                    <td colspan = "8" style="text-align: left">
+                        <input type="file" name="head" id="head">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="bot_btn">
+        <button class="btn">添加</button>
+        <button class="btn btn1"><a href="notice.html" target="right">返回</a></button>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script src="/js/utf8-php/ueditor.config.js"></script>
+<script src="/js/utf8-php/ueditor.all.min.js"></script>
+<script src="/js/jquery-validation-1.14.0/dist/jquery.validate.min.js" charset="utf-8"></script>
+<script src="/js/jquery-validation-1.14.0/dist/localization/messages_zh.js" charset="utf-8"></script>

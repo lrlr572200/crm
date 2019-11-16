@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crmsystem.crm.dao.PlanDao">
+
+
+    <!--声明sql片段-->
+    <sql id="sqlCommon">
+        <if test="planCondition.empCode!=null and planCondition.empCode!=''">
+            and empCode=#{planCondition.empCode}
+        </if>
+        <if test="planCondition.planYear!=null and planCondition.planYear!=''">
+            and planYear=#{planCondition.planYear}
+        </if>
+        <if test="planCondition.planMonth!=null and planCondition.planMonth!='' ">
+            and planMonth=#{planCondition.planMonth}
+        </if>
+        <if test="planCondition.states!=null and planCondition.states!=''">
+            and states=#{planCondition.states}
+        </if>
+        <if test="planCondition.nextCode!=null and planCondition.nextCode!='' ">
+            and nextCode=#{planCondition.nextCode}
+        </if>
+        <if test="planCondition.deptidList!=null ">
+            and deptId in
+            <foreach collection="planCondition.deptidList" item="deptId" index="index" open="(" close=")" separator=",">
+                #{deptId}
+            </foreach>
+        </if>
+        <if test="planCondition.maxRealMoney!=null and planCondition.maxRealMoney!='' ">
+            and realMoney &lt;=#{planCondition.maxRealMoney}
+        </if>
+        <if test="planCondition.minRealMoney!=null and planCondition.minRealMoney!='' ">
+            and realMoney>#{planCondition.minRealMoney}
+        </if>
+        <if test="planCondition.checkGrade!=null and planCondition.checkGrade!='' ">
+            and checkGrade=#{planCondition.checkGrade}
+        </if>
+    </sql>
+
+    <!--查询非通过计划列表-->
+    <select id="findAllPlan" resultType="Plan">
+        SELECT planId,content,empCode,(SELECT e.empName FROM emp e WHERE e.empCode=plan.`empCode` ) AS createEmpName,
+        planMoney,planYear,planMonth,states,nextCode,(SELECT e.empName FROM emp e WHERE e.empCode=plan.`nextCode` ) AS auditEmpName,
+        deptId,(SELECT d.deptName FROM dept d WHERE d.deptId=plan.`deptId`) AS deptName,planAdd,salesMoney,realMoney,
+        checkGrade,remark FROM plan WHERE
+        <if test="empCode!=null and empCode!=''">
+        plan.nextCode=#{empCode}
+        </if>
+        AND states='已提交'
+        ORDER BY planYear DESC,planmonth DESC limit #{pageIndex},#{pageSize} ;
+    </select>
+
+   <!-- 统计非通过计划的数量-->
+    <select id="findChanCountByCode" resultType="int">
+        select count(0) from plan WHERE
+        <if test="empCode!=null and empCode!=''">
+            plan.nextCode=#{empCode}
+        </if>
+        AND states='已提交'
+    </select>
+
+    <!--分页检索销售计划的动态sql语句-->
+    <select id="findPlanPaging" resultType="Plan">
+        SELECT planId,content,empCode,(SELECT e.empName FROM emp e WHERE e.empCode=plan.`empCode` ) AS createEmpName,
+        planMoney,planYear,planMonth,states,nextCode,(SELECT e.empName FROM emp e WHERE e.empCode=plan.`nextCode` ) AS auditEmpName,
+        deptId,(SELECT d.deptName FROM dept d WHERE d.deptId=plan.`deptId`) AS deptName,planAdd,salesMoney,realMoney,
+        checkGrade,remark FROM plan
+        <where>
+            <!-- 引用sql片段 -->
+            <include refid="sqlCommon"></include>
+        </where>
+        ORDER BY planYear DESC,planmonth DESC limit #{pageIndex},#{pageSize} ;
+    </select>
+
+    <!--计算销售计划条数的动态sql语句-->
+    <select id="planCount" resultType="int">
+        select count(planId) from plan
+        <where>
+            <!-- 引用sql片段 -->
+            <include refid="sqlCommon"></include>
+        </where>
+    </select>
+
+    <!--添加销售计划-->
+    <insert id="addPlan" parameterType="Plan">
+        INSERT INTO plan(content,empCode,planMoney,planYear,planMonth,states,nextCode,deptId,
+        planAdd,salesMoney,realMoney,checkGrade,remark) VALUES
+        (#{content},#{empCode},#{planMoney},#{planYear},#{planMonth},#{states},#{nextCode},
+        #{deptId},#{planAdd},#{salesMoney},#{realMoney},#{checkGrade},#{remark})
+    </insert>
+
+    <!--修改审核计划状态-->
+    <update id="updatePlan" parameterType="Plan">
+        UPDATE plan
+        <trim prefix="set" suffixOverrides=",">
+        <if test="states!=null and states!=''">
+        states=#{states}
+        </if>
+        </trim>
+        WHERE planId=#{planId}
+    </update>
+
+
+    <!--编辑销售计划-->
+    <update id="updPlan" parameterType="Plan">
+        UPDATE plan SET content=#{content},planMoney=#{planMoney},planYear=#{planYear},planMonth=#{planMonth},
+        states=#{states},nextCode=#{nextCode},deptId=#{deptId},planAdd=#{planAdd},salesMoney=#{salesMoney},
+        realMoney=#{realMoney},checkGrade=#{checkGrade},remark=#{remark} WHERE planId=#{planId}
+    </update>
+
+    <!--删除销售计划-->
+    <delete id="delPlanById" parameterType="int">
+        DELETE FROM plan WHERE planId=#{planId}
+    </delete>
+
+    <!--根据编号查找销售计划-->
+    <select id="findPlanById" parameterType="int" resultType="Plan">
+        SELECT planId,content,empCode,(SELECT e.empName FROM emp e WHERE e.empCode=plan.`empCode` ) AS createEmpName,
+        planMoney,planYear,planMonth,states,nextCode,(SELECT e.empName FROM emp e WHERE e.empCode=plan.`nextCode` ) AS auditEmpName,
+        deptId,(SELECT d.deptName FROM dept d WHERE d.deptId=plan.`deptId`) AS deptName,planAdd,salesMoney,realMoney,
+        checkGrade,remark FROM plan where planId=#{planId}
+    </select>
+
+
+
+</mapper>
