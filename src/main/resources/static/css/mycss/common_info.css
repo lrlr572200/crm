@@ -3,4 +3,5 @@
 .l_left{float: left}
 .tabe_bot input,.tabe_bot  select{width: 180px;height: 30px;border-radius: 6px;margin:0 20px 0 0;border: none;border: 1px #ccc solid}
 .tabe_btn{width: 60px;height: 30px;background-color: #68b86c;border: none;border-radius: 6px;color: #fff}
+#info-modal{color: blue;font-family: 宋体;font-size: 20px;font-weight: bolder}
 #allotChan{width: 80px;;margin-left: 8px}
