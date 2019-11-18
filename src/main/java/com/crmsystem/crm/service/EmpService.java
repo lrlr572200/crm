@@ -14,8 +14,14 @@ import java.util.List;
  * @description:此处添加对该类的说明
  **/
 public interface EmpService {
+    //过滤查询同事总人数
+    int findColleagueCount(String empCode, String states, Integer deptId);
+
+    //查询自己的同事
+    List<Emp> findColleaguePage(String empCode, String states,Integer deptId,Integer pageIndex,Integer pageSize);
+
     //根据部门编号查看不是经理的销售代表
-    List<String> findEmpByDeptAndRolesId(Integer deptId, Integer rolesId);
+    List<String> findEmpByDeptAndRolesId(Integer deptId, Integer rolesId,String states);
 
     //员工登录的方法
     Emp login(String empCode, String password);

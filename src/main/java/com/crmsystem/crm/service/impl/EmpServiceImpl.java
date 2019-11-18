@@ -20,10 +20,23 @@ import java.util.List;
 public class EmpServiceImpl implements EmpService {
     @Resource
     private EmpDao empDao;
+    //过滤查看同事总人数
+    @Override
+    public int findColleagueCount(String empCode, String states, Integer deptId) {
+        return empDao.findColleagueCount(empCode,states,deptId);
+    }
+
+    //分页过滤查询自己的同事
+    @Override
+    public List<Emp> findColleaguePage(String empCode, String states,Integer deptId,Integer pageIndex,Integer pageSize)
+    {
+        return empDao.findColleaguePage(empCode,states,deptId,pageIndex,pageSize);
+    }
+
     //根据部门编号查看不是经理的销售代表
     @Override
-    public List<String> findEmpByDeptAndRolesId(Integer deptId, Integer rolesId) {
-        return empDao.findEmpByDeptAndRolesId(deptId,rolesId);
+    public List<String> findEmpByDeptAndRolesId(Integer deptId, Integer rolesId,String states) {
+        return empDao.findEmpByDeptAndRolesId(deptId,rolesId,states);
     }
 
     //员工登录的方法

@@ -41,6 +41,7 @@ public class OrderController {
     DeptmonthlyService deptmonthlyService;
     @Resource
     CommonthlyService commonthlyService;
+    //删除订单
     @RequestMapping("/delOrder.html")
     public String delOrder(Integer orderId,Model model)
     {
