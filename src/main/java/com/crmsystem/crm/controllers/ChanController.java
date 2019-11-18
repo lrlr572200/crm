@@ -64,7 +64,7 @@ public class ChanController {
         model.addAttribute("empList",empList);
         Integer roles=emp.getRolesId();
         if (roles==3) {
-            return "sys/information/chan_info";
+            return "/sys/information/chan_info";
         }else{
             return "sys/noRight";
         }
