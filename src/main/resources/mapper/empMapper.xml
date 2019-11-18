@@ -103,5 +103,13 @@
         SELECT states FROM emp GROUP BY states
     </select>
 
+    <!--查看本部门非离职的销售代表的信息-->
+    <select id="findEmpInfo" resultType="Emp">
+        SELECT empCode,empName,deptId FROM emp WHERE
+        <if test="emp.deptId!=null  ">
+            deptId=#{emp.deptId}
+        </if>
+        AND rolesId=4 AND states!='离职'
+    </select>
 
 </mapper>

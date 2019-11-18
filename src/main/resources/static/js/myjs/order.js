@@ -37,7 +37,7 @@ function page(pageIndex) {
                 "<th style=\"text-align: center; \" data-field=\"\" tabindex=\"0\"><div class=\"th-inner \">" ;
                 if($("#grade").val()>1)
                 {
-                  str+=  "<a class='button1'  href='/sys/updateOrder.html?orderId="+list[i].orderId+"' >编辑</a>" ;
+                  str+=  "<a class='button1'  href="+list[i].orderId+"'/templates/sys/updateOrder.html?orderId=' >编辑</a>" ;
                 }else{
                     str+= "<a class='button1' href='#' onclick='del("+list[i].orderId+")' id='del' >删除</a>" ;
                 }

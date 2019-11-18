@@ -69,7 +69,7 @@ function del(id) {
             {
                 window.location.reload();
             }else if(relData=="-1"){
-                location.href="/sys/err.html";
+                location.href="../../../templates/sys/err.html";
             }else{
 
             }

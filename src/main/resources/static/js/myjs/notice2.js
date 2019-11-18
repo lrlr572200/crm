@@ -28,14 +28,14 @@ function page(pageIndex) {
         {
             str+="<tr>\n" +
                 "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"ID\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].noticeId+"</div><div class=\"fht-cell\"></div></th>\n" +
-                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"ID\" tabindex=\"0\"><a class=\"th-inner \" href='/sys/anotice.html?noticeId="+list[i].noticeId+"'>"+list[i].theme+"</a><div class=\"fht-cell\"></div></th>\n" +
+                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"ID\" tabindex=\"0\"><a class=\"th-inner \" href="+list[i].noticeId+"'/templates/sys/anotice.html?noticeId='>"+list[i].theme+"</a><div class=\"fht-cell\"></div></th>\n" +
                 "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"TITLE\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].title+"</div><div class=\"fht-cell\"></div></th>\n" +
                 "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"PUBLISHER\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].empName+"</div><div class=\"fht-cell\"></div></th>\n" +
                 "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].publishTime+"</div><div class=\"fht-cell\"></div></th>\n" +
                 /*"<th style=\"text-align: center; \" data-field=\"PUBCONENT\" tabindex=\"0\"><div  class=\"th-inner mains\">"+list[i].mains+"</div><div class=\"fht-cell\"></div></th>\n" +*/
                 "<th style=\"text-align: center; \" data-field=\"\" tabindex=\"0\"><div class=\"th-inner \">" +
                 /*"<input type='button' value='编辑' onclick='edit("+list[i].noticeId+")' id='edit'>" +*/
-                "<a class='button1'  href='/sys/updateNotice.html?noticeId="+list[i].noticeId+"' >编辑</a>" +
+                "<a class='button1'  href="+list[i].noticeId+"'/templates/sys/updateNotice.html?noticeId=' >编辑</a>" +
                 "<a class='button1' href='#' onclick='del("+list[i].noticeId+")' id='del'>删除</a>" +
                 "</div><div class=\"fht-cell\"></div></th>\n" +
                 "</tr>"

@@ -21,7 +21,7 @@ public interface PlanService {
     int planCount(PlanCondition planCondition);
 
     //根据条件分页查询审核计划
-    List<Plan> findAllPlan(String empCode,int pageIndex, int pageSize);
+    List<Plan> findAllPlan(String empCode, int pageIndex, int pageSize);
     //根据条件查询计划数量
     int findChanCountByCode(String empCode);
 
@@ -29,7 +29,7 @@ public interface PlanService {
     int addPlan(Plan plan);
 
     //修改审核计划状态
-    int updatePlan(Integer planId,String states);
+    int updatePlan(Integer planId, String states);
 
 
     //修改销售计划

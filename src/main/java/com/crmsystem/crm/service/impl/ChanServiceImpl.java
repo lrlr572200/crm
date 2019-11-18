@@ -70,4 +70,9 @@ public class ChanServiceImpl implements ChanService {
         return chanDao.findSource();
 
     }
+    //修改机会分配给员工
+    @Override
+    public int updateChan(Chan chan) {
+        return chanDao.updateChan(chan);
+    }
 }

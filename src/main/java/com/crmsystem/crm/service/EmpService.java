@@ -24,14 +24,17 @@ public interface EmpService {
     Emp findEmpByCode(String empCode);
 
     //获取员工上级的方法
-    Emp findEmpSuperior(Integer rolesId,Integer deptId);
+    Emp findEmpSuperior(Integer rolesId, Integer deptId);
 
     //分页条件检索员工
-    List<Emp> findEmpPaging(Emp emp,Integer pageIndex,Integer pageSize);
+    List<Emp> findEmpPaging(Emp emp, Integer pageIndex, Integer pageSize);
 
     //分页条件检索统计数量
     int findEmpCot(Emp emp);
 
     //查找员工状态的方法
     List<String> findDeptStates();
+
+    //查看本部门非离职的销售代表的信息
+    List<Emp> findEmpInfo(Emp emp);
 }

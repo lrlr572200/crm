@@ -4,21 +4,14 @@ import com.crmsystem.crm.entity.Chan;
 import com.crmsystem.crm.entity.Emp;
 
 import com.crmsystem.crm.service.ChanService;
+import com.crmsystem.crm.service.EmpService;
 import com.crmsystem.crm.util.PageSupport;
-import com.crmsystem.crm.util.PlanCondition;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.crmsystem.crm.entity.Plan;
-import com.crmsystem.crm.service.ChanService;
 import com.crmsystem.crm.service.SystemService;
 import com.crmsystem.crm.util.Myfinal;
-import com.crmsystem.crm.util.PageSupport;
-import com.crmsystem.crm.util.UserCondition;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +39,8 @@ public class ChanController {
     ChanService chanService;
     @Resource
     SystemService systemService;
+    @Resource
+    EmpService empService;
     //显示机会界面
     @RequestMapping("/chan.html")
     public String chan(HttpSession session)
@@ -61,8 +56,12 @@ public class ChanController {
 
     //显示机会信息
     @RequestMapping(value = "/chan_info.html")
-    public  String getChan(HttpSession session){
+    public  String getChan(HttpSession session,Model model){
         Emp emp=(Emp) session.getAttribute("session");
+        Integer deptId=emp.getDeptId();
+        emp.setDeptId(deptId);
+        List<Emp> empList=empService.findEmpInfo(emp);
+        model.addAttribute("empList",empList);
         Integer roles=emp.getRolesId();
         if (roles==3) {
             return "sys/information/chan_info";
@@ -71,7 +70,7 @@ public class ChanController {
         }
     }
     //处理客户资源管理分页
-    @RequestMapping(value = "chan_info.ajax")
+    @RequestMapping(value = "/chan_info.ajax")
     @ResponseBody
     public Object doChanByDidpaging(@RequestParam(value = "pageIndex",required = true,defaultValue = "1") Integer pageIndex,
                                     @RequestParam(value = "pageSize",required = true,defaultValue = "5")Integer pageSize,
@@ -163,6 +162,16 @@ public class ChanController {
         }else{
             return "sys/chan/addChan";
         }
+    }
+    //修改分配资源
+    @RequestMapping(value = "/updateChan.ajax")
+    @ResponseBody
+    public Object updateChan(Chan chan){
+        if (chan==null || "".equals(chan)){
+            chan=new Chan();
+        }
+        int sign=chanService.updateChan(chan);
+        return sign;
     }
 
     //跳转到我的机会的页面

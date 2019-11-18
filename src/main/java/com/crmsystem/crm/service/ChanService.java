@@ -31,7 +31,7 @@ public interface ChanService {
     List<Chan> findChanPage(Integer pageIndex, Integer pageSize, Chan chan);
 
     //分页过滤查询的方法--李国庆
-    List<Chan> findChanPaging(Integer pageIndex,Integer pageSize,Chan chan);
+    List<Chan> findChanPaging(Integer pageIndex, Integer pageSize, Chan chan);
 
     //过滤时统计数据量的方法--李国庆
     int findChanCot(Chan chan);
@@ -39,4 +39,6 @@ public interface ChanService {
     //查看机会来源
     List<String> findSource();
 
+    //修改机会分配给员工
+    int updateChan(Chan chan);
 }
