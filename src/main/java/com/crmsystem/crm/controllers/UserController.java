@@ -1,6 +1,8 @@
 package com.crmsystem.crm.controllers;
 
+import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.User;
+import com.crmsystem.crm.service.EmpService;
 import com.crmsystem.crm.service.UserService;
 import com.crmsystem.crm.util.Myfinal;
 import com.crmsystem.crm.util.PageSupport;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -30,6 +33,52 @@ public class UserController {
 
     @Resource
     private UserService userService;
+    @Resource
+    EmpService empService;
+    //批量修改客户池信息
+    @RequestMapping("/updateLeaveUsers.html")
+    public String updateLeaveUser(String empCode,Integer[] userIds,Model model)
+    {
+        int rel;
+        for(Integer userId:userIds)
+        {
+            rel = userService.updateLeaveUsers(empCode, userId);
+            if(rel<1)
+            {
+                model.addAttribute("message","出现修改错误");
+                return "sys/err.html";
+            }
+        }
+        return "redirect:/sys/leaveUser.html";
+    }
+    //异步显示客户池信息
+    @RequestMapping("/leaveUsers.html")
+    @ResponseBody
+    public PageSupport<User> leaveUser(@RequestParam(required = false,defaultValue = "1") Integer pageIndex)
+    {
+        PageSupport pageSupport=new PageSupport();
+        pageIndex=(pageIndex-1)*Myfinal.PAGESIZE;
+        List<User> leaveList = userService.findUsersPageByEmpCode("", pageIndex, Myfinal.PAGESIZE);
+        pageSupport.setDataList(leaveList);
+        pageSupport.setPageIndex(pageIndex);
+        pageSupport.setPageSize(Myfinal.PAGESIZE);
+        int totalCount = userService.findUsersCountByEmpCode("");
+        pageSupport.setTotalCount(totalCount);
+        return pageSupport;
+    }
+    //显示客户池界面
+    @RequestMapping("/leaveUser.html")
+    public String leaveUser(Model model, HttpSession session)
+    {
+        Emp emp = (Emp)session.getAttribute("session");
+        if(emp.getRolesId()!=2)
+        {
+            return "redirect:/sys/err.html";
+        }
+        List<Emp> empList = empService.findAllEmp(Myfinal.OFF_JOB,4);
+        model.addAttribute("empList",empList);
+        return "sys/user/leaveUser";
+    }
     //根据客户ID查询客户信息
     @RequestMapping("/findUserName.html")
     @ResponseBody

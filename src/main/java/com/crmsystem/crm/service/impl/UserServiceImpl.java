@@ -1,6 +1,7 @@
 package com.crmsystem.crm.service.impl;
 
 import com.crmsystem.crm.dao.UserDao;
+import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.User;
 import com.crmsystem.crm.service.UserService;
 import com.crmsystem.crm.util.UserCondition;
@@ -22,6 +23,24 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
+    //分配客户池中的信息
+    @Override
+    public int updateLeaveUsers(String empCode, Integer userId) {
+        return userDao.updateLeaveUsers(empCode,userId);
+    }
+
+    //查看客户池的客户总数量
+    @Override
+    public int findUsersCountByEmpCode(String space) {
+        return userDao.findUsersCountByEmpCode(space);
+    }
+
+    //查看客户池的客户
+    @Override
+    public List<User> findUsersPageByEmpCode(String space, Integer pageIndex, Integer pageSize) {
+        return userDao.findUsersPageByEmpCode(space,pageIndex,pageSize);
+    }
+
     //根据客户ID修改客户类型
     @Override
     public int updateUserUserTypeById(User user) {

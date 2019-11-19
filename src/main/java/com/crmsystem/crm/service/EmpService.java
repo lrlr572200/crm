@@ -14,6 +14,9 @@ import java.util.List;
  * @description:此处添加对该类的说明
  **/
 public interface EmpService {
+    //查询所有在职的员工
+    List<Emp> findAllEmp(String states,Integer rolesId);
+
     //过滤查询同事总人数
     int findColleagueCount(String empCode, String states, Integer deptId);
 

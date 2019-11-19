@@ -14,6 +14,9 @@ import java.util.List;
  * @description:此处添加对该类的说明
  **/
 public interface EmpDao {
+    //查询所有在职的销售代表
+    List<Emp> findAllEmp(@Param("states") String states,
+                         @Param("rolesId") Integer rolesId);
     //过滤查询同事总人数
     int findColleagueCount(@Param("empCode") String empCode,
                            @Param("states") String states,

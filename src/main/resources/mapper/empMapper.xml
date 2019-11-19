@@ -5,6 +5,12 @@
 <!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
 <!--  namespace 基于接口的编程，必须是dao接口全名称 -->
 <mapper namespace="com.crmsystem.crm.dao.EmpDao">
+    <!--查看所有的员工信息-->
+    <select id="findAllEmp" resultType="Emp">
+        select empCode,password,empName,sex,deptId,rolesId,alert,entryTime,states,
+birthday,head,salary,performance,email from emp where states!=#{states}
+and rolesId=#{rolesId}
+    </select>
     <!--过滤查询同事总人数-->
     <select id="findColleagueCount" resultType="int">
         select count(0) from emp e,gender g,dept d,roles r

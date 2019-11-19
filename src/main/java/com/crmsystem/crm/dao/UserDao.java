@@ -1,5 +1,6 @@
 package com.crmsystem.crm.dao;
 
+import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.User;
 import com.crmsystem.crm.util.UserCondition;
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +16,15 @@ import java.util.List;
  * @description:客户表Dao接口
  **/
 public interface UserDao {
+    //分配客户池中的信息
+    int updateLeaveUsers(@Param("empCode") String empCode,
+                         @Param("userId") Integer userId);
+    //查看客户池客户的总数量
+    int findUsersCountByEmpCode(@Param("space") String space);
+    //查看客户池里的客户
+    List<User> findUsersPageByEmpCode(@Param("space") String space,
+                                     @Param("pageIndex") Integer pageIndex,
+                                     @Param("pageSize") Integer pageSize);
     //根据客户ID修改客户类型
     int updateUserUserTypeById(@Param("user") User user);
     //根据客户ID修改信誉等级

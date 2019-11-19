@@ -3,6 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.crmsystem.crm.dao.UserDao">
+    <!--分配客户池中的信息-->
+    <update id="updateLeaveUsers">
+        update `user` set empCode=#{empCode} where userId=#{userId}
+    </update>
+    <!--查看客户池里的客户总数量-->
+    <select id="findUsersCountByEmpCode" resultType="int" parameterType="String">
+        select count(0) from `user` u,gender g where u.sex=g.id and empCode=#{space}
+    </select>
+    <!--查看客户池里的客户-->
+    <select id="findUsersPageByEmpCode" resultType="User">
+        select userId,userName,u.sex,g.sex as strSex,phone,states,source,empCode,userType,
+        creditGrade,addTime,remark from `user` u,gender g where u.sex=g.id
+        and empCode=#{space} LIMIT #{pageIndex},#{pageSize}
+    </select>
     <!--根据客户ID修改客户类型-->
     <update id="updateUserUserTypeById" parameterType="User">
         update `user` set userType=#{user.userType} where userId=#{user.userId}

@@ -20,6 +20,12 @@ import java.util.List;
 public class EmpServiceImpl implements EmpService {
     @Resource
     private EmpDao empDao;
+    //查看所有在职的员工
+    @Override
+    public List<Emp> findAllEmp(String states,Integer rolesId) {
+        return empDao.findAllEmp(states,rolesId);
+    }
+
     //过滤查看同事总人数
     @Override
     public int findColleagueCount(String empCode, String states, Integer deptId) {
