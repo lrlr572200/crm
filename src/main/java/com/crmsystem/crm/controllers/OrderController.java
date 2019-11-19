@@ -55,7 +55,7 @@ public class OrderController {
             return "redirect:/sys/order.html";
         }else{
             model.addAttribute("message","删除错误");
-            return "sys/err";
+            return "404";
         }
     }
     //******************************************************
