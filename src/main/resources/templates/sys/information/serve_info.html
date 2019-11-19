@@ -7,12 +7,11 @@
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/info-mgt.css" />
     <link rel="stylesheet" href="/css/mycss/common_info.css" />
-    <title>客户资源管理</title>
+    <title>客户服务管理</title>
 </head>
 
 <body>
-<div class="title"><h2>客户资源管理</h2></div>
-<input type="hidden" name="deptId" id="deptId" th:value="${session.session.deptId}">
+<div class="title"><h2>客户服务管理</h2></div>
 <div class="table-box">
     <table id="table" class="table_style"></table>
 </div>
@@ -25,7 +24,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title" id="myModalLabel">修改资源分配</h4>
+                <h4 class="modal-title" id="myModalLabel">修改服务分配</h4>
             </div>
             <div class="modal-body">
                 <form>
@@ -39,7 +38,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 50px"
-                        onclick="updateChan()">确定</button>
+                        onclick="updateServe()">确定</button>
             </div>
 
         </div>
@@ -66,12 +65,11 @@
         </div>
     </div>
 </div>
-
 </body>
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootstrap-table.js"></script>
 <script src="/js/bootstrap-table-zh-CN.min.js"></script>
 <script src="/js/date/js/laydate.js"></script>
-<script src="/js/myjs/chan_info.js"></script>
+<script src="/js/myjs/serve_info.js"></script>
 <script src="/js/layer_v2.1/layer/layer.js"></script>

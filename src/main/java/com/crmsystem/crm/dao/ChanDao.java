@@ -38,9 +38,11 @@ public interface ChanDao {
                               @Param("chan") Chan chan);
 
     //过滤时统计数据量的方法--李国庆
-    int findChanCot(@Param("chan")Chan chan);
+    int findChanCot(@Param("chan") Chan chan);
 
     //查看机会来源
     List<String> findSource();
 
+    //修改机会分配给员工
+    int updateChan(@Param("chan") Chan chan);
 }

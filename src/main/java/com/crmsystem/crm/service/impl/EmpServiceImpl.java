@@ -81,4 +81,10 @@ public class EmpServiceImpl implements EmpService {
     public List<String> findDeptStates() {
         return empDao.findDeptStates();
     }
+
+    //查看本部门非离职的销售代表的信息
+    @Override
+    public List<Emp> findEmpInfo(Emp emp) {
+        return empDao.findEmpInfo(emp);
+    }
 }

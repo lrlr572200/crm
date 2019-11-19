@@ -8,9 +8,7 @@ import com.crmsystem.crm.service.EmpService;
 import com.crmsystem.crm.service.PlanService;
 import com.crmsystem.crm.util.PageSupport;
 import com.crmsystem.crm.util.PlanCondition;
-import org.apache.catalina.Session;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -40,12 +38,12 @@ public class PlanController {
     private DeptService deptService;
 
     //跳转到计划审核表
-    @RequestMapping(value = "/plan.html")
+    @RequestMapping(value = "/plan_info.html")
     public String getPersonPlan(HttpSession session) {
         Emp emp=(Emp)session.getAttribute("session");
         Integer roleId=emp.getRolesId();
         if(roleId==2 || roleId==3) {
-            return "sys/information/plan";
+            return "sys/information/plan_info";
         }else {
             return "sys/noRight";
         }

@@ -173,7 +173,7 @@ function but(){
 
 //添加的方法
 function add() {
-    location.href="/sys/add_emp.html";
+    location.href="../../../templates/sys/add_emp.html";
 }
 
 //删除的方法
@@ -201,7 +201,7 @@ function getDept() {
             $("#deptId").html(strA);
         },
         error:function(data){//当访问时候，404，500 等非200的错误状态码
-            location.href="/sys/err.html";
+            location.href="../../../templates/sys/err.html";
         }
     });
 }
@@ -222,7 +222,7 @@ function getRoles() {
             $("#rolesId").html(strA);
         },
         error:function(data){//当访问时候，404，500 等非200的错误状态码
-            location.href="/sys/err.html";
+            location.href="../../../templates/sys/err.html";
         }
     });
 }
@@ -243,7 +243,7 @@ function getEmpStates() {
             $("#states").html(strA);
         },
         error:function(data){//当访问时候，404，500 等非200的错误状态码
-            location.href="/sys/err.html";
+            location.href="../../../templates/sys/err.html";
         }
     });
 }

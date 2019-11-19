@@ -30,8 +30,7 @@ public interface EmpDao {
 
     //根据部门编号查看不是经理的销售代表
     List<String> findEmpByDeptAndRolesId(@Param("deptId") Integer deptId,
-                                 @Param("rolesId") Integer rolesId,
-                                     @Param("states") String states);
+                                 @Param("rolesId") Integer rolesId);
 
     //员工登录的方法
     Emp login(@Param("empCode") String empCode, @Param("password") String password);
