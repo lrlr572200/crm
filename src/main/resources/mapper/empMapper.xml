@@ -5,9 +5,33 @@
 <!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
 <!--  namespace 基于接口的编程，必须是dao接口全名称 -->
 <mapper namespace="com.crmsystem.crm.dao.EmpDao">
+    <!--过滤查询同事总人数-->
+    <select id="findColleagueCount" resultType="int">
+        select count(0) from emp e,gender g,dept d,roles r
+        where e.sex=g.id and d.deptId=e.deptId and r.rolesId=e.rolesId
+        and empCode!=#{empCode} and states!=#{states}
+        <if test="deptId != null">
+            and e.deptId=#{deptId}
+        </if>
+    </select>
+
+
+    <!--分页过滤查询自己的同事-->
+    <select id="findColleaguePage" resultType="Emp">
+        select empCode,empName,e.sex,g.sex as strSex,e.deptId,d.deptName,
+        e.rolesId,r.rolesName as roleName,birthday,
+        email from emp e,gender g,dept d,roles r
+        where e.sex=g.id and d.deptId=e.deptId and r.rolesId=e.rolesId
+        and empCode!=#{empCode} and states!=#{states}
+        <if test="deptId != null">
+            and e.deptId=#{deptId}
+        </if>
+        limit #{pageIndex},#{pageSize}
+    </select>
     <!--根据部门编号查看不是经理的销售代表-->
     <select id="findEmpByDeptAndRolesId" resultType="String">
         select empName from emp where deptId=#{deptId} and rolesId!=#{rolesId}
+        and states!=#{states}
     </select>
 
     <!--员工登录sql-->

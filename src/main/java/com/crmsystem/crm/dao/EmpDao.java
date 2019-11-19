@@ -16,7 +16,7 @@ import java.util.List;
 public interface EmpDao {
     //根据部门编号查看不是经理的销售代表
     List<String> findEmpByDeptAndRolesId(@Param("deptId") Integer deptId,
-                                         @Param("rolesId") Integer rolesId);
+                                 @Param("rolesId") Integer rolesId);
 
     //员工登录的方法
     Emp login(@Param("empCode") String empCode, @Param("password") String password);
@@ -25,20 +25,17 @@ public interface EmpDao {
     Emp findEmpByCode(@Param("empCode") String empCode);
 
     //获取员工上级的方法
-    Emp findEmpSuperior(@Param("rolesId") Integer rolesId, @Param("deptId") Integer deptId);
+    Emp findEmpSuperior(@Param("rolesId")Integer rolesId,@Param("deptId")Integer deptId);
 
     //分页条件检索员工
-    List<Emp> findEmpPaging(@Param("emp") Emp emp,
-                            @Param("pageIndex") Integer pageIndex,
-                            @Param("pageSize") Integer pageSize);
+    List<Emp> findEmpPaging(@Param("emp")Emp emp,
+                            @Param("pageIndex")Integer pageIndex,
+                            @Param("pageSize")Integer pageSize);
 
     //分页条件检索统计数量
-    int findEmpCot(@Param("emp") Emp emp);
+    int findEmpCot(@Param("emp")Emp emp);
 
     //查找员工状态的方法
     List<String> findDeptStates();
-
-    //查看本部门非离职的销售代表的信息
-    List<Emp> findEmpInfo(@Param("emp") Emp emp);
 
 }

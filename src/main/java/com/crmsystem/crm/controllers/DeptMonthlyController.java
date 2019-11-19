@@ -7,6 +7,7 @@ import com.crmsystem.crm.service.EmpService;
 import com.crmsystem.crm.service.OrderService;
 import com.crmsystem.crm.util.DeptMonthlyUtil;
 import com.crmsystem.crm.util.GetFirstAndLast;
+import com.crmsystem.crm.util.Myfinal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +48,7 @@ public class DeptMonthlyController {
         Deptmonthly deptmonthly=deptmonthlyService.findDeptMonthlyByYM(monthly);
         list.add(deptmonthly);
         //查看该部门所有销售代表
-        List<String> nameList = empService.findEmpByDeptAndRolesId(emp.getDeptId(), emp.getRolesId());
+        List<String> nameList = empService.findEmpByDeptAndRolesId(emp.getDeptId(), emp.getRolesId(), Myfinal.OFF_JOB);
         //创建工具类对象
         DeptMonthlyUtil deptMonthlyUtil=new DeptMonthlyUtil();
         deptMonthlyUtil.setSpace("");
