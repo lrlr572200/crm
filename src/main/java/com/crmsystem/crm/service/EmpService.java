@@ -1,6 +1,7 @@
 package com.crmsystem.crm.service;
 
 import com.crmsystem.crm.entity.Emp;
+import com.crmsystem.crm.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
  * @description:此处添加对该类的说明
  **/
 public interface EmpService {
+
+
     //查询所有在职的员工
     List<Emp> findAllEmp(String states,Integer rolesId);
 

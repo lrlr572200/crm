@@ -3,6 +3,91 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.crmsystem.crm.dao.UserDao">
+    <!--3.总监点击我的客户的总数量-->
+    <select id="findUserCountByDerictor" parameterType="User" resultType="int">
+        select count(0) from `user` u,gender g where u.sex=g.id and u.empCode!=#{user.empCode}
+        <if test="user.userName !=null and user.userName !=''">
+            and u.userName=#{user.userName}
+        </if>
+        <if test="user.phone !=null and user.phone !=''">
+            and u.phone=#{user.phone}
+        </if>
+        <if test="user.states !=null and user.states !=''">
+            and u.states=#{user.states}
+        </if>
+    </select>
+
+    <!--3.总监点击我的客户-->
+    <select id="findUsersByDerictor" resultType="User">
+        select userId,userName,u.sex,g.sex as strSex,phone,states,source,empCode,userType,creditGrade,addTime,
+        remark from `user` u,gender g where u.sex=g.id and u.empCode!=#{user.empCode}
+        <if test="user.userName !=null and user.userName !=''">
+            and u.userName=#{user.userName}
+        </if>
+        <if test="user.phone !=null and user.phone !=''">
+            and u.phone=#{user.phone}
+        </if>
+        <if test="user.states !=null and user.states !=''">
+            and u.states=#{user.states}
+        </if>
+        LIMIT #{pageIndex},#{pageSize}
+    </select>
+
+    <!--2.部门经理点击我的客户的总数量-->
+    <select id="findUserCountByManager" resultType="int" >
+        select count(0) from `user` u,gender g,emp e where u.sex=g.id
+and u.empCode=e.empCode
+and e.deptId=#{deptId}
+    </select>
+
+    <!--2.部门经理点击我的客户-->
+    <select id="findUsersByManager" resultType="User">
+        select userId,userName,u.sex,g.sex as strSex,u.phone,u.states,source,e.empCode,userType,
+        creditGrade,addTime,
+        remark from `user` u,gender g,emp e where u.sex=g.id
+        and u.empCode=e.empCode
+        and e.deptId=#{deptId}
+        <if test="user.userName !=null and user.userName !=''">
+            and u.userName=#{user.userName}
+        </if>
+        <if test="user.phone !=null and user.phone !=''">
+            and u.phone=#{user.phone}
+        </if>
+        <if test="user.states !=null and user.states !=''">
+            and u.states=#{user.states}
+        </if>
+        LIMIT #{pageIndex},#{pageSize}
+    </select>
+
+
+    <!--1.销售代表点击我的客户的总数量-->
+    <select id="findUserCountByEmp" parameterType="Emp" resultType="int">
+        select count(0) from `user` u,gender g where u.sex=g.id and empCode=#{user.empCode}
+        <if test="user.userName !=null and user.userName !=''">
+            and u.userName=#{user.userName}
+        </if>
+        <if test="user.phone !=null and user.phone !=''">
+            and u.phone=#{user.phone}
+        </if>
+        <if test="user.states !=null and user.states !=''">
+            and u.states=#{user.states}
+        </if>
+    </select>
+    <!--1.销售代表点击我的客户-->
+    <select id="findUsersByEmp"  resultType="User">
+        select userId,userName,u.sex,g.sex as strSex,phone,states,source,empCode,userType,creditGrade,addTime,
+remark from `user` u,gender g where u.sex=g.id and empCode=#{user.empCode}
+        <if test="user.userName !=null and user.userName !=''">
+            and userName=#{user.userName}
+        </if>
+        <if test="user.phone !=null and user.phone !=''">
+            and phone=#{user.phone}
+        </if>
+        <if test="user.states !=null and user.states !=''">
+            and states=#{user.states}
+        </if>
+    LIMIT #{pageIndex},#{pageSize}
+    </select>
     <!--分配客户池中的信息-->
     <update id="updateLeaveUsers">
         update `user` set empCode=#{empCode} where userId=#{userId}

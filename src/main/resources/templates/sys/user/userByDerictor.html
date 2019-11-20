@@ -6,11 +6,10 @@
     <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/info-mgt.css" />
-    <link href="/css/tail.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/css/mycss/notice.css" type="text/css"/>
     <style>
         .mains{
-            width: 50px;
+            width: 120px;
             height: 20px;
             white-space: nowrap;
             overflow: hidden;
@@ -21,8 +20,21 @@
 </head>
 
 <body onload="Noticeload()">
-<div class="title"><h2>客户池</h2></div>
-
+<div class="title"><h2>客户管理</h2></div>
+<div class="query">
+    <form action="/sys/notice.html" method="post">
+        <div class="tabe_bot">
+            <div class="l_left"><label>姓名：</label>
+                <input type="text" placeholder="请输入标题" id="noticeTit" name="userName" ></div>
+            <div class="l_left"><label>电话：</label>
+                <input type="text" placeholder="请输入发布人" id="noticePuer" name="phone" value=""></div>
+            <div class="l_left"><label>状态：</label>
+                <input type="text" id="demo" name="states" /></div>
+            <input type="button" onclick="button()" value="查询" class="tabe_btn">
+            <div class="clear"></div>
+        </div>
+    </form>
+</div>
 <div class="table-box">
     <table id="table" class="table_style table table-hover table-striped">
         <tbody>
@@ -32,58 +44,23 @@
         </tbody>
         <thead>
         <tr>
-            <th style="text-align: center; vertical-align: middle; " data-field="ID" tabindex="0"><div class="th-inner ">订单编号</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; vertical-align: middle; " data-field="ID" tabindex="0"><div class="th-inner ">客户ID</div><div class="fht-cell"></div></th>
             <th style="text-align: center; vertical-align: middle; " data-field="ID" tabindex="0"><div class="th-inner ">姓名</div><div class="fht-cell"></div></th>
             <th style="text-align: center; vertical-align: middle; " data-field="TITLE" tabindex="0"><div class="th-inner ">性别</div><div class="fht-cell"></div></th>
-            <th style="text-align: center; vertical-align: middle; " data-field="PUBLISHER" tabindex="0"><div class="th-inner ">电话</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; vertical-align: middle; " data-field="PUBLISHER" tabindex="0"><div class="th-inner ">联系电话</div><div class="fht-cell"></div></th>
             <th style="text-align: center; " data-field="PUBTIME" tabindex="0"><div class="th-inner ">状态</div><div class="fht-cell"></div></th>
             <th style="text-align: center; " data-field="PUBTIME" tabindex="0"><div class="th-inner ">来源</div><div class="fht-cell"></div></th>
             <th style="text-align: center; " data-field="PUBTIME" tabindex="0"><div class="th-inner ">客户类型</div><div class="fht-cell"></div></th>
             <th style="text-align: center; " data-field="PUBTIME" tabindex="0"><div class="th-inner ">信誉等级</div><div class="fht-cell"></div></th>
             <th style="text-align: center; " data-field="PUBTIME" tabindex="0"><div class="th-inner ">添加时间</div><div class="fht-cell"></div></th>
-            <th style="text-align: center; " data-field="PUBTIME" tabindex="0"><div class="th-inner ">维护人</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; " data-field="PUBTIME" tabindex="0"><div class="th-inner ">备注</div><div class="fht-cell"></div></th>
         </tr>
         </thead>
     </table>
     <span id="page"></span>
     <input type="hidden" value="1" id="pageIndex">
-    <input type="hidden" id="grade" th:value="${session.grade}">
 </div>
 <div class="pagination ue-clear"></div>
-<div class="bot_btn">
-    <input class="btn" type="button" value="分配" onclick="add()"/>
-    <button class="btn btn1"><a href="home.html" target="iframe">返回</a></button>
-</div>
-
-<!--**********************************-->
-<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title" id="myModalLabel">请选择</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <select class="form-control" id="emp" >
-                            <option th:each="list:${empList}" th:value="${list.empCode}" th:text="${list.empName}"></option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="saveConfirmBtn"
-                        onclick="checks()">提交</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-<!--************************************-->
-
-
 </body>
 <script type="text/javascript" src="/js/jquery.js"></script>
 
@@ -92,7 +69,7 @@
 <script src="/js/bootstrap-table-zh-CN.min.js"></script>
 <script src="/js/date/js/laydate.js"></script>
 <script src="/js/layer_v2.1/layer/layer.js"></script>
-<script src="/js/myjs/leaveUser.js"></script>
+<script src="/js/myjs/userByDerictor.js"></script>
 
 
 </html>

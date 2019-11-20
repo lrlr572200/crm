@@ -26,13 +26,13 @@
     <select id="findChanPage" resultType="Chan">
         select c.chanId,c.chanName,c.source,c.addTime,c.addCode,c.deptId,d.deptName,c.empCode,c.states,c.userName,
         c.sex,c.phone,e.empName from chan c,emp e,dept d where c.addCode=e.empCode and d.deptId=c.deptId
-        ORDER BY addTime desc
         <if test="chan.addTime != null">
             and c.addTime=#{chan.addTime}
         </if>
         <if test="chan.states != null and chan.states!=''">
             and c.states=#{chan.states}
         </if>
+        ORDER BY addTime desc
         limit #{pageIndex},#{pageSize}
     </select>
 

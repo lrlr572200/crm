@@ -16,6 +16,23 @@ import java.util.List;
  * @description:客户表Service接口
  **/
 public interface UserService {
+    //3.总监点击我的客户的总数量
+    int findUserCountByDerictor(User user);
+
+    //3.总监点击我的客户
+    List<User> findUsersByDerictor(User user, Integer pageIndex, Integer pageSize);
+
+    //2.部门经理点击我的客户的总数量
+    int findUserCountByManager(Integer deptId,User user);
+
+    //2.部门经理点击我的客户
+    List<User> findUsersByManager(Integer deptId,User user,Integer pageIndex, Integer pageSize);
+
+    //1.销售代表点击我的客户的总数量
+    int findUserCountByEmp(User user);
+    //1.销售代表点击我的客户
+    List<User> findUsersByEmp(User user,Integer pageIndex,Integer pageSize);
+
     //分配客户池中的信息
     int updateLeaveUsers(String empCode, Integer userId);
 

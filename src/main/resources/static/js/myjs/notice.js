@@ -28,7 +28,7 @@ function page(pageIndex) {
         {
             str+="<tr>\n" +
                 "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"ID\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].noticeId+"</div><div class=\"fht-cell\"></div></th>\n" +
-                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"ID\" tabindex=\"0\"><a class=\"th-inner \" href="+list[i].noticeId+"'/templates/sys/anotice.html?noticeId='>"+list[i].theme+"</a><div class=\"fht-cell\"></div></th>\n" +
+                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"ID\" tabindex=\"0\"><a class=\"th-inner \" href='/sys/anotice.html?noticeId="+list[i].noticeId+"'>"+list[i].theme+"</a><div class=\"fht-cell\"></div></th>\n" +
                 "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"TITLE\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].title+"</div><div class=\"fht-cell\"></div></th>\n" +
                 "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"PUBLISHER\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].empName+"</div><div class=\"fht-cell\"></div></th>\n" +
                 "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].publishTime+"</div><div class=\"fht-cell\"></div></th>\n" +

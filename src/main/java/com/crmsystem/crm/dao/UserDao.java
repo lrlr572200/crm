@@ -16,6 +16,31 @@ import java.util.List;
  * @description:客户表Dao接口
  **/
 public interface UserDao {
+    //3.总监点击我的客户的总数量
+    int findUserCountByDerictor(@Param("user")User user);
+
+    //3.总监点击我的客户
+    List<User> findUsersByDerictor(@Param("user")User user,
+                                   @Param("pageIndex")Integer pageIndex,
+                                   @Param("pageSize")Integer pageSize);
+
+    //2.部门经理点击我的客户的总数量
+    int findUserCountByManager(@Param("deptId") Integer deptId,
+                               @Param("user")User user);
+
+    //2.部门经理点击我的客户
+    List<User> findUsersByManager(@Param("deptId") Integer deptId,
+                                  @Param("user")User user,
+                                  @Param("pageIndex") Integer pageIndex,
+                                  @Param("pageSize") Integer pageSize);
+
+    //1.销售代表点击我的客户的总数量
+    int findUserCountByEmp(@Param("user") User user);
+    //1.销售代表点击我的客户
+    List<User> findUsersByEmp(@Param("user") User user,
+                              @Param("pageIndex") Integer pageIndex,
+                              @Param("pageSize") Integer pageSize);
+
     //分配客户池中的信息
     int updateLeaveUsers(@Param("empCode") String empCode,
                          @Param("userId") Integer userId);

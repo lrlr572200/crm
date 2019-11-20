@@ -35,7 +35,7 @@ function page(pageIndex) {
                 /*"<th style=\"text-align: center; \" data-field=\"PUBCONENT\" tabindex=\"0\"><div  class=\"th-inner mains\">"+list[i].mains+"</div><div class=\"fht-cell\"></div></th>\n" +*/
                 "<th style=\"text-align: center; \" data-field=\"\" tabindex=\"0\"><div class=\"th-inner \">" +
                 /*"<input type='button' value='编辑' onclick='edit("+list[i].noticeId+")' id='edit'>" +*/
-                "<a class='button1'  href="+list[i].noticeId+"'/templates/sys/updateNotice.html?noticeId=' >编辑</a>" +
+                "<a class='button1'  href='/sys/updateNotice.html?noticeId="+list[i].noticeId+"' >编辑</a>" +
                 "<a class='button1' href='#' onclick='del("+list[i].noticeId+")' id='del'>删除</a>" +
                 "</div><div class=\"fht-cell\"></div></th>\n" +
                 "</tr>"
