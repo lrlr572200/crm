@@ -15,6 +15,7 @@
 <body>
 
 <div class="title"><h2>员工信息管理</h2></div>
+<input type="hidden" name="code" id="code" th:value="${session.session.empCode}"  >
 <div class="query">
     <div class="tabe_bot">
         <div class="l_left">
@@ -77,19 +78,20 @@
                         </td>
                     </tr>
                     <tr height="40px" width="550px" class="tr1">
-                        <td  class="td1">性别:</td>
-                        <td  id="sex">性别</td>
-                        <td  class="td1">编号:</td>
-                        <td  width="130px" id="id">编号</td>
-                        <td  class="td1"></td>
-                        <td ></td>
+                        <td  class="td1" width="10%">编号:</td>
+                        <td  width="20%" id="id" >编号</td>
+                        <td  class="td1" width="20%">性别:</td>
+                        <td  id="sex" width="26%">性别</td>
+
+                        <td  class="td1" width="100px"></td>
+                        <td width="30px"></td>
 
                     </tr >
                     <tr height="40px" width="550px" class="tr1">
                         <td  class="td1">部门:</td>
                         <td id="dept">部门</td>
-                        <td  class="td1">密码:</td>
-                        <td  id="pwd">密码</td>
+                        <td  class="td1">年龄:</td>
+                        <td id="bir">年龄</td>
                         <td class="td1"></td>
                         <td></td>
                     </tr>
@@ -104,8 +106,8 @@
                     <tr height="40px" width="550px" class="tr1">
                         <td  class="td1">薪资:</td>
                         <td id="sal">工资</td>
-                        <td  class="td1">年龄:</td>
-                        <td id="bir">年龄</td>
+                        <td  class="td1">密码:</td>
+                        <td  id="pwd">密码</td>
                         <td class="td1"></td>
                         <td></td>
                     </tr>

@@ -1,7 +1,55 @@
+//返回
+function togo() {
+    location.href="/sys/userManage.html";
+}
+
+
+//提交表单
+function subForm() {
+    $("#alert").removeAttr("disabled");
+    document.forms[0].submit();
+}
+
+
+//点击更换头像
+$("#headimage").click(function () {
+    $("#headimage").removeAttr("title");
+    $("#file").show();
+})
+
+function image() {
+    $("#headimage").attr("src","/images/image.jpg");
+    var headhid = $("#headhid").val();
+    if (headhid!=null && headhid!='' ){
+        $("#headimage").attr("src","../"+headhid);
+    }
+}
+image();
+
+//在input file内容改变的时候触发事件，该事件触发实现图片预览
+$('#head').change(function(){
+    //获取input file的files文件数组;
+    //$('#head')获取的是jQuery对象，.get(0)转为原生对象;
+    //这边默认只能选一个，但是存放形式仍然是数组，所以取第一个元素使用[0];
+    var file = $('#head').get(0).files[0];
+    //创建用来读取此文件的对象
+    var reader = new FileReader();
+    //使用该对象读取file文件
+    reader.readAsDataURL(file);
+    //读取文件成功后执行的方法函数
+    reader.onload=function(e){
+        //读取成功后返回的一个参数e，整个的一个进度事件
+        console.log(e);
+        //选择所要显示图片的img，要赋值给img的src就是e中target下result里面
+        //的base64编码格式的地址
+        $('#headimage').get(0).src = e.target.result;
+    }
+})
 
 
 //获取部门
 function getDept() {
+    var dept = $("#dept").val();
     var strA="<option value=\"\">全部</option>";
     $.ajax({
         type:"GET",//请求类型
@@ -9,7 +57,11 @@ function getDept() {
         dataType:"json",//ajax接口（请求url）返回的数据类型
         success:function(data){//data：返回数据（json对象）
             for(var i=0;i<data.length;i++){
-                strA+="<option value=\""+data[i].deptId+"\">"+data[i].deptName+"</option>";
+                if (dept==data[i].deptId){
+                    strA+="<option value=\""+data[i].deptId+"\" selected='selected'>"+data[i].deptName+"</option>";
+                }else {
+                    strA+="<option value=\""+data[i].deptId+"\">"+data[i].deptName+"</option>";
+                }
             }
             $("#deptId").html(strA);
         },
@@ -23,6 +75,7 @@ getDept();
 
 //获取角色
 function getRoles() {
+    var role = $("#role").val();
     var strA="<option value=\"\">全部</option>";
     $.ajax({
         type:"GET",//请求类型
@@ -30,7 +83,11 @@ function getRoles() {
         dataType:"json",//ajax接口（请求url）返回的数据类型
         success:function(data){//data：返回数据（json对象）
             for(var i=0;i<data.length;i++){
-                strA+="<option value=\""+data[i].rolesId+"\">"+data[i].rolesName+"</option>";
+                if (role==data[i].rolesId){
+                    strA+="<option value=\""+data[i].rolesId+"\" selected='selected' >"+data[i].rolesName+"</option>";
+                }else {
+                    strA+="<option value=\""+data[i].rolesId+"\">"+data[i].rolesName+"</option>";
+                }
             }
             $("#rolesId").html(strA);
         },
@@ -42,13 +99,6 @@ function getRoles() {
 
 getRoles();
 
-
-
-
-//返回
-function togo() {
-    location.href="/sys/userManage.html";
-}
 
 //表单验证
 function checkEmpName() {  //姓名
@@ -205,8 +255,3 @@ $("#myForm").submit(function () {
     }
     return flag;
 });
-
-
-
-
-

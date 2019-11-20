@@ -56,4 +56,13 @@ public interface EmpDao {
     //查看本部门非离职的销售代表的信息
     List<Emp> findEmpInfo(@Param("emp") Emp emp);
 
+    //修改员工的方法
+    int updEmpById(@Param("emp") Emp emp);
+
+    //删除员工
+    int delEmpById(@Param("empCode") String empCode);
+
+    //添加员工
+    int addEmp(@Param("emp") Emp emp);
+
 }

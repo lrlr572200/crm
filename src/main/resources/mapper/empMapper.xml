@@ -141,5 +141,69 @@ and rolesId=#{rolesId}
         </if>
         AND rolesId=4 AND states!='离职'
     </select>
+    <!--根据员工编号修改员工信息-->
+    <update id="updEmpById" parameterType="Emp">
+        update emp
+        <trim prefix="set" suffixOverrides=",">
+            <if test="emp.empCode!=null and emp.empCode!='' ">
+                empCode=#{emp.empCode},
+            </if>
+            <if test="emp.password!=null and emp.password!='' ">
+                password=#{emp.password},
+            </if>
+            <if test="emp.empName!=null and emp.empName!='' ">
+                empName=#{emp.empName},
+            </if>
+            <if test="emp.sex!=null ">
+                sex=#{emp.sex},
+            </if>
+            <if test="emp.deptId!=null">
+                deptId=#{emp.deptId},
+            </if>
+            <if test="emp.rolesId!=null">
+                rolesId=#{emp.rolesId},
+            </if>
+            <if test="emp.salary!=null">
+                salary=#{emp.salary},
+            </if>
+            <if test="emp.states!=null and emp.states!='' ">
+                states=#{emp.states},
+            </if>
+            <if test="emp.performance!=null ">
+                performance=#{emp.performance},
+            </if>
+            <if test="emp.alert!=null and emp.alert!='' ">
+                alert=#{emp.alert},
+            </if>
+            <if test="emp.entryTime!=null">
+                entryTime=#{emp.entryTime},
+            </if>
+            <if test="emp.birthday!=null ">
+                birthday=#{emp.birthday},
+            </if>
+            <if test="emp.email!=null and emp.email!='' ">
+                email=#{emp.email},
+            </if>
+            <if test="emp.head!=null and emp.head!='' ">
+                head=#{emp.head},
+            </if>
+        </trim>
+        where empCode=#{emp.empCode}
+    </update>
+
+    <!--删除员工根据编号-->
+    <insert id="delEmpById" parameterType="String">
+        DELETE FROM emp WHERE empCode=#{empCode}
+    </insert>
+
+    <!--添加员工-->
+    <delete id="addEmp" parameterType="Emp">
+        INSERT INTO emp(empCode,PASSWORD,empName,sex,deptId,rolesId,alert,entryTime,states,
+        birthday,head,salary,performance,email) VALUES
+        (#{emp.empCode},#{emp.password},#{emp.empName},#{emp.sex},#{emp.deptId},#{emp.rolesId},
+        #{emp.alert},#{emp.entryTime},#{emp.states},#{emp.birthday},#{emp.head},
+        #{emp.salary},#{emp.performance},#{emp.email})
+    </delete>
+
 
 </mapper>

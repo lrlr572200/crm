@@ -4,6 +4,7 @@ import com.crmsystem.crm.dao.EmpDao;
 import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.service.EmpService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -86,5 +87,26 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public List<Emp> findEmpInfo(Emp emp) {
         return empDao.findEmpInfo(emp);
+    }
+
+    //修改员工的方法
+    @Override
+    @Transactional
+    public int updEmpById(Emp emp) {
+        return empDao.updEmpById(emp);
+    }
+
+    //删除员工
+    @Override
+    @Transactional
+    public int delEmpById(String empCode) {
+        return empDao.delEmpById(empCode);
+    }
+
+    //添加员工
+    @Override
+    @Transactional
+    public int addEmp(Emp emp) {
+        return empDao.addEmp(emp);
     }
 }

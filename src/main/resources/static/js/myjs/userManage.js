@@ -125,36 +125,40 @@ $('#table').bootstrapTable({
             field: '',
             align: 'center',
             formatter: function (value, row) {
-                return '<button button="#" mce_href="#" class="edit" onclick="edit(\''+row.empCode+'\')">编辑</button> ';
+                return '<button button="#" mce_href="#" class="edit" onclick="upd(\''+row.empCode+'\')">编辑</button> ';
             }
         }
     ],
-onDblClickRow: function (row) {  //行双击触发事件
-    //双击行，显示模态框。在模态框中显示详细资料
-    var date = new Date();
-    var strBirthdayArr=row.birthday.split("-");
-    var age = date.getFullYear()-strBirthdayArr[0];
-    var isn = "未修改";
-    if (row.alert>0){
-        isn="已修改";
-    }
-    $("#name").html(row.empName);
-    $("#sex").html(row.strSex);
-    $("#id").html(row.empCode);
-    $("#dept").html(row.deptName);
-    $("#pwd").html(row.password);
-    $("#roles").html(row.roleName);
-    $("#sta").html(row.states);
-    $("#sal").html(row.salary);
-    $("#bir").html(age);
-    $("#per").html(row.performance);
-    $("#isn").html(isn);
-    $("#emai").html(row.email);
-    $("#entt").html(row.entryTime);
-    if (row.head!='' && row.head!=null ){
-        $("#head").attr("src",row.head);
-    }
-    $("#saveModal").modal('show');
+    onDblClickRow: function (row) {  //行双击触发事件
+        $("#head").attr("src","/images/image.jpg");
+        //双击行，显示模态框。在模态框中显示详细资料
+        var age = 0;
+        if(row.birthday!=null && row.birthday!=''){
+            var date = new Date();
+            var strBirthdayArr=row.birthday.split("-");
+            age = date.getFullYear()-strBirthdayArr[0];
+        }
+        var isn = "未修改";
+        if (row.alert>0){
+            isn="已修改";
+        }
+        $("#name").html(row.empName);
+        $("#sex").html(row.strSex);
+        $("#id").html(row.empCode);
+        $("#dept").html(row.deptName);
+        $("#pwd").html(row.password);
+        $("#roles").html(row.roleName);
+        $("#sta").html(row.states);
+        $("#sal").html(row.salary);
+        $("#bir").html(age);
+        $("#per").html(row.performance);
+        $("#isn").html(isn);
+        $("#emai").html(row.email);
+        $("#entt").html(row.entryTime);
+        if (row.head!='' && row.head!=null ){
+            $("#head").attr("src","../"+row.head);
+        }
+        $("#saveModal").modal('show');
 
     },
     pagination:true,
@@ -178,12 +182,64 @@ function add() {
 
 //删除的方法
 function del() {
+    if (!confirm("是否确认删除？"))
+        return;
+    var rows = $("#table").bootstrapTable('getSelections');// 获得要删除的数据
+    if (rows.length == 0) {// rows 主要是为了判断是否选中，下面的else内容才是主要
+        $("#info-modal").html("请先选择要删除的记录!")
+        $("#alertModel").modal('show');
+        return;
+    } else {
+        var code = $("#code").val();
+        var empCodeArr = new Array();// 声明一个数组
+        /*var headArr = new Array();
+        var roleArr = new Array();*/
+        var stp = 0;
+        $(rows).each(function() {// 通过获得别选中的来进行遍历
+            if (this.empCode==code){
+                empCodeArr=[];
+                stp=1;
+                return;
+            }
+            empCodeArr.push(this.empCode);// 获得到的整条数据中的主键列
+        });
+        if (stp==1){
+            $("#info-modal").html("不能删除自己！")
+            $("#alertModel").modal('show');
+        } else if (stp == 0) {
+            deleteMs(empCodeArr);
+        }
+    }
+}
 
+//删除
+function deleteMs(code) {
+    $.ajax({
+        url : "/sys/del_emp.ajax",
+        data : "empCodeArr="+code,
+        type : "post",
+        dataType : "json",
+        success : function(sign) {
+            if (sign>0){
+                $("#info-modal").html("删除成功！")
+                $("#alertModel").modal('show');
+                //刷新表格并回到第一页
+                $('#table').bootstrapTable("refreshOptions",{pageNumber:1});
+                $('#table').bootstrapTable("refresh");
+            }else{
+                $("#info-modal").html("删除失败！")
+                $("#alertModel").modal('show');
+            }
+        },
+        error:function () {
+            location.href="/sys/err.html"
+        }
+    });
 }
 
 //修改的方法
 function upd(obj) {
-    
+    location.href="/sys/upd_emp.html?empCode="+obj;
 }
 
 

@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>创建用户</title>
+    <title>修改用户</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/css/mycss/add_emp.css" rel="stylesheet" type="text/css" />
     <style>
@@ -20,14 +20,13 @@
             var height01 = $(window).height();
             $(".top").css('height', height01 - 35+"px");
         }
-
     </script>
 </head>
 
 <body style="border-radius: 8px;width: 1075px" >
-<div class="title"><h2>创建用户</h2></div>
+<div class="title"><h2>修改用户信息</h2></div>
 <div style="font-size: 20px;color: red;font-weight: bolder" th:text="${msg}"></div>
-<form th:action="@{/sys/addEmp.html}" method="post" enctype="multipart/form-data" id="myForm">
+<form th:action="@{/sys/updemp.html}" method="post" enctype="multipart/form-data" id="myForm">
     <div class="top">
         <div>
             <div class="top_out">
@@ -37,31 +36,34 @@
                         <td>姓名：<span style="color:red;">*</span>
                         </td>
                         <td  style="text-align: left">
-                            <input type="text" name="empName" id="empName">
+                            <input type="text" name="empName" id="empName" th:value="${emp.empName}">
                             <div class="notnull" id="nameDiv"></div>
                         </td>
                         <td>性别：<span style="color:red;">*</span></td>
-                        <td colspan = "3" style="text-align: left">  <select name="sex" id="sex">
-                            <option value="1">男</option>
-                            <option value="2">女</option>
-                        </select>
+                        <td colspan = "3" style="text-align: left">
+                            <select name="sex" id="sex" th:field="${emp.sex}" th:value="${emp.sex}">
+                                <option th:selected="${emp.sex=='1'}"  value="1"  >男</option>
+                                <option th:selected="${emp.sex=='2'}"  value="2" >女</option>
+                            </select>
                             <div class="notnull" id="sexDiv"></div>
                         </td>
                     </tr>
                     <tr>
                         <td>编号：<span style="color:red;">*</span></td>
-                        <td  style="text-align: left"><input type="text" name="empCode" id="empCode" th:value="${emp.empCode}"  readonly="readonly">
+                        <td  style="text-align: left">
+                            <input type="text" name="empCode" id="empCode" th:value="${emp.empCode}" >
                             <div class="notnull" id="codeDiv"></div>
                         </td>
                         <td>密码：<span style="color:red;">*</span></td>
                         <td colspan = "3" style="text-align: left">
-                            <input type="text" class="long_text" id="password" name="password" th:value="${emp.password}" readonly="readonly">
+                            <input type="text" class="long_text" id="password" name="password" th:value="${emp.password}" >
                             <div class="notnull" id="pwdDiv"></div>
                         </td>
                     </tr>
                     <tr>
                         <td>所属部门：<span style="color:red;">*</span></td>
                         <td  style="text-align: left">
+                            <input type="hidden" name="dept" id="dept" th:value="${emp.deptId}" >
                             <select name="deptId" id="deptId">
 
                             </select>
@@ -69,6 +71,7 @@
                         </td>
                         <td>角色：<span style="color:red;">*</span></td>
                         <td colspan = "3" style="text-align: left">
+                            <input type="hidden" name="role" id="role" th:value="${emp.rolesId}" >
                             <select name="rolesId" id="rolesId">
 
                             </select>
@@ -81,39 +84,47 @@
                             <select name="alert" id="alert" disabled="disabled" >
                                 <option value="1" >是</option>
                                 <option value="0" selected="selected">否</option>
-
                             </select>
                             <div class="notnull" id="alertDiv"></div>
                         </td>
                         <td>在职状态：<span style="color:red;">*</span></td>
                         <td colspan = "3" style="text-align: left">
-                            <select name="states" id="states" class="long_text">
-                                <option value="试用期">试用期</option>
-                                <option value="在职">在职</option>
-                                <option value="离职">离职</option>
+                            <select name="states" id="states" class="long_text" th:field="${emp.states}" th:value="${emp.states}" >
+                                <option th:selected="${emp.states=='试用期'}" value="试用期"  >试用期</option>
+                                <option th:selected="${emp.states=='在职'}" value="在职"   >在职</option>
+                                <option th:selected="${emp.states=='离职'}" value="离职"  >离职</option>
                             </select>
                             <div class="notnull" id="statesDiv"></div>
                         </td>
                     </tr>
                     <tr>
                         <td>生日：</td>
-                        <td  style="text-align: left"><input type="date" name="birthday" id="birthday"></td>
+                        <td  style="text-align: left">
+                            <input class="Wdate" type="text" onClick="WdatePicker()" name="birthday" id="birthday"   th:value="${#dates.format(emp.birthday,'yyyy/MM/dd')}" >
+                        </td>
                         <td>邮箱：<span style="color:red;">*</span></td>
                         <td colspan = "3" style="text-align: left">
-                            <input type="email" name="email" id="email">
+                            <input type="email" name="email" id="email" th:value="${emp.email}">
                             <div class="notnull" id="emailDiv"></div>
                         </td>
                     </tr>
                     <tr>
                         <td>薪资：</td>
-                        <td  style="text-align: left"><input type="text" name="salary" id="salary"></td>
+                        <td  style="text-align: left"><input type="text" name="salary" id="salary" th:value="${emp.salary}"></td>
                         <td>绩效分：</td>
-                        <td colspan = "3" style="text-align: left"><input type="text" name="performance" id="performance" class="long_text"></td>
+                        <td colspan = "3" style="text-align: left"><input type="text" name="performance" id="performance" th:value="${emp.performance}" class="long_text"></td>
                     </tr>
-                    <tr>
+                    <tr style="display: none" id="file">
                         <td >头像：</td>
                         <td colspan = "8" style="text-align: left">
-                            <input type="file" name="myPic" id="head">
+                            <input type="file" name="myPic" id="head" accept="image/*">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >头像展示：</td>
+                        <td colspan = "8" style="text-align: left"  >
+                                <input type="hidden" name="head" id="headhid" th:value="${emp.head}">
+                                <img src="" id="headimage" alt="点击更换头像" title="点击更换头像" width="100px">
                         </td>
                     </tr>
                     </tbody>
@@ -121,8 +132,8 @@
             </div>
         </div>
         <div class="bot_btn">
-            <button class="btn" >添加</button>
-            <button class="btn btn1" onclick="togo()"><a  target="right">返回</a></button>
+            <button class="btn" >确定</button>
+            <button class="btn btn1" onclick="togo()"><a  >返回</a></button>
         </div>
     </div>
 </form>
@@ -152,4 +163,7 @@
 <script src="/js/utf8-php/ueditor.all.min.js"></script>
 <script src="/js/jquery-validation-1.14.0/dist/jquery.validate.min.js" charset="utf-8"></script>
 <script src="/js/jquery-validation-1.14.0/dist/localization/messages_zh.js" charset="utf-8"></script>
-<script src="/js/myjs/add_emp.js"></script>
+<script src="/js/myjs/upd_emp.js"></script>
+<script src="/js/myjs/My97DatePicker/WdatePicker.js" language="javascript" type="text/javascript"></script>
+<script>
+</script>
