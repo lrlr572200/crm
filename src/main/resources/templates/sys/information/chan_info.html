@@ -1,24 +1,25 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/info-mgt.css" />
-    <link rel="stylesheet" href="/css/mycss/person_plan.css" />
+    <link rel="stylesheet" href="/css/mycss/common_info.css" />
     <title>客户资源管理</title>
 </head>
 
 <body>
 <div class="title"><h2>客户资源管理</h2></div>
+<input type="hidden" name="deptId" id="deptId" th:value="${session.session.deptId}">
 <div class="table-box">
     <table id="table" class="table_style"></table>
 </div>
 <div class="pagination ue-clear"></div>
 
 <!--添加模态框-->
-<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -28,19 +29,40 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label style="font-size: 15px">分配员工</label>
-                        <input type="text" class="form-control" name="states"
-                               value="新创建" id="state" readonly="readonly"
-                               style="display: inline;font-size: 15px">
+                    <div class="form-group" style="text-indent: 8px">
+                        <label style="font-size: 18px">分配员工</label>
+                        <select name="empCode" id="allotChan" style="font-size: 15px" >
+                            <option th:each="emp:${empList}" th:value="${emp.empCode}" th:text="${emp.empName}"></option>
+                        </select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 50px"
-                        onclick="addPan()">保存</button>
+                        onclick="updateChan()">确定</button>
             </div>
 
+        </div>
+    </div>
+</div>
+
+
+
+<!--添加模态框2-->
+<div class="modal fade" id="alertModel" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px;">
+            <div class="modal-header" style="height: 50px;">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" style="text-align: center;vertical-align: middle;">
+                <p style="color: blue;font-family: 宋体;font-size: 20px;font-weight: bolder" id="info-modal">
+
+                </p>
+            </div>
+            <div class="modal-footer" style="height: 50px;text-align: center;vertical-align: middle;" >
+            </div>
         </div>
     </div>
 </div>

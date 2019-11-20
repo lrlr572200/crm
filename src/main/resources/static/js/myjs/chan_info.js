@@ -7,16 +7,20 @@ $('#table').bootstrapTable({
     pagination: true, //分页条，设为true表示显示
     pageSize: 5, //页大小。默认每页显示10条记录。前提是启用了分页功能。
     pageList:[],
+    uniqueId:"chanId", //每一行的唯一标识
     sidePagination:"server",
     search: false, //搜索框。在搜索框内只要输入内容即开始搜索。默认false不显示表格右上方搜索框 ，可设为true，
     contentType: "application/x-www-form-urlencoded", //请求数据的contentType（内容类型）,默认application/json，用来告诉接收端从服务器发来的消息是序列化后的json字符串
     queryParams: function (params) {
         return {
             pageIndex: params.offset,
-            pageSize: params.limit
+            pageSize: params.limit/*,
+            deptId:$("#deptId").val(),
+            states:"未分配"*/
         }
     }, //当请求数据时，向服务器发送其余的参数
     columns: [ //在JS里面定义，field即data-field，title就是每列表头名等等。默认空数组
+
         {
             title: "用户名",
             field: 'userName',
@@ -53,19 +57,14 @@ $('#table').bootstrapTable({
             align: 'center',
             valign: 'middle'
         },
+        
         {
             title: '分配员工',
             field: 'empName',
             align: 'center',
-            valign: 'middle'
-        },
-
-        {
-            title: '操作',
-            field: '',
-            align: 'center',
+            valign: 'middle',
             formatter: function (value, row) {  //数据转换函数
-                var e = '<button button="#" mce_href="#" onclick="pass(\'' + row.WORKRECORDID + '\')">分配</button> ';
+                var e = '<button button="#" mce_href="#" onclick="alt(\'' + row.chanId + '\')">分配</button> ';
                 return e;
             }
         }
@@ -74,11 +73,33 @@ $('#table').bootstrapTable({
     locale:'zh-CN',
 
 });
+var row;
 
-
-
-function ref(){
-    $('#table').bootstrapTable("refresh");
+//分配资源给员工
+function alt(obj) {
+    row = $("#table").bootstrapTable("getRowByUniqueId",obj);
+    $("#updateModal").modal('show');
 }
+
+//修改时——模态框中的保存和提交按钮的方法
+function updateChan() {
+    $("#updateModal").modal('hide');
+    var chanId = row.chanId;
+    var empCode =$("#allotChan").val();
+    var data = {"chanId":chanId,"empCode":empCode,"states":"已分配"};
+    $.post("/sys/updateChan.ajax",data,function (sign) {
+        if (sign>0){
+            //刷新表格
+            $('#table').bootstrapTable("refreshOptions",{pageNumber:1})
+            $('#table').bootstrapTable("refresh");
+            $("#info-modal").html("分配成功！");
+            $("#alertModel").modal('show');
+        } else{
+            $("#info-modal").html("分配失败！");
+            $("#alertModel").modal('show');
+        }
+    },"json");//异步添加
+}
+
 
 

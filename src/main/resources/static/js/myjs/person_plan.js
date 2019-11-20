@@ -269,5 +269,5 @@ function theno(){
 
 //查看我部销售计划的方法
 function getMeDept() {
-    location.href="/sys/deptPlan.ajax";
+    location.href="../../../templates/sys/deptPlan.ajax";
 }

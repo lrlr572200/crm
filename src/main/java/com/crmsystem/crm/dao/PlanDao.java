@@ -21,7 +21,7 @@ public interface PlanDao {
                               @Param("pageSize") int pageSize);
 
     //销售计划分页检索统计数量
-    int planCount(@Param("planCondition")PlanCondition planCondition);
+    int planCount(@Param("planCondition") PlanCondition planCondition);
 
     //根据条件分页查询审核计划
     List<Plan> findAllPlan(@Param("empCode") String empCode,
@@ -34,15 +34,15 @@ public interface PlanDao {
     int addPlan(Plan plan);
 
     //修改审核计划状态
-    int updatePlan(@Param("planId") Integer planId,@Param("states") String states);
+    int updatePlan(@Param("planId") Integer planId, @Param("states") String states);
 
     //修改销售计划
     int updPlan(Plan plan);
 
     //删除销售计划
-    int delPlanById(@Param("planId")Integer planId);
+    int delPlanById(@Param("planId") Integer planId);
 
     //根据编号查找销售计划
-    Plan findPlanById(@Param("planId")Integer planId);
+    Plan findPlanById(@Param("planId") Integer planId);
 
 }

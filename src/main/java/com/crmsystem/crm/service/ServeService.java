@@ -18,8 +18,8 @@ public interface ServeService {
     int addServe(Serve serve);
     //分页过滤查看服务
     List<Serve> findServePage(Integer pageIndex,
-                             Integer pageSize,
-                             Serve serve);
+                              Integer pageSize,
+                              Serve serve);
     //过滤查看服务总数量
     int findServeCount(Serve serve);
 

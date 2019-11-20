@@ -41,6 +41,7 @@ public class OrderController {
     DeptmonthlyService deptmonthlyService;
     @Resource
     CommonthlyService commonthlyService;
+    //删除订单
     @RequestMapping("/delOrder.html")
     public String delOrder(Integer orderId,Model model)
     {
@@ -55,7 +56,7 @@ public class OrderController {
             return "redirect:/sys/order.html";
         }else{
             model.addAttribute("message","删除错误");
-            return "sys/err";
+            return "404";
         }
     }
     //******************************************************

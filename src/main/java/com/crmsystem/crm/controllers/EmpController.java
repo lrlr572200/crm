@@ -1,6 +1,8 @@
 package com.crmsystem.crm.controllers;
 
+import com.crmsystem.crm.entity.Dept;
 import com.crmsystem.crm.entity.Emp;
+import com.crmsystem.crm.service.DeptService;
 import com.crmsystem.crm.service.EmpService;
 import com.crmsystem.crm.service.RightService;
 import com.crmsystem.crm.util.EmailElement;
@@ -8,6 +10,8 @@ import com.crmsystem.crm.util.MailClass;
 import com.crmsystem.crm.util.Myfinal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import com.crmsystem.crm.util.Myfinal;
+import com.crmsystem.crm.util.PageSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +40,8 @@ import java.util.*;
 @Controller
 @RequestMapping("sys")
 public class EmpController {
-
+    @Resource
+    DeptService deptService;
     @Resource
     private EmpService empService;
     @Resource
@@ -47,6 +56,29 @@ public class EmpController {
     private String path;
 
 
+    //异步显示同事资料
+    @RequestMapping("/Colleagues.html")
+    @ResponseBody
+    public PageSupport<Emp> myColleague(@RequestParam(required = false,defaultValue = "1") Integer pageIndex,
+                                        Integer deptId, HttpSession session)
+    {
+        Emp emp = (Emp)session.getAttribute("session");
+        pageIndex=(pageIndex-1)*Myfinal.PAGESIZE;
+        List<Emp> empList = empService.findColleaguePage(emp.getEmpCode(), Myfinal.OFF_JOB, deptId, pageIndex, Myfinal.PAGESIZE);
+        PageSupport<Emp> pageSupport=new PageSupport<Emp>();
+        pageSupport.setDataList(empList);
+        pageSupport.setPageIndex(pageIndex);
+        pageSupport.setPageSize(Myfinal.PAGESIZE);
+        Integer totalCount = empService.findColleagueCount(emp.getEmpCode(), Myfinal.OFF_JOB, deptId);
+        pageSupport.setTotalCount(totalCount);
+        return pageSupport;
+    }
+    //显示查看我的同事界面
+    @RequestMapping("/Colleague.html")
+    public String myColleague(Model model)
+    {
+        return "sys/emp/myColleague";
+    }
 
     //跳转个人档案页面的方法
     @RequestMapping(value = "/dossier_my.html")

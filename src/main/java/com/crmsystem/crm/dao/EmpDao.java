@@ -14,9 +14,24 @@ import java.util.List;
  * @description:此处添加对该类的说明
  **/
 public interface EmpDao {
+    //查询所有在职的销售代表
+    List<Emp> findAllEmp(@Param("states") String states,
+                         @Param("rolesId") Integer rolesId);
+    //过滤查询同事总人数
+    int findColleagueCount(@Param("empCode") String empCode,
+                           @Param("states") String states,
+                           @Param("deptId") Integer deptId);
+    //分页过滤查询自己的同事
+    List<Emp> findColleaguePage(@Param("empCode") String empCode,
+                            @Param("states") String states,
+                            @Param("deptId") Integer deptId,
+                            @Param("pageIndex")Integer pageIndex,
+                                @Param("pageSize")Integer pageSize);
+
     //根据部门编号查看不是经理的销售代表
     List<String> findEmpByDeptAndRolesId(@Param("deptId") Integer deptId,
-                                 @Param("rolesId") Integer rolesId);
+                                 @Param("rolesId") Integer rolesId,
+                                         @Param("states") String states);
 
     //员工登录的方法
     Emp login(@Param("empCode") String empCode, @Param("password") String password);
@@ -37,6 +52,9 @@ public interface EmpDao {
 
     //查找员工状态的方法
     List<String> findDeptStates();
+
+    //查看本部门非离职的销售代表的信息
+    List<Emp> findEmpInfo(@Param("emp") Emp emp);
 
     //修改员工的方法
     int updEmpById(@Param("emp") Emp emp);

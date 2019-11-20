@@ -2,6 +2,7 @@ package com.crmsystem.crm.controllers;
 
 import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.Serve;
+import com.crmsystem.crm.service.EmpService;
 import com.crmsystem.crm.service.ServeService;
 import com.crmsystem.crm.service.SystemService;
 import com.crmsystem.crm.util.Myfinal;
@@ -18,7 +19,6 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +40,8 @@ public class ServeController {
     SystemService systemService;
     @Resource
     private ServeService serveService;
+    @Resource
+    EmpService empService;
     //显示添加界面
     @RequestMapping("/addServe.html")
     public  String addServe(Model model)
@@ -144,4 +146,45 @@ public class ServeController {
         return sign;
     }
 
+
+    //经理处理服务页面
+    @RequestMapping(value = "/serve_info.html")
+    public String findServe(HttpSession session,Model model){
+        Emp emp=(Emp) session.getAttribute("session");
+        int roleId=emp.getRolesId();
+        if(roleId==3){
+            int deptId=emp.getDeptId();
+            emp.setDeptId(deptId);
+            List<Emp> empList=empService.findEmpInfo(emp);
+            model.addAttribute("empList",empList);
+            return "sys/information/serve_info";
+        }else{
+            return "sys/noRight";
+        }
+    }
+    @RequestMapping(value = "serve_info.ajax")
+    @ResponseBody
+    public Object dofindServe(@RequestParam(value = "pageIndex",required = true,defaultValue = "1")Integer pageIndex,
+                              @RequestParam(value ="pageSize",required = true,defaultValue = "5")Integer pageSize,
+                              HttpSession session,Serve serve){
+        Emp emp=(Emp) session.getAttribute("session");
+        int deptId=emp.getDeptId();
+        serve.setDeptId(deptId);
+        serve.setStates("已提交");
+        List<Serve> serveList=serveService.findServePaging(serve,pageIndex,pageSize);
+        Integer totalCount=serveService.fintServeCot(serve);
+        Map<Object,Object> map=new HashMap();
+        map.put("total",totalCount);
+        map.put("data",serveList);
+        return  map;
+    }
+    @RequestMapping(value ="/updateServe.ajax" )
+    @ResponseBody
+    public Object updateServe(Serve serve){
+        if (serve==null ||"".equals(serve)){
+            serve=new Serve();
+        }
+        int sign=serveService.updServe(serve);
+        return sign;
+    }
 }

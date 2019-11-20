@@ -1,6 +1,7 @@
 package com.crmsystem.crm.service.impl;
 
 import com.crmsystem.crm.dao.UserDao;
+import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.User;
 import com.crmsystem.crm.service.UserService;
 import com.crmsystem.crm.util.UserCondition;
@@ -22,6 +23,60 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
+    //3.总监点击我的客户的总数量
+    @Override
+    public int findUserCountByDerictor(User user) {
+        return userDao.findUserCountByDerictor(user);
+    }
+
+    //3.总监点击我的客户
+    @Override
+    public List<User> findUsersByDerictor(User user, Integer pageIndex, Integer pageSize) {
+        return userDao.findUsersByDerictor(user,pageIndex,pageSize);
+    }
+
+    //2.部门经理点击我的客户的总数量
+    @Override
+    public int findUserCountByManager(Integer deptId,User user) {
+        return userDao.findUserCountByManager(deptId,user);
+    }
+
+    //2.部门经理点击我的客户
+    @Override
+    public List<User> findUsersByManager(Integer deptId,User user,Integer pageIndex, Integer pageSize) {
+        return userDao.findUsersByManager(deptId,user,pageIndex,pageSize);
+    }
+
+    //1.销售代表点击我的客户的总数量
+    @Override
+    public int findUserCountByEmp(User user) {
+        return userDao.findUserCountByEmp(user);
+    }
+
+    //1.销售代表点击我的客户
+    @Override
+    public List<User> findUsersByEmp(User user,Integer pageIndex,Integer pageSize) {
+        return userDao.findUsersByEmp(user,pageIndex,pageSize);
+    }
+
+    //分配客户池中的信息
+    @Override
+    public int updateLeaveUsers(String empCode, Integer userId) {
+        return userDao.updateLeaveUsers(empCode,userId);
+    }
+
+    //查看客户池的客户总数量
+    @Override
+    public int findUsersCountByEmpCode(String space) {
+        return userDao.findUsersCountByEmpCode(space);
+    }
+
+    //查看客户池的客户
+    @Override
+    public List<User> findUsersPageByEmpCode(String space, Integer pageIndex, Integer pageSize) {
+        return userDao.findUsersPageByEmpCode(space,pageIndex,pageSize);
+    }
+
     //根据客户ID修改客户类型
     @Override
     public int updateUserUserTypeById(User user) {

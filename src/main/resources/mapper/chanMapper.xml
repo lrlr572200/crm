@@ -26,20 +26,20 @@
     <select id="findChanPage" resultType="Chan">
         select c.chanId,c.chanName,c.source,c.addTime,c.addCode,c.deptId,d.deptName,c.empCode,c.states,c.userName,
         c.sex,c.phone,e.empName from chan c,emp e,dept d where c.addCode=e.empCode and d.deptId=c.deptId
-        ORDER BY addTime desc
         <if test="chan.addTime != null">
             and c.addTime=#{chan.addTime}
         </if>
         <if test="chan.states != null and chan.states!=''">
             and c.states=#{chan.states}
         </if>
+        ORDER BY addTime desc
         limit #{pageIndex},#{pageSize}
     </select>
 
 
     <!--分页过滤查询未分配机会-->
     <select id="findChanByDid"  resultType="Chan">
-        SELECT userName,(SELECT sex FROM gender g WHERE g.id=c.sex) AS strSex,
+        SELECT chanId,userName,(SELECT sex FROM gender g WHERE g.id=c.sex) AS strSex,
         phone,chanName,source,addTime,(SELECT empName FROM emp e WHERE e.empCode=c.empCode) AS empName,
         states FROM chan c WHERE
         <if test="deptId!=null">
@@ -105,5 +105,39 @@
         SELECT source FROM chan GROUP BY source
     </select>
 
+    <!--修改机会-->
+    <update id="updateChan" parameterType="Chan">
+        UPDATE chan
+        <trim prefix="set" suffixOverrides=",">
+            <if test="chan.chanName!=null and chan.chanName!=''">
+                chanName=#{chan.chanName},
+            </if>
+            <if test="chan.source!=null and source!=''">
+                source=#{chan.source},
+            </if>
+            <if test="chan.addTime!=null">
+                addTime=#{chan.addTime},
+            </if>
+            <if test="chan.addCode!=null and chan.addCode!=''">
+                addCode=#{chan.addCode},
+            </if>
+            <if test="chan.deptId!=null and chan.deptId>0">
+                deptId=#{chan.deptId},
+            </if>
+            <if test="chan.empCode!=null and chan.empCode!=''">
+                empCode=#{chan.empCode},
+            </if>
+            <if test="chan.states!=null and chan.states!=''">
+                states=#{chan.states},
+            </if>
+            <if test="chan.sex!=null and chan.sex>0">
+                sex=#{chan.sex},
+            </if>
+            <if test="chan.phone!=null and chan.phone!=''">
+                phone=#{chan.phone},
+            </if>
+        </trim>
+        WHERE chanId=#{chan.chanId}
+    </update>
 
 </mapper>
