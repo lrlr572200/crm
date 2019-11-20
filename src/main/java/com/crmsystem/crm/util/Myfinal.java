@@ -24,4 +24,10 @@ public class Myfinal {
     //月份
     public static final String[] MONTH={"01","02","03","04","05","06",
             "07","08","09","10","11","12"};
+
+
+    //初始密码的设置
+    public static String PWD="123456";
+
+
 }

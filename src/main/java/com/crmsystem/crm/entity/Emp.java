@@ -35,17 +35,9 @@ public class Emp implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday; //生日
     private String head; //头像
-    private double salary; //薪资
-    private double performance; //绩效分
+    private Double salary; //薪资
+    private Double performance; //绩效分
     private String email; //邮箱
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getEmpCode() {
         return empCode;
@@ -159,19 +151,27 @@ public class Emp implements Serializable {
         this.head = head;
     }
 
-    public double getSalary() {
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
     }
 
-    public double getPerformance() {
+    public Double getPerformance() {
         return performance;
     }
 
-    public void setPerformance(double performance) {
+    public void setPerformance(Double performance) {
         this.performance = performance;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

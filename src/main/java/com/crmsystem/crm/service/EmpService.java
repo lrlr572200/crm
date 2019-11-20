@@ -34,4 +34,14 @@ public interface EmpService {
 
     //查找员工状态的方法
     List<String> findDeptStates();
+
+    //修改员工的方法
+    int updEmpById(Emp emp);
+
+    //删除员工
+    int delEmpById(String empCode);
+
+    //添加员工
+    int addEmp(Emp emp);
+
 }
