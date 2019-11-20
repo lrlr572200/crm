@@ -16,6 +16,15 @@ import java.util.List;
  * @description:客户表Service接口
  **/
 public interface UserService {
+    //修改客户
+    int updateUserByEmp(User user);
+
+    //销售代表删除客户
+    int delUserByEmp(User user);
+
+    //添加客户
+    int addUser(User user);
+
     //3.总监点击我的客户的总数量
     int findUserCountByDerictor(User user);
 

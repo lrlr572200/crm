@@ -26,16 +26,16 @@ function page(pageIndex) {
         for(var i=0;i<list.length;i++)
         {
             str+="<tr>\n" +
-                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"ID\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].userId+"</div><div class=\"fht-cell\"></div></th>\n" +
-                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"ID\" tabindex=\"0\"><a class=\"th-inner \" >"+list[i].userName+"</a><div class=\"fht-cell\"></div></th>\n" +
-                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"TITLE\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].strSex+"</div><div class=\"fht-cell\"></div></th>\n" +
-                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"PUBLISHER\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].phone+"</div><div class=\"fht-cell\"></div></th>\n" +
-                "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].states+"</div><div class=\"fht-cell\"></div></th>\n" +
-                "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].source+"</div><div class=\"fht-cell\"></div></th>\n" +
+                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"ID\" tabindex=\"0\"><div class=\"th-inner \" id='userId'>"+list[i].userId+"</div><div class=\"fht-cell\"></div></th>\n" +
+                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"ID\" tabindex=\"0\"><a class=\"th-inner \" id='userName' href='/sys/care.html?userId="+list[i].userId+"'>"+list[i].userName+"</a><div class=\"fht-cell\"></div></th>\n" +
+                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"TITLE\" tabindex=\"0\"><div class=\"th-inner \" id='strSex'>"+list[i].strSex+"</div><div class=\"fht-cell\"></div></th>\n" +
+                "<th style=\"text-align: center; vertical-align: middle; \" data-field=\"PUBLISHER\" tabindex=\"0\"><div class=\"th-inner \" id='phone'>"+list[i].phone+"</div><div class=\"fht-cell\"></div></th>\n" +
+                "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \" id='states'>"+list[i].states+"</div><div class=\"fht-cell\"></div></th>\n" +
+                "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \" id='source'>"+list[i].source+"</div><div class=\"fht-cell\"></div></th>\n" +
                 "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].userType+"</div><div class=\"fht-cell\"></div></th>\n" +
                 "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].creditGrade+"</div><div class=\"fht-cell\"></div></th>\n" +
                 "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].addTime+"</div><div class=\"fht-cell\"></div></th>\n" +
-                "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \">"+list[i].remark+"</div><div class=\"fht-cell\"></div></th>\n" +
+                "<th style=\"text-align: center; \" data-field=\"PUBTIME\" tabindex=\"0\"><div class=\"th-inner \" id='remark'>"+list[i].remark+"</div><div class=\"fht-cell\"></div></th>\n" +
                 "<th style=\"text-align: center; \" data-field=\"\" tabindex=\"0\"><div class=\"th-inner \">" +
                 "<input type='button' value='编辑' onclick='edit("+list[i].userId+")' id='edit'>" +
                 "<input type='button' value='删除' onclick='del("+list[i].userId+")' id='del'>" +
@@ -73,20 +73,47 @@ function page(pageIndex) {
 
 }
 
+function edit(id) {
+    var data="userId="+id;
+    $("option[value]").removeAttr("selected");
+    $.post("/sys/findUserName.html",data,function (relData) {
+        $("#userId1").val(relData.userId);
+        $("#userName1").val(relData.userName);
+        $("#phone1").val(relData.phone);
+        $("#remark1").html(relData.remark);
+        $("option[value="+relData.states+"]").prop("selected","selected");
+        $("option[value="+relData.sex+"]").prop("selected","selected");
+        $("option[value="+relData.source+"]").prop("selected","selected");
+    },"json")
+    add();
+}
+
 function del(id) {
     if(confirm("是否删除？"))
     {
-        /*var data="noticeId="+id;
-        $.post("/sys/delNotice.html",data,function (relData) {
+        var data="userId="+id;
+        $.post("/sys/delUserByEmp.html",data,function (relData) {
             if(relData=="1")
             {
                 window.location.reload();
             }else if(relData=="-1"){
-                location.href="../../../templates/sys/err.html";
+                location.href="/sys/err.html";
             }else{
 
             }
-        },"json");*/
+        },"json");
     }
 }
 
+function add() {
+    //显示模态框的方法
+    $("#saveModal").modal().on("shown.bs.modal",function () {
+
+    })
+}
+
+
+//显示模态框
+$("#saveModal").modal('show');
+//隐藏模态框
+$("#saveModal").modal('hide');
