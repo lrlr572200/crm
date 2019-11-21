@@ -1,51 +1,5 @@
 $(function () {
-    $('#table').bootstrapTable({
-        method: "get",
-        striped: true,
-        singleSelect: false,
-        url: "json/person.json",
-        dataType: "json",
-        pagination: true, //分页
-        pageSize: 10,
-        pageNumber: 1,
-        search: false, //显示搜索框
-        contentType: "application/x-www-form-urlencoded",
-        queryParams: null,
-        columns: [
-            {
-                title: "任务名称",
-                field: 'name',
-                align: 'center',
-                valign: 'middle'
-            },
-            {
-                title: '完成日期',
-                field: 'sex',
-                align: 'center',
-                valign: 'middle'
-            },
-            {
-                title: '发布人',
-                field: 'type',
-                align: 'center'
-            },
-
-            {
-                title: '备注',
-                field: 'class',
-                align: 'center'
-            },
-            {
-                title: '操作',
-                field: 'id',
-                align: 'center',
-                formatter: function (value, row) {
-                    var e = '<a  href="#" onclick="openlayer(\'' + row.id + '\')">查看</a> ';
-                    return e;
-                }
-            }
-        ]
-    });
+    day()
 })
 
 $(".title-list ul").on("click", "li", function () {
@@ -69,4 +23,22 @@ function openlayer(id) {
         closeBtn: 2,
         content: 'calendar.html'
     });
+}
+
+function day() {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    $("#year").html(year+"年"+month+"月")
+    $("#date").html(strDate)
+    $("#year1").html(year+"年"+month+"月")
+    $("#date1").html(strDate)
 }

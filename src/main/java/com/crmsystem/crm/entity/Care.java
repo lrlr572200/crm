@@ -8,6 +8,9 @@ package com.crmsystem.crm.entity;
  * @description:客户关怀表持久化类
  **/
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,12 +18,22 @@ public class Care implements Serializable {
 
     private Integer careId; //关怀id，主键
     private Integer userId; //客户id，外键
+    private String userName;//客户姓名   （工具属性，数据库无此字段）
     private String main; //关怀内容
+    @JsonFormat(pattern = "yyyy-MM-dd ",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date careTime; //关怀时间
     private String result; //关怀执行结果
     private String states; //关怀单状态
     private String addCode; //关怀单创建者编号
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public Integer getCareId() {
         return careId;

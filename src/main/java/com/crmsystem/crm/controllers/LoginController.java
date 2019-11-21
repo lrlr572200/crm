@@ -1,6 +1,7 @@
 package com.crmsystem.crm.controllers;
 
 import com.crmsystem.crm.entity.Emp;
+import com.crmsystem.crm.entity.Notice;
 import com.crmsystem.crm.service.*;
 import com.crmsystem.crm.util.Myfinal;
 import com.crmsystem.crm.util.NoticeUtil;
@@ -55,13 +56,13 @@ public class LoginController {
         Emp emp = empService.login(empCode, password);
         if(emp==null)
         {
-            model.addAttribute("msg","用户名或密码错误");
+            model.addAttribute("message","用户名或密码错误");
             return "login";
         }else{
             if(emp.getStates().equals(Myfinal.OFF_JOB))
             {
-                model.addAttribute("msg","抱歉！您已离职");
-                return "login";
+                model.addAttribute("message","抱歉！您已离职");
+                return "sys/err";
             }else{
                 //获取权限等级
                 int grade=rightService.findGradeByRolesId(emp.getRolesId());
@@ -83,7 +84,9 @@ public class LoginController {
     @RequestMapping(value = "sys/home.html",method = RequestMethod.GET)
     public String home(Model model)
     {
-        List<NoticeUtil> noticeList = noticeService.findAllNotice();
+        //获取首页公告显示
+        NoticeUtil notice=new NoticeUtil();
+        List<NoticeUtil> noticeList = noticeService.findNoticePage(Myfinal.pageSize,1,notice);
         model.addAttribute("noticeList",noticeList);
         return "sys/home";
     }

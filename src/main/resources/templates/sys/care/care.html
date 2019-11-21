@@ -1,0 +1,136 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/info-mgt.css" />
+    <link rel="stylesheet" href="/css/mycss/notice.css" type="text/css"/>
+    <style>
+        .mains{
+            width: 120px;
+            height: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+    </style>
+    <title>通知管理</title>
+</head>
+
+<body onload="Noticeload()">
+<div class="title"><h2>客户关怀</h2></div>
+<div class="query">
+    <form action="/sys/notice.html" method="post">
+        <div class="tabe_bot">
+            <div class="l_left"><label>姓名：</label>
+                <input type="text" id="userName" th:value="${session.user.userName}" readonly="readonly" />
+                <!--用于保存用户ID-->
+                <input type="hidden" id="userId" th:value="${session.user.userId}">
+            </div>
+            <div class="l_left"><label>时间：</label>
+                <input type="date" id="careTime" placeholder="输入年月" name="careTime" /></div>
+            <input type="button" onclick="button()" value="查询" class="tabe_btn">
+            <div class="clear"></div>
+        </div>
+    </form>
+</div>
+<div class="table-operate ue-clear">
+        <a href="/sys/addCare.html" class="add">添加</a>
+        <a href="/sys/notice2.html" class="edit">编辑</a>
+</div>
+<div class="table-box">
+    <table id="table" class="table_style table table-hover table-striped">
+        <tbody>
+
+
+
+        </tbody>
+        <thead>
+        <tr>
+            <th style="text-align: center; vertical-align: middle; " data-field="ID" tabindex="0"><div class="th-inner ">关怀内容</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; vertical-align: middle; " data-field="ID" tabindex="0"><div class="th-inner ">关怀时间</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; vertical-align: middle; " data-field="TITLE" tabindex="0"><div class="th-inner ">执行结果</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; vertical-align: middle; " data-field="PUBLISHER" tabindex="0"><div class="th-inner ">状态</div><div class="fht-cell"></div></th>
+            <th style="text-align: center; vertical-align: middle; " data-field="PUBLISHER" tabindex="0"><div class="th-inner ">操作</div><div class="fht-cell"></div></th>
+        </tr>
+        </thead>
+    </table>
+
+    <span id="page"></span>
+    <input type="hidden" value="1" id="pageIndex">
+</div>
+<div class="pagination ue-clear"></div>
+
+<!--**********************************-->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/sys/updateCare.html" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="myModalLabel">修改关怀计划</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label >客户姓名</label>
+                        <input type="text" class="form-control"
+                               id="plan_Year" th:value="${session.user.userName}" readonly="readonly">
+                        <input type="hidden" th:value="${session.user.userId}"  name="userId">
+                        <label >内容</label>
+                        <input type="text" class="form-control"
+                               name="main" id="main" value="" >
+                    </div>
+                    <div class="form-group">
+                        <label >状态</label>
+                        <select class="form-control" id="states" name="states">
+                            <option value="新创建">新创建</option>
+                            <option value="已完成">已完成</option>
+                            <option value="已放弃">已放弃</option>
+                            <option value="已过期">已过期</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label >创建者</label>
+                        <input type="text" class="form-control"
+                               th:value="${session.session.empName}" id="createEmpName"  readonly="readonly">
+                        <input type="hidden" name="empCode" th:value="${session.session.empCode}">
+                    </div>
+                    <div class="form-group">
+                        <label >关怀时间</label>
+                        <!--<input type="date" class="form-control" name="careTime"  id="careTime1" >-->
+                        <input class="form-control Wdate" type="text" onClick="WdatePicker()" name="careTime" id="careTime1">
+                    </div>
+                    <div class="form-group">
+                        <label >执行结果</label>
+                        <input type="text" class="form-control" name="result" id="result" value="" >
+                    </div>
+                        <input type="hidden" id="careId" name="careId">
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal"
+                            onclick="addPan(0)">保存</button>
+                    <button type="button" class="btn btn-primary" id="saveConfirmBtn"
+                            onclick="addPan(1)">提交</button>-->
+                    <input type="submit" class="btn btn-default" th:value="提交">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--**********************************-->
+
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.js"></script>
+<script src="/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="/js/date/js/laydate.js"></script>
+<script src="/js/layer_v2.1/layer/layer.js"></script>
+<script src="/js/myjs/care.js"></script>
+<script src="/js/myjs/My97DatePicker/WdatePicker.js"
+        language="javascript" type="text/javascript"></script>
+</html>
