@@ -70,17 +70,29 @@ public class LoginController {
                 session.setAttribute("rolesName",rolesName);
                 session.setAttribute("session",emp);
                 session.setAttribute("grade",grade);
+                if(grade==100)
+                {
+                    return "redirect:sys/indexManager.html";
+                }
                 return "redirect:sys/index.html";
             }
         }
     }
-    //显示首页
+    //普通用户显示首页
     @RequestMapping(value = "sys/index.html",method = RequestMethod.GET)
     public String index()
     {
         return "sys/index";
     }
-    //显示首页框架
+
+    //管理员用户显示首页
+    @RequestMapping(value = "sys/indexManager.html",method = RequestMethod.GET)
+    public String indexManager()
+    {
+        return "sys/indexManager";
+    }
+
+    //普通用户显示首页框架
     @RequestMapping(value = "sys/home.html",method = RequestMethod.GET)
     public String home(Model model)
     {
@@ -91,4 +103,10 @@ public class LoginController {
         return "sys/home";
     }
 
+    /*//管理员显示首页框架
+    @RequestMapping(value = "sys/home1.html",method = RequestMethod.GET)
+    public String home1(Model model)
+    {
+        return "sys/home1";
+    }*/
 }
