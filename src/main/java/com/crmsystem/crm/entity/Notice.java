@@ -21,15 +21,13 @@ public class Notice implements Serializable {
     private String empCode; //发布者编号
     private String states; //状态
 
-
-    public long getNoticeId() {
+    public Integer getNoticeId() {
         return noticeId;
     }
 
     public void setNoticeId(Integer noticeId) {
         this.noticeId = noticeId;
     }
-
 
     public String getTitle() {
         return title;
@@ -39,7 +37,6 @@ public class Notice implements Serializable {
         this.title = title;
     }
 
-
     public String getTheme() {
         return theme;
     }
@@ -48,7 +45,6 @@ public class Notice implements Serializable {
         this.theme = theme;
     }
 
-
     public String getMains() {
         return mains;
     }
@@ -56,7 +52,6 @@ public class Notice implements Serializable {
     public void setMains(String mains) {
         this.mains = mains;
     }
-
 
     public Date getPublishTime() {
         return publishTime;
@@ -74,7 +69,6 @@ public class Notice implements Serializable {
         this.empCode = empCode;
     }
 
-
     public String getStates() {
         return states;
     }
@@ -82,5 +76,4 @@ public class Notice implements Serializable {
     public void setStates(String states) {
         this.states = states;
     }
-
 }

@@ -15,4 +15,48 @@
     <select id="findRole"  resultType="Roles">
         SELECT rolesId,rolesName FROM roles
     </select>
+
+    <!--查看角色及其权限-->
+    <select id="findRoleAndRight"  resultType="com.crmsystem.crm.util.RoleRight">
+        SELECT roles.rolesId,rolesName,grade,main FROM roles  LEFT
+        JOIN `right`  ON roles.`rolesId`=`right`.`rolesId`
+        <where>
+            <if test="main!=null and main!='' ">
+                and main=#{main}
+            </if>
+        </where>
+        ORDER BY grade DESC LIMIT #{pageIndex},#{pageSize}
+    </select>
+
+    <!--统计数量-->
+    <select id="findRoleRightCot" resultType="int" parameterType="String">
+        SELECT COUNT(0) FROM  roles  LEFT
+        JOIN `right`  ON roles.`rolesId`=`right`.`rolesId`
+        <where>
+            <if test="main!=null and main!='' ">
+                and main=#{main}
+            </if>
+        </where>
+    </select>
+
+    <!--添加角色-->
+    <insert id="addRole" parameterType="com.crmsystem.crm.util.RoleRight">
+        insert into roles(rolesName) VALUES(#{role.rolesName});
+    </insert>
+
+    <!--根据角色名获取角色-->
+    <select id="findRoleByName" parameterType="String" resultType="Roles">
+        SELECT rolesId,rolesName FROM roles WHERE rolesName=#{rolesName}
+    </select>
+
+    <!--修改角色-->
+    <update id="updRole" parameterType="com.crmsystem.crm.util.RoleRight">
+        update roles set rolesName=#{roles.rolesName} where rolesId=#{roles.rolesId}
+    </update>
+
+    <!--删除角色-->
+    <delete id="delRole" parameterType="int">
+        delete from roles where rolesId=#{rolesId}
+    </delete>
+
 </mapper>

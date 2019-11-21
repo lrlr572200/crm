@@ -8,4 +8,48 @@
     <select id="findGradeByRolesId" parameterType="Integer" resultType="int">
         select grade from `right` where rolesId=#{rolesId}
     </select>
+
+    <!--查看所有权限等级分组-->
+    <select id="findRightMain" resultType="String">
+        SELECT main FROM `right` GROUP BY `main`
+    </select>
+
+    <!--根据权限内容查找权限对象-->
+    <select id="findRightByMain" parameterType="String" resultType="Right">
+        SELECT  rightId,grade,main FROM `right`
+        where main=#{main}
+        GROUP BY main
+    </select>
+
+    <!--动态查找权限-->
+    <select id="findRight" parameterType="Right" resultType="Right">
+        select rightId,rolesId,grade,main from `right`
+        <where>
+            <if test="right.rightId!=null">
+                and rightId=#{right.rightId}
+            </if>
+            <if test="right.rolesId!=null">
+                and rolesId=#{right.rolesId}
+            </if>
+            <if test="right.main!=null and right.main!='' ">
+                and main = #{right.rolesId}
+            </if>
+        </where>
+    </select>
+
+    <!--添加权限-->
+    <insert id="addRight" parameterType="com.crmsystem.crm.util.RoleRight">
+        INSERT INTO `right`(rolesId,grade,main) VALUES(#{right.rolesId},#{right.grade},#{right.main})
+    </insert>
+
+    <!--修改权限-->
+    <update id="updRighrt" parameterType="Right">
+        UPDATE `right` SET grade=#{right.grade},main=#{right.main} where rightId=#{right.rightId}
+    </update>
+
+    <!--删除权限-->
+    <delete id="delRight" parameterType="int">
+        delete from `right` where rightId=#{rightId}
+    </delete>
+
 </mapper>

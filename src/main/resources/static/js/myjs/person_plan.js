@@ -245,7 +245,6 @@ function del(planId,states) {
 
 //确定删除
 function theyes() {
-    alert(id);
     $("#alertModel").modal('hide');
     var data = "planId="+id;
     $.post("/sys/delPlan.ajax",data,function (sign) {

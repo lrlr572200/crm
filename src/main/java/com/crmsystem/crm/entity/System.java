@@ -19,14 +19,13 @@ public class System implements Serializable {
     private String declare; //变量说明
 
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -36,7 +35,6 @@ public class System implements Serializable {
         this.name = name;
     }
 
-
     public String getValue() {
         return value;
     }
@@ -45,7 +43,6 @@ public class System implements Serializable {
         this.value = value;
     }
 
-
     public String getDeclare() {
         return declare;
     }
@@ -53,5 +50,4 @@ public class System implements Serializable {
     public void setDeclare(String declare) {
         this.declare = declare;
     }
-
 }

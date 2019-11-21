@@ -1,6 +1,7 @@
 package com.crmsystem.crm.service;
 
 import com.crmsystem.crm.entity.Roles;
+import com.crmsystem.crm.util.RoleRight;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,4 +20,22 @@ public interface RolesService {
 
     //条件查看角色
     List<Roles> findRole();
+
+    //查看角色及其权限
+    List<RoleRight> findRoleAndRight(String main,Integer pageIndex,Integer pageSize);
+
+    //统计数量
+    int findRoleRightCot(String main);
+
+    //添加角色
+    int addRole(RoleRight role);
+
+    //根据角色查找角色
+    Roles findRoleByName(String rolesName);
+
+    //修改角色
+    int updRole(RoleRight roles);
+
+    //删除角色的方法
+    int delRole(Integer rolesId);
 }

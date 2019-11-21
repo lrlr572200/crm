@@ -17,14 +17,13 @@ public class Gender implements Serializable {
     private String sex; //性别
 
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
-
 
     public String getSex() {
         return sex;
@@ -33,5 +32,4 @@ public class Gender implements Serializable {
     public void setSex(String sex) {
         this.sex = sex;
     }
-
 }

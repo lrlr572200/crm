@@ -1,6 +1,7 @@
 package com.crmsystem.crm.dao;
 
 import com.crmsystem.crm.entity.Roles;
+import com.crmsystem.crm.util.RoleRight;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,4 +20,25 @@ public interface RolesDao {
 
     //条件查看角色
     List<Roles> findRole();
+
+    //查看角色及其权限
+    List<RoleRight> findRoleAndRight(@Param("main") String main,
+                                     @Param("pageIndex")Integer pageIndex,
+                                     @Param("pageSize")Integer pageSize);
+
+    //统计数量
+    int findRoleRightCot(@Param("main") String main);
+
+    //添加角色
+    int addRole(@Param("role") RoleRight role);
+
+    //根据角色查找角色
+    Roles findRoleByName(@Param("rolesName") String rolesName);
+
+    //修改角色
+    int updRole(@Param("roles") RoleRight roles);
+
+    //删除角色的方法
+    int delRole(@Param("rolesId")Integer rolesId);
+
 }

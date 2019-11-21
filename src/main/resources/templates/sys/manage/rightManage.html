@@ -1,51 +1,110 @@
 <!doctype html>
-<html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link href="/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/info-mgt.css" />
-    <link rel="stylesheet" href="/css/jquery.treetable.css" />
-    <link rel="stylesheet" href="/css/jquery.treetable.theme.default.css" />
-    <link rel="stylesheet" href="/css/mycss/jurisdiction.css" />
+    <link rel="stylesheet" href="/css/mycss/role.css" />
     <title>权限管理</title>
+
 </head>
 
 <body>
 <div class="title"><h2>权限管理</h2></div>
-<div class="query">
-    <div class="tabe_bot">
-        <div class="l_left"><label>权限搜索：</label><input type="text" placeholder="请输入ID或姓名"></div>
+<div class="l_left" style="width: 100%;margin-right: 1%">
+    <div class="query">
+        <div class="tabe_bot">
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="table-operate ue-clear">
+        <a href="javascript:;" class="add" onclick="add()" >添加</a>
 
 
-        <button class="tabe_btn ">查询</button>
-        <div class="clear"></div>
+    </div>
+    <div class="table-box">
+        <table id="table" class="table_style"></table>
+    </div>
+    <div class="pagination ue-clear"></div>
+</div>
+
+<!--添加模态框-->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">添加角色</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group">
+                        <label >角色名</label>
+                        <input type="text" class="form-control" name="rolesName"
+                               value="" id="rolesName" >
+                        <div id="arrInfor" style="color: red"></div>
+                    </div>
+                    <div class="form-group">
+                        <label >权限内容</label>
+                        <select name="main" id="main2" class="form-control">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label >权限等级</label>
+                        <select name="grade" id="grade" class="form-control">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                        onclick="updRole()" style="display: none" id="upd">提交</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                        onclick="addRole()" id="add">确定</button>
+                <button type="button" class="btn btn-primary" id="saveConfirmBtn"
+                        onclick="quit()">退出</button>
+            </div>
+
+        </div>
     </div>
 </div>
-<div class="table-operate ue-clear">
-    <a href="#" class="add" id="addpart" onClick="openlayer()">添加</a>
-    
 
+<!--模态框2-->
+<div class="modal fade" id="alertModel" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px;">
+            <div class="modal-header" style="height: 50px;">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" style="text-align: center;vertical-align: middle;">
+                <p style="color: blue;font-family: 宋体;font-size: 20px;font-weight: bolder" id="info-modal">
+
+                </p>
+            </div>
+            <div class="modal-footer" style="height: 50px;text-align: center;vertical-align: middle;" >
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="table-box">
-    <table id="example-advanced"  class="tableztree01">
-
-        <tr class="thead_tr"><td style="padding-left: 10px;font-weight: bold">编号</td><td style="font-weight: bold">角色编号</td><td style="font-weight: bold">权限等级</td><td style="font-weight: bold">权限内容</td><td style="font-weight: bold">操作</td></tr>
-        <tbody>
-        <tr data-tt-id="0"  data-tt-parent-id="0">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td> <a href="#">删除</a> <a href="#" onClick="openlayer()">修改</a></td>
-        </tr>
-
-        </tbody>
-    </table>
-</div>
 </body>
 <script type="text/javascript" src="/js/jquery.js"></script>
-<script src="/js/jquery.treetable.js"></script>
+<script type="text/javascript" src="/js/demo/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="/js/jquery.ztree.exedit-3.5.js"></script>
+<script src="/js/role.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.js"></script>
+<script src="/js/bootstrap-table-zh-CN.min.js"></script>
 <script src="/js/layer_v2.1/layer/layer.js"></script>
 <script src="/js/myjs/rightManage.js"></script>
 </html>
