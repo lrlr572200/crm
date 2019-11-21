@@ -21,7 +21,6 @@ public class Care implements Serializable {
     private String states; //关怀单状态
     private String addCode; //关怀单创建者编号
 
-
     public Integer getCareId() {
         return careId;
     }

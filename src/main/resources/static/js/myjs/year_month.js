@@ -14,7 +14,7 @@ function ye(){
             $("#planYear").html(strA);
         },
         error:function(data){//当访问时候，404，500 等非200的错误状态码
-            location.href="../../../templates/sys/err.html";
+            location.href="/templates/sys/err.html";
         }
     })
 };
@@ -39,11 +39,11 @@ $("#planYear").change(function(){
 
             },
             error:function(data){//当访问时候，404，500 等非200的错误状态码
-                location.href="../../../templates/sys/err.html";
+                location.href="/sys/err.html";
             }
         })
     } else{
         var options = "<option value=\"\">--请先选择年份--</option>";
-        $("#planMonth").val(options);
+        $("#planMonth").html(options);
     }
 });

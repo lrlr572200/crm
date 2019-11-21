@@ -1,5 +1,6 @@
 <!doctype html>
-<html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -12,18 +13,23 @@
 
 </head>
 
-<body onload="change(),Roleload()">
+<body>
 <div class="title"><h2>角色管理</h2></div>
 <div class="l_left" style="width: 100%;margin-right: 1%">
     <div class="query">
         <div class="tabe_bot">
-            <div class="l_left" style="margin-left: 20px"><label>角色名称：</label><input type="text" placeholder="请输入角色名称" id="name"></div>
-            <button class="tabe_btn " onclick="getRoleTableData()">查询</button>
+            <div class="l_left" style="margin-left: 20px">
+                <label>角色权限：</label>
+                <select name="main" id="main">
+                    <option value="">全部</option>
+                </select>
+            </div>
+            <button class="tabe_btn " onclick="togo()">查询</button>
             <div class="clear"></div>
         </div>
     </div>
     <div class="table-operate ue-clear">
-        <a href="javascript:;" class="add" onclick="openlayer()" >添加</a>
+        <a href="javascript:;" class="add" onclick="add()" >添加</a>
 
 
     </div>
@@ -31,6 +37,70 @@
         <table id="table" class="table_style"></table>
     </div>
     <div class="pagination ue-clear"></div>
+</div>
+
+<!--添加模态框-->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">添加角色</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group">
+                        <label >角色名</label>
+                        <input type="text" class="form-control" name="rolesName"
+                               value="" id="rolesName" >
+                        <div id="arrInfor" style="color: red"></div>
+                    </div>
+                    <div class="form-group">
+                        <label >权限内容</label>
+                        <select name="main" id="main2" class="form-control">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label >权限等级</label>
+                        <select name="grade" id="grade" class="form-control">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                        onclick="updRole()" style="display: none" id="upd">提交</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                        onclick="addRole()" id="add">确定</button>
+                <button type="button" class="btn btn-primary" id="saveConfirmBtn"
+                        onclick="quit()">退出</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--模态框2-->
+<div class="modal fade" id="alertModel" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 400px;">
+            <div class="modal-header" style="height: 50px;">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" style="text-align: center;vertical-align: middle;">
+                <p style="color: blue;font-family: 宋体;font-size: 20px;font-weight: bolder" id="info-modal">
+
+                </p>
+            </div>
+            <div class="modal-footer" style="height: 50px;text-align: center;vertical-align: middle;" >
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

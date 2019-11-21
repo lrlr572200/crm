@@ -16,7 +16,7 @@ public class Commonthly implements Serializable {
     private Integer id; //月报id，主键
     private String year; //年份
     private String month; //月份
-    private double sumMoney; //总销售额
+    private Double sumMoney; //总销售额
     private String basis; //同比
     private String ratio; //环比
 
@@ -44,11 +44,11 @@ public class Commonthly implements Serializable {
         this.month = month;
     }
 
-    public double getSumMoney() {
+    public Double getSumMoney() {
         return sumMoney;
     }
 
-    public void setSumMoney(double sumMoney) {
+    public void setSumMoney(Double sumMoney) {
         this.sumMoney = sumMoney;
     }
 

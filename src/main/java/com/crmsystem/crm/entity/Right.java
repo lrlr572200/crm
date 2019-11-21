@@ -20,7 +20,7 @@ public class Right implements Serializable {
     private String main; //权限内容
 
 
-    public long getRightId() {
+    public Integer getRightId() {
         return rightId;
     }
 
@@ -28,8 +28,7 @@ public class Right implements Serializable {
         this.rightId = rightId;
     }
 
-
-    public long getRolesId() {
+    public Integer getRolesId() {
         return rolesId;
     }
 
@@ -37,15 +36,13 @@ public class Right implements Serializable {
         this.rolesId = rolesId;
     }
 
-
-    public long getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
     public void setGrade(Integer grade) {
         this.grade = grade;
     }
-
 
     public String getMain() {
         return main;
@@ -54,5 +51,4 @@ public class Right implements Serializable {
     public void setMain(String main) {
         this.main = main;
     }
-
 }

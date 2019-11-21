@@ -16,19 +16,11 @@ public class Deptmonthly implements Serializable {
     private Integer id; //部门月报id
     private String year; //年份
     private String month; //月份
-    private double sumMoney; //月总销售额
+    private Double sumMoney; //月总销售额
     private Integer deptId; //部门编号
     private String deptName; //部门名称   工具属性，数据库无此字段
     private String basis; //同比
     private String ratio; //环比
-
-    public String getDeptName() {
-        return deptName;
-    }
-
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
-    }
 
     public Integer getId() {
         return id;
@@ -54,11 +46,11 @@ public class Deptmonthly implements Serializable {
         this.month = month;
     }
 
-    public double getSumMoney() {
+    public Double getSumMoney() {
         return sumMoney;
     }
 
-    public void setSumMoney(double sumMoney) {
+    public void setSumMoney(Double sumMoney) {
         this.sumMoney = sumMoney;
     }
 
@@ -68,6 +60,14 @@ public class Deptmonthly implements Serializable {
 
     public void setDeptId(Integer deptId) {
         this.deptId = deptId;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
     public String getBasis() {

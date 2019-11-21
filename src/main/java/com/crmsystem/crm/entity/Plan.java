@@ -17,7 +17,7 @@ public class Plan implements Serializable {
     private String content; //计划内容
     private String empCode; //计划创建者
     private String createEmpName; //计划创建者的姓名
-    private double planMoney; //计划销售金额
+    private Double planMoney; //计划销售金额
     private String planYear; //年份
     private String planMonth; //月份
     private String states; //状态
@@ -26,8 +26,8 @@ public class Plan implements Serializable {
     private Integer deptId; //部门编号
     private String deptName; //部门名称
     private Integer planAdd; //计划发展客户数量
-    private double salesMoney; //预测销售额
-    private double realMoney; //当月实际销售额
+    private Double salesMoney; //预测销售额
+    private Double realMoney; //当月实际销售额
     private String checkGrade; //考核评级
     private String remark; //备注
 
@@ -64,11 +64,11 @@ public class Plan implements Serializable {
         this.createEmpName = createEmpName;
     }
 
-    public double getPlanMoney() {
+    public Double getPlanMoney() {
         return planMoney;
     }
 
-    public void setPlanMoney(double planMoney) {
+    public void setPlanMoney(Double planMoney) {
         this.planMoney = planMoney;
     }
 
@@ -136,19 +136,19 @@ public class Plan implements Serializable {
         this.planAdd = planAdd;
     }
 
-    public double getSalesMoney() {
+    public Double getSalesMoney() {
         return salesMoney;
     }
 
-    public void setSalesMoney(double salesMoney) {
+    public void setSalesMoney(Double salesMoney) {
         this.salesMoney = salesMoney;
     }
 
-    public double getRealMoney() {
+    public Double getRealMoney() {
         return realMoney;
     }
 
-    public void setRealMoney(double realMoney) {
+    public void setRealMoney(Double realMoney) {
         this.realMoney = realMoney;
     }
 

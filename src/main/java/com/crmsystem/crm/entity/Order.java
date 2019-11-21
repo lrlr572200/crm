@@ -22,7 +22,7 @@ public class Order implements Serializable {
     private Date addTime; //创建时间
     private String addCode; //创建者
     private String empName1;//创建者姓名   工具属性，数据库无此字段
-    private double sumMoney; //订单总金额
+    private Double sumMoney; //订单总金额
     private Integer userId; //客户编号
     private String userName;//客户姓名    工具属性，数据库无此字段
     private String pactCode; //合同编号
@@ -34,48 +34,8 @@ public class Order implements Serializable {
     private Integer deptId;//部门编号   工具属性，数据库无此字段
     private String deptName;//部门名称  工具属性，数据库无此字段
     private Integer rolesId;//角色Id   工具属性  数据库 无此字段
-    private double count;//消费次数     工具属性  数据库 无此字段
-    private double Money;//消费总金额  工具属性  数据库 无此字段
-
-    public double getCount() {
-        return count;
-    }
-
-    public void setCount(double count) {
-        this.count = count;
-    }
-
-    public double getMoney() {
-        return Money;
-    }
-
-    public void setMoney(double money) {
-        Money = money;
-    }
-
-    public Integer getRolesId() {
-        return rolesId;
-    }
-
-    public void setRolesId(Integer rolesId) {
-        this.rolesId = rolesId;
-    }
-
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
-    }
-
-    public String getDeptName() {
-        return deptName;
-    }
-
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
-    }
+    private Double count;//消费次数     工具属性  数据库 无此字段
+    private Double Money;//消费总金额  工具属性  数据库 无此字段
 
     public Integer getOrderId() {
         return orderId;
@@ -109,11 +69,11 @@ public class Order implements Serializable {
         this.empName1 = empName1;
     }
 
-    public double getSumMoney() {
+    public Double getSumMoney() {
         return sumMoney;
     }
 
-    public void setSumMoney(double sumMoney) {
+    public void setSumMoney(Double sumMoney) {
         this.sumMoney = sumMoney;
     }
 
@@ -179,5 +139,45 @@ public class Order implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Integer getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public Integer getRolesId() {
+        return rolesId;
+    }
+
+    public void setRolesId(Integer rolesId) {
+        this.rolesId = rolesId;
+    }
+
+    public Double getCount() {
+        return count;
+    }
+
+    public void setCount(Double count) {
+        this.count = count;
+    }
+
+    public Double getMoney() {
+        return Money;
+    }
+
+    public void setMoney(Double money) {
+        Money = money;
     }
 }

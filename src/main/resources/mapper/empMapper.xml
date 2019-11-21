@@ -192,18 +192,18 @@ and rolesId=#{rolesId}
     </update>
 
     <!--删除员工根据编号-->
-    <insert id="delEmpById" parameterType="String">
+    <delete id="delEmpById" parameterType="String">
         DELETE FROM emp WHERE empCode=#{empCode}
-    </insert>
+    </delete>
 
     <!--添加员工-->
-    <delete id="addEmp" parameterType="Emp">
+    <insert id="addEmp" parameterType="Emp">
         INSERT INTO emp(empCode,PASSWORD,empName,sex,deptId,rolesId,alert,entryTime,states,
         birthday,head,salary,performance,email) VALUES
         (#{emp.empCode},#{emp.password},#{emp.empName},#{emp.sex},#{emp.deptId},#{emp.rolesId},
         #{emp.alert},#{emp.entryTime},#{emp.states},#{emp.birthday},#{emp.head},
         #{emp.salary},#{emp.performance},#{emp.email})
-    </delete>
+    </insert>
 
 
 </mapper>
