@@ -44,7 +44,10 @@ n.states,e.empName from notice n,emp e where e.empCode=n.empCode and noticeId=#{
         <if test="notice.publishTime!=null ">
             and n.publishTime=#{notice.publishTime}
         </if>
-        and n.states=#{notice.states}
+        <if test="notice.states!=null and notice.states!=''">
+            and n.states=#{notice.states}
+        </if>
+
         ORDER BY n.publishTime desc,noticeID desc
         LIMIT #{pageIndex},#{pageSize}
     </select>

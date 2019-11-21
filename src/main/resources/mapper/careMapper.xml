@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
+<!--  namespace 基于接口的编程，必须是dao接口全名称 -->
+<mapper namespace="com.crmsystem.crm.dao.CareDao">
+    <!--查看未过期的关怀计划-->
+    <select id="findCareByNow" resultType="Care" parameterType="String">
+        SELECT * from care where careTime>NOW() and addCode=#{empCode}
+    </select>
+
+    <update id="updateCareById" parameterType="Care">
+        UPDATE care set userId=#{userId},main=#{main},careTime=#{careTime},result=#{result},
+states=#{states},addCode=#{addCode} where careId=#{careId}
+    </update>
+
+    <!--根据ID查看关怀计划-->
+    <select id="findCareById" parameterType="Care" resultType="Care">
+        select careId,c.userId,u.userName,main,careTime,result,c.states,
+        addCode from care c,
+        `user` u where c.userId=u.userId and c.careId=#{careId}
+    </select>
+    <!--删除关怀计划-->
+    <delete id="delCare" parameterType="Care">
+        DELETE from care where careId=#{careId}
+    </delete>
+
+    <!--添加关怀计划-->
+    <insert id="addCare" parameterType="Care">
+        insert into care(userId,main,careTime,result,states,addCode)
+VALUES(#{userId},#{main},#{careTime},#{result},#{states},#{addCode})
+    </insert>
+
+
+    <!--//过滤查看客户关系表的总数量-->
+    <select id="findCareCountByUserId" resultType="int" parameterType="Care">
+        select count(0) from care c,
+        `user` u where c.userId=u.userId and c.userId=#{care.userId}
+        <if test="care.careTime != null">
+            and careTime&lt;#{care.careTime}
+        </if>
+    </select>
+
+
+<!--    查看客户的关怀列表-->
+    <select id="findCareByUserId"  resultType="Care">
+        select careId,c.userId,u.userName,main,careTime,result,c.states,
+        addCode from care c,
+        `user` u where c.userId=u.userId and c.userId=#{care.userId}
+        <if test="care.careTime != null">
+            and careTime&lt;#{care.careTime}
+        </if>
+
+        LIMIT #{pageIndex},#{pageSize}
+    </select>
+</mapper>
