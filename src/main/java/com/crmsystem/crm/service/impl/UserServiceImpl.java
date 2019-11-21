@@ -23,6 +23,24 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
+    //修改客户
+    @Override
+    public int updateUserByEmp(User user) {
+        return userDao.updateUserByEmp(user);
+    }
+
+    //销售代表删除客户
+    @Override
+    public int delUserByEmp(User user) {
+        return userDao.delUserByEmp(user);
+    }
+
+    //添加客户
+    @Override
+    public int addUser(User user) {
+        return userDao.addUser(user);
+    }
+
     //3.总监点击我的客户的总数量
     @Override
     public int findUserCountByDerictor(User user) {

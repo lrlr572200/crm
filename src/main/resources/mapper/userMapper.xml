@@ -3,6 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.crmsystem.crm.dao.UserDao">
+    <!--销售代表修改客户-->
+    <update id="updateUserByEmp" parameterType="User">
+        update `user` set userName=#{userName},sex=#{sex},phone=#{phone},states=#{states},
+        source=#{source},remark=#{remark}
+where userId=#{userId}
+    </update>
+
+    <!--销售代表删除客户-->
+    <update id="delUserByEmp" parameterType="User">
+        update `user` set empCode=#{empCode} where userId=#{userId}
+    </update>
+
+    <!--添加客户-->
+    <insert id="addUser" parameterType="User">
+        insert into `user`(userName,sex,phone,states,source,empCode,userType,creditGrade,addTime,remark)
+        VALUES(#{userName},#{sex},#{phone},#{states},#{source},#{empCode},#{userType},#{creditGrade},
+        #{addTime},#{remark})
+    </insert>
+
     <!--3.总监点击我的客户的总数量-->
     <select id="findUserCountByDerictor" parameterType="User" resultType="int">
         select count(0) from `user` u,gender g where u.sex=g.id and u.empCode!=#{user.empCode}

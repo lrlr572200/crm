@@ -26,46 +26,44 @@
         <div class="top_out">
             <table class="table" >
                 <tbody>
+                <form action="/sys/addUser.html" method="post">
                 <tr>
                     <td style="border-top: none">姓名：</td>
-                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text"></td>
+                    <td  colspan = "6"  style="text-align: left;border-top: none"><input type="text" name="userName"></td>
                 </tr>
                 <tr>
                     <td>联系电话：</td>
-                    <td  style="text-align: left"><input type="text"></td>
+                    <td  style="text-align: left"><input type="text" name="phone"></td>
                     <td>性别：</td>
-                    <td colspan = "3" style="text-align: left"><select>
-                        <option>男</option>
-                        <option>女</option>
+                    <td colspan = "3" style="text-align: left"><select name="sex">
+                        <option value="1">男</option>
+                        <option value="2">女</option>
                     </select></td>
                 </tr>
                 <tr>
                     <td>状态：</td>
-                    <td  style="text-align: left"><select>
-                        <option>商务</option>
-                        <option>会议</option>
-                        <option>其它</option>
-                    </select></td>
+                    <td  style="text-align: left"><input type="text" name="states" value="新创建" readonly="readonly"></td>
                     <td>来源：</td>
-                    <td colspan = "5" style="text-align: left"><select>
-                        <option>400电话</option>
-                        <option>官网咨询</option>
-                        <option>到司咨询</option>
-                        <option>自主开发</option>
-                        <option>其他</option>
+                    <td colspan = "5" style="text-align: left"><select name="source">
+                        <option value="400电话">400电话</option>
+                        <option value="官网咨询">官网咨询</option>
+                        <option value="到司咨询">到司咨询</option>
+                        <option value="自主开发">自主开发</option>
+                        <option value="其他">其他</option>
                     </select></td>
                 </tr>
                 <tr>
                     <td style="line-height: 340px">备注：</td>
-                    <td colspan = "8" style="text-align: left"><textarea  id="editor" style="width: 100%;height: 240px"></textarea></td>
+                    <td colspan = "8" style="text-align: left"><textarea  id="editor" style="width: 100%;height: 240px" name="remark"></textarea></td>
                 </tr>
+                </form>
                 </tbody>
             </table>
         </div>
     </div>
     <div class="bot_btn">
-        <button class="btn">保存</button>
-        <button class="btn btn1"><a href="notice.html" target="right">返回</a></button>
+        <button class="btn" id="btn">保存</button>
+        <button class="btn btn1"><a href="notice.html" target="ifream">返回</a></button>
     </div>
 </div>
 
@@ -83,5 +81,9 @@
         laydate({elem: '#demo'});//绑定元素
         laydate({elem: '#demo01'});//绑定元素
     }();
+
+    $("#btn").click(function () {
+        document.forms[0].submit();
+    })
 </script>
 </html>

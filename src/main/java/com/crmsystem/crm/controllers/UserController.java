@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +36,53 @@ public class UserController {
     private UserService userService;
     @Resource
     EmpService empService;
+    //处理修改客户
+    @RequestMapping(value = "/updateUser.html",method = RequestMethod.POST)
+    public String updateUser(User user,Model model)
+    {
+        int rel = userService.updateUserByEmp(user);
+        if(rel>0)
+        {
+            System.out.println("修改成功");
+            return "redirect:/sys/getUsers.html";
+        }else {
+            model.addAttribute("message","修改错误");
+            return "sys/err";
+        }
+    }
+
+    //销售代表删除客户
+    @RequestMapping("/delUserByEmp.html")
+    @ResponseBody
+    public String delUserByEmp(User user)
+    {
+        user.setEmpCode("");
+        int rel = userService.delUserByEmp(user);
+        if(rel>0)
+        {
+            return "1";
+        }else {
+            return "-1";
+        }
+    }
+
+    //处理添加界面
+    @RequestMapping(value = "/addUser.html",method = RequestMethod.POST)
+    public String addUser(User user,HttpSession session)
+    {
+        Emp emp = (Emp)session.getAttribute("session");
+        user.setEmpCode(emp.getEmpCode());
+        user.setUserType("");
+        user.setCreditGrade("");
+        Date date=new Date();
+        user.setAddTime(date);
+        int rel = userService.addUser(user);
+        if(rel>0){
+            return  "redirect:/sys/getUsers.html";
+        }else{
+            return "sys/user/addUser";
+        }
+    }
     //显示添加界面
     @RequestMapping("/addUser.html")
     public String addUser()
