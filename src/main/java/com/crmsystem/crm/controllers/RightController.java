@@ -27,10 +27,7 @@ public class RightController {
     @Resource
     private RightService rightService;
 
-    @RequestMapping("/rightManage.html")
-    public String getRightManage(){
-        return "sys/manage/rightManage";
-    }
+
 
     //获取权限等级分组
     @RequestMapping("/getRightMain.ajax")

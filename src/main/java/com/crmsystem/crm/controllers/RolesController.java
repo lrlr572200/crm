@@ -32,8 +32,8 @@ public class RolesController {
     private RightService rightService;
 
     //跳转到角色管理
-    @RequestMapping(value = "/roleManage.html")
-    public String getRoleManage(){
+    @RequestMapping("/roleManage.html")
+    public String getRightManage(){
         return "sys/manage/roleManage";
     }
 

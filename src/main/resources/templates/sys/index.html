@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" type="text/css" href="/css/jquery.dialog.css" />
@@ -13,7 +14,6 @@
     <div id="hd">
         <div class="hd-wrap ue-clear">
             <div class="top-light"></div>
-            <h1 class="logo"></h1>
             <div class="login-info ue-clear">
                 <div class="welcome ue-clear"><span>欢迎您,</span><span class="user-name" th:text="${session.session.empName}">Admin</span></div>
                 <div class="login-msg ue-clear">
@@ -77,7 +77,6 @@
                         <ul class="subnav">
                             <li><a href="/sys/userManage.html" target="iframe">用户管理</a></li>
                             <li><a href="/sys/roleManage.html" target="iframe">角色管理</a></li>
-                            <!--<li><a href="/sys/rightManage.html" target="iframe">权限管理</a></li>-->
                             <li><a href="/sys/systemManage.html" target="iframe">系统管理</a></li>
                         </ul>
                     </li>

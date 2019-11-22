@@ -38,11 +38,7 @@ public class DeptController {
         return depts;
     }
 
-    //跳转到部门管理
-    @RequestMapping(value = "/deptManage.html")
-    public String getDeptManage(){
-        return "sys/manage/deptManage";
-    }
+
 
     //获取部门的方法
     @RequestMapping(value = "/getDept.ajax")
