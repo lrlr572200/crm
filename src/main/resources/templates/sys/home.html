@@ -5,16 +5,9 @@
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/home.css" />
     <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <title>客户关系管理系统</title>
 
-    <style>
-        #rilitime{
-            margin: 16px 25px 0 17px;
-            height: 130px;
-            background-size: 100% 100%;
-        }
-    </style>
+
 
 </head>
 
@@ -25,7 +18,7 @@
 
 <div class="article toolbar">
     <div class="title ue-clear">
-        <h2 style="margin-top: 10px">常用功能</h2>
+        <h2>常用功能</h2>
     </div>
     <div class="content">
         <ul class="toollist ue-clear">
@@ -57,11 +50,11 @@
 <div class="article half notice">
     <div class="wrap-l">
         <div class="title ue-clear">
-            <h2 style="margin-top: 10px">通知公告</h2>
+            <h2>通知公告</h2>
             <a href="/sys/notices.html" class="more" target="iframe">更多</a>
             <!--<input type="hidden" id="msg" th:value="${message}">-->
         </div>
-        <div class="content" style="height: 180px;">
+        <div class="content">
             <ul class="notice-list" th:each="notice:${noticeList}">
                 <li class="ue-clear" >
                     <a th:href="@{/sys/anotice.html(noticeId=${notice.noticeId})}"  class="notice-title" th:text="${notice.getTheme()}"></a>
@@ -74,17 +67,17 @@
 <div class="article half matter">
     <div class="wrap-r">
         <div class="title ue-clear">
-            <h2 class="title-list" style="margin-top: 0px">
+            <h2 class="title-list">
                 <ul class="ue-clear">
-                    <li class="current" ><a href="javascript:;">待办工作</a></li>
+                    <li class="current"><a href="javascript:;">待办工作</a></li>
                     <li><a href="javascript:;">已办工作</a></li>
                 </ul>
             </h2>
             <a href="document_wait.html" class="more" target="right">更多</a>
         </div>
-        <div class="content" style="height: 180px;">
+        <div class="content">
             <div class="matter-content current ue-clear">
-                <div class="today" id="rilitime">
+                <div class="today">
                     <p class="year" id="year1">2019年12月</p>
                     <p class="date" id="date1">15</p>
                 </div>
@@ -122,25 +115,7 @@
 
     </div>
 </div>
-<!--********************-->
-<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title" id="myModalLabel">万年历</h4>
-            </div>
-            <div class="modal-body">
 
-            </div>
-            <div class="modal-footer">
-
-            </div>
-
-        </div>
-    </div>
-</div>
 
 
 </body>
@@ -151,5 +126,7 @@
 <script type="text/javascript" src="/js/myjs/home.js"></script>
 <script type="text/javascript" src="/js/common.js"></script>
 <script src="/js/layer_v2.1/layer/layer.js"></script>
+
+
 
 </html>
