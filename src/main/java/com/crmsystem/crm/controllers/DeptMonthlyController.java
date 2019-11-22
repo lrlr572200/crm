@@ -26,7 +26,7 @@ import java.util.*;
  * @author: 刘仁
  * @create: 2019-11-12 15:07
  * @version:第1版
- * @description:此处添加对该类的说明
+ * @description:公司月报控制器
  **/
 @Controller
 @RequestMapping("sys")
@@ -103,6 +103,8 @@ public class DeptMonthlyController {
         }
         return "sys/deptMonthly/deptMonthly";
     }
+
+
 
 
 }

@@ -75,14 +75,30 @@ var sg;
 //失去焦点验证是否有相同角色
 $("#rolesName").blur(function () {
     var rolesName = $("#rolesName").val();
-    var data = {"rolesName":rolesName};
-    $.post("/sys/roleName.json",data,function (sign) {
-        sg = sign;
-        if (sign > 0) {
-            $("#arrInfor").html("不能出现同名角色名！");
-        }
-    },"json");
-})
+    if (rolesName == null || rolesName == '') {
+        $("#arrInfor").html("不能为空！");
+    }else {
+        var data = {"rolesName":rolesName};
+        $.post("/sys/roleName.json",data,function (sign) {
+            sg = sign;
+            if (sign > 0) {
+                $("#arrInfor").html("不能出现同名角色名！");
+            }
+        },"json");
+    }
+});
+
+//失去焦点验证赋权操作
+$("#main2").blur(function () {
+    var main = $("#main2").val();
+    if (main==null || main=='' ){
+        $("#mainInfor").html("不能为空！");
+    }
+});
+
+function chename() {
+
+}
 
 
 //添加
@@ -91,6 +107,7 @@ function add() {
     $("#main2").val("");
     $("#grade").val("");
     $("#arrInfor").html("");
+    $("#mainInfor").html("");
     $("#myModalLabel").html("添加角色");
     $("#add").show();
     $("#upd").hide();
@@ -109,7 +126,10 @@ function addRole() {
     }else if (sg>0){
         $("#info-modal").html("不可添加同名角色！")
         $("#alertModel").modal('show');
-    }else {
+    }else if (main==null || rolesName==null || grade==null || main=='' || rolesName=='' ){
+        $("#info-modal").html("不能为空！")
+        $("#alertModel").modal('show');
+    } else {
         var data= {"rolesName":rolesName,"main":main,"grade":grade};
         $.post("/sys/addRole.ajax",data,function (data) {
             if (data>0){
@@ -130,6 +150,8 @@ function quit() {
     $("#rolesName").val("");
     $("#main2").val("");
     $("#grade").val("");
+    $("#mainInfor").html("");
+    $("#arrInfor").html("");
     $("#saveModal").modal('hide');
 }
 
@@ -166,6 +188,7 @@ function edit(obj) {
     $("#main2").val("");
     $("#grade").val("");
     $("#arrInfor").html("");
+    $("#mainInfor").html("");
     row = $("#table").bootstrapTable("getRowByUniqueId",obj);
     var rolesName = $("#rolesName").val(row.rolesName);
     $("#main2 option[value="+row.main+"]").prop("selected","selected");
@@ -180,17 +203,20 @@ function edit(obj) {
 //确认编辑
 function updRole() {
     $("#saveModal").modal('hide');
+    var rolesName = $("#rolesName").val();
+    var main = $("#main2").val();
+    var grade = $("#grade").val();
     if (row.grade==100){
         $("#info-modal").html("不可修改管理员！")
         $("#alertModel").modal('show');
     }else if (sg>0){
         $("#info-modal").html("已有同名角色，不可提交！")
         $("#alertModel").modal('show');
-    }else {
+    }else if (main==null || rolesName==null || grade==null || main=='' || rolesName=='' ){
+        $("#info-modal").html("不能为空！")
+        $("#alertModel").modal('show');
+    } else {
         var rolesId = row.rolesId;
-        var rolesName = $("#rolesName").val();
-        var main = $("#main2").val();
-        var grade = $("#grade").val();
         var data = {"rolesId":rolesId,"rolesName":rolesName,"main":main,"grade":grade};
         $.post("/sys/updRole.ajax",data,function (sign) {
             if (sign>0){
