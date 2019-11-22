@@ -26,4 +26,9 @@ public class SystemController {
         return "sys/manage/systemManage";
     }
 
+    @RequestMapping("/rili.html")
+    public String rili()
+    {
+        return "sys/rili";
+    }
 }

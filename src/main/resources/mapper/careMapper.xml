@@ -9,7 +9,7 @@
     <select id="findCareByNow" resultType="Care" parameterType="String">
         SELECT * from care where careTime>NOW() and addCode=#{empCode}
     </select>
-
+    <!--修改关怀计划-->
     <update id="updateCareById" parameterType="Care">
         UPDATE care set userId=#{userId},main=#{main},careTime=#{careTime},result=#{result},
 states=#{states},addCode=#{addCode} where careId=#{careId}

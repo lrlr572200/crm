@@ -10,19 +10,9 @@ $(".title-list ul").on("click", "li", function () {
 
 $(".duty").find("tbody").find("tr:even").css("backgroundColor", "#eff6fa");
 
-function openlayer(id) {
-    layer.open({
-        type: 2,
-        title: '万年历',
-        shadeClose: true,
-        shade: 0.5,
-        skin: 'layui-layer-rim',
-        closeBtn: 2,
-        area: ['80%', '75%'],
-        shadeClose: true,
-        closeBtn: 2,
-        content: 'calendar.html'
-    });
+function rili() {
+    /*location.href="/sys/rili.html"*/
+    $("#saveModal").modal('show')
 }
 
 function day() {
@@ -41,4 +31,11 @@ function day() {
     $("#date").html(strDate)
     $("#year1").html(year+"年"+month+"月")
     $("#date1").html(strDate)
+}
+
+function add() {
+    //显示模态框的方法
+    $("#saveModal").modal().on("shown.bs.modal",function () {
+
+    })
 }

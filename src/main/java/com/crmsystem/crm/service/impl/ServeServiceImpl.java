@@ -1,6 +1,7 @@
 package com.crmsystem.crm.service.impl;
 
 import com.crmsystem.crm.dao.ServeDao;
+import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.Serve;
 import com.crmsystem.crm.service.ServeService;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,12 @@ import java.util.List;
 public class ServeServiceImpl implements ServeService {
     @Resource
     ServeDao serveDao;
+    //首页显示待办服务
+    @Override
+    public List<Serve> findServeOnIndex(Emp emp, Serve serve,Serve serve1, Integer pageIndex, Integer pageSize) {
+        return serveDao.findServeOnIndex(emp,serve,serve1,pageIndex,pageSize);
+    }
+
     //创建服务
     @Override
     public int addServe(Serve serve) {

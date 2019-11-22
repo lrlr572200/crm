@@ -5,9 +5,15 @@
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/home.css" />
     <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <title>客户关系管理系统</title>
 </head>
+
+
+
+
 <body>
+
 <div class="article toolbar">
     <div class="title ue-clear">
         <h2>常用功能</h2>
@@ -15,48 +21,22 @@
     <div class="content">
         <ul class="toollist ue-clear">
             <li>
-                <a href="work.html" class="img" target="right"><img src="/images/icon01.png" /></a>
-                <p><a href="work.html" target="right">工作日志</a></p>
+                <a href="/sys/Colleague.html" class="img" target="iframe"><img src="/images/icon02.png" /></a>
+                <p><a href="/sys/Colleague.html" target="iframe">通讯录</a></p>
+            </li>
+
+            <li>
+                <a href="#" class="img" target="iframe" onclick="rili()"><img src="/images/datecion01.png"/></a>
+                <p><a href="#" onclick="rili()" target="iframe">万年历</a></p>
+            </li>
+
+            <li>
+                <a href="/sys/order.html" class="img" target="iframe"><img src="/images/file02.png" /></a>
+                <p><a href="/sys/order.html" target="iframe">订单管理</a></p>
             </li>
             <li>
-                <a href="email.html" class="img" target="right"><img src="/images/email03.png" /></a>
-                <p><a href="email.html" target="right">邮箱</a></p>
-            </li>
-            <li>
-                <a href="mailList.html" class="img" target="right"><img src="/images/icon02.png" /></a>
-                <p><a href="mailList.html" target="right">通讯录</a></p>
-            </li>
-            <li>
-                <a href="schedule.html" class="img" target="right"><img src="/images/icon04.png" /></a>
-                <p><a href="schedule.html" target="right">日程安排</a></p>
-            </li>
-            <li>
-                <a href="javascript:;" class="img" target="right"><img src="/images/datecion01.png"/></a>
-                <p><a href="javascript:;" onclick="openlayer()">万年历</a></p>
-            </li>
-            <li>
-                <a href="leave.html" class="img"><img src="/images/leave01.png" /></a>
-                <p><a href="leave.html">请假申请</a></p>
-            </li>
-            <li>
-                <a href="fcontract_sign.html" class="img" target="right"><img src="/images/posintion01.png" /></a>
-                <p><a href="fcontract_sign.html" target="right">项目合同会签</a></p>
-            </li>
-            <li>
-                <a href="file_sign.html" class="img" target="right"><img src="/images/file02.png" /></a>
-                <p><a href="file_sign.html" target="right">文件会签</a></p>
-            </li>
-            <li>
-                <a href="document_wait.html" class="img" target="right"><img src="/images/file03.png" /></a>
-                <p><a href="document_wait.html" target="right">公文办理</a></p>
-            </li>
-            <li>
-                <a href="recode.html" class="img" target="right"><img src="/images/icon07.png" /></a>
-                <p><a href="recode.html" target="right">定制任务</a></p>
-            </li>
-            <li>
-                <a href="dossier_my.html" class="img" target="right"><img src="/images/myFiles.png" /></a>
-                <p><a href="dossier_my.html" target="right">个人档案</a></p>
+                <a href="/sys/dossier_my.html" class="img" target="iframe"><img src="/images/myFiles.png" /></a>
+                <p><a href="/sys/dossier_my.html" target="iframe">个人档案</a></p>
             </li>
             <li class="add-btn">
                 <img src="/images/add.png" />
@@ -87,8 +67,8 @@
         <div class="title ue-clear">
             <h2 class="title-list">
                 <ul class="ue-clear">
-                    <li class="current"><a href="javascript:;">待办公文</a></li>
-                    <li><a href="javascript:;">已办公文</a></li>
+                    <li class="current"><a href="javascript:;">待办工作</a></li>
+                    <li><a href="javascript:;">已办工作</a></li>
                 </ul>
             </h2>
             <a href="document_wait.html" class="more" target="right">更多</a>
@@ -100,25 +80,9 @@
                     <p class="date" id="date1">15</p>
                 </div>
                 <ul class="matter-list">
-                    <li class="ue-clear">
-                        <span class="matter-time">12-15</span>
-                        <a href="javascript:;" class="matter-title">下午2点中国移动召开2014年工作会议</a>
-                    </li>
-                    <li class="ue-clear">
-                        <span class="matter-time">12-15</span>
-                        <a href="javascript:;" class="matter-title">上交本年度市局工作报告提纲</a>
-                    </li>
-                    <li class="ue-clear">
-                        <span class="matter-time">12-15</span>
-                        <a href="javascript:;" class="matter-title">领取南京政府办公室公务员津贴</a>
-                    </li>
-                    <li class="ue-clear">
-                        <span class="matter-time">12-15</span>
-                        <a href="javascript:;" class="matter-title">南京2014年全国移动技术投标大会报名事宜</a>
-                    </li>
-                    <li class="ue-clear">
-                        <span class="matter-time">12-15</span>
-                        <a href="javascript:;" class="matter-title">参加市政府举办的互动活动并宣传单位</a>
+                    <li class="ue-clear" th:each="serve:${serveList}">
+                        <span class="matter-time" th:text="${#dates.format(serve.addTime,'MM-dd')}">12-15</span>
+                        <a href="javascript:;" class="matter-title" th:text="${serve.details}">下午2点中国移动召开2014年工作会议</a>
                     </li>
                 </ul>
             </div>
@@ -128,25 +92,9 @@
                     <p class="date" id="date"></p>
                 </div>
                 <ul class="matter-list">
-                    <li class="ue-clear">
-                        <span class="matter-time">12-15</span>
-                        <a href="javascript:;" class="matter-title">领取南京政府办公室公务员津贴</a>
-                    </li>
-                    <li class="ue-clear">
-                        <span class="matter-time">12-15</span>
-                        <a href="javascript:;" class="matter-title">南京2014年全国移动技术投标大会报名事宜</a>
-                    </li>
-                    <li class="ue-clear">
-                        <span class="matter-time">12-15</span>
-                        <a href="javascript:;" class="matter-title">领取南京政府办公室公务员津贴</a>
-                    </li>
-                    <li class="ue-clear">
-                        <span class="matter-time">12-15</span>
-                        <a href="javascript:;" class="matter-title">南京2014年全国移动技术投标大会报名事宜</a>
-                    </li>
-                    <li class="ue-clear">
-                        <span class="matter-time">12-15</span>
-                        <a href="javascript:;" class="matter-title">参加市政府举办的互动活动并宣传单位</a>
+                    <li class="ue-clear" th:each="serve1:${serveList1}">
+                        <span class="matter-time" th:text="${#dates.format(serve1.addTime,'MM-dd')}">12-15</span>
+                        <a href="javascript:;" class="matter-title" th:text="${serve1.details}" >领取南京政府办公室公务员津贴</a>
                     </li>
                 </ul>
             </div>
@@ -157,70 +105,35 @@
 <div style="clear: both"></div>
 <div class="article half duty">
     <div class="wrap-l">
-        <div class="title ue-clear">
-            <h2>我的任务</h2>
-            <a href="myrecode.html" class="more" target="right">更多</a>
-        </div>
-        <div class="content">
-            <table id="table" class="table_style"></table>
-        </div>
+
     </div>
 </div>
 <div class="article half email">
     <div class="wrap-r">
-        <div class="title ue-clear">
-            <h2>未读邮件</h2>
-            <a href="email.html" class="more" target="right">更多</a>
-        </div>
-        <div class="content">
-            <table>
-                <thead>
-                <tr>
-                    <th class="icon"></th>
-                    <th class="sender">发件人</th>
-                    <th class="subject">主题</th>
-                    <th class="time last-item">时间</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="tody">
-                    <td colspan="4"><div class="td-wrap"><em>今天</em><a href="javascript:;">(3封)</a></div></td>
-                </tr>
-                <tr>
-                    <td class="icon"><div class="td-wrap"></div></td>
-                    <td class="sender"><div class="td-wrap">办公室</div></td>
-                    <td class="subject"><div class="td-wrap"><a href="javascript:;">关于移动所有工作人员薪资调整的说明文件</a></div></td>
-                    <td class="time"><div class="td-wrap">22分钟前</div></td>
-                </tr>
-                <tr>
-                    <td class="icon"><div class="td-wrap"></div></td>
-                    <td class="sender"><div class="td-wrap">行政部</div></td>
-                    <td class="subject"><div class="td-wrap"><a href="javascript:;">行政廉洁形象建设工程要点会议纪要</a></div></td>
-                    <td class="time"><div class="td-wrap">1小时前</div></td>
-                </tr>
-                <tr class="open">
-                    <td class="icon"><div class="td-wrap"></div></td>
-                    <td class="sender"><div class="td-wrap">局长</div></td>
-                    <td class="subject"><div class="td-wrap"><a href="javascript:;">部门劳动节放假相关通知</a></div></td>
-                    <td class="time"><div class="td-wrap">今天14:23</div></td>
-                </tr>
-                <tr>
-                    <td class="icon"><div class="td-wrap"></div></td>
-                    <td class="sender"><div class="td-wrap">自贡水务</div></td>
-                    <td class="subject"><div class="td-wrap"><a href="javascript:;">2014年度所有公务员征税政策文件下载</a></div></td>
-                    <td class="time"><div class="td-wrap">今天10:23</div></td>
-                </tr>
-                <tr>
-                    <td class="icon"><div class="td-wrap"></div></td>
-                    <td class="sender"><div class="td-wrap">办公室</div></td>
-                    <td class="subject"><div class="td-wrap"><a href="javascript:;">关于移动所有工作人员薪资调整的说明文件</a></div></td>
-                    <td class="time"><div class="td-wrap">22分钟前</div></td>
-                </tr>
-                </tbody>
-            </table>
+
+    </div>
+</div>
+<!--********************-->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">万年历</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+
         </div>
     </div>
 </div>
+
+
 </body>
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script src="/js/bootstrap.min.js"></script>

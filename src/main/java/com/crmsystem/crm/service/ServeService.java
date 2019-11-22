@@ -1,5 +1,6 @@
 package com.crmsystem.crm.service;
 
+import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.Serve;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,6 +15,9 @@ import java.util.List;
  * @description:服务表Service接口
  **/
 public interface ServeService {
+    //首页显示待办服务
+    List<Serve> findServeOnIndex(Emp emp, Serve serve,Serve serve1, Integer pageIndex, Integer pageSize);
+
     //添加服务
     int addServe(Serve serve);
     //分页过滤查看服务
