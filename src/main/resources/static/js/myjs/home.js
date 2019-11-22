@@ -11,8 +11,17 @@ $(".title-list ul").on("click", "li", function () {
 $(".duty").find("tbody").find("tr:even").css("backgroundColor", "#eff6fa");
 
 function rili() {
-    /*location.href="/sys/rili.html"*/
-    $("#saveModal").modal('show')
+        layer.open({
+            type: 2,
+            title: '日历',
+            shadeClose: false,
+            shade: 0.5,
+            skin: 'layui-layer-rim',
+            closeBtn: 2,
+            area: ['450px', '350px'],
+            content: 'rili.html'
+
+        });
 }
 
 function day() {
