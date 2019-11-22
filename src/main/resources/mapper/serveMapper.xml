@@ -5,6 +5,23 @@
 <!--  namespace 任意一个倒置的域名，保证mapper文件唯一（直接执行sql方式） -->
 <!--  namespace 基于接口的编程，必须是dao接口全名称 -->
 <mapper namespace="com.crmsystem.crm.dao.ServeDao">
+    <!--首页显示待办服务-->
+    <select id="findServeOnIndex" resultType="Serve">
+        select s.serveId,s.addCode,s.details,s.states,s.empCode,s.meet,s.userName,s.phone,
+        s.deptId,s.addTime,s.remark,e.empName,d.deptName from serve s,emp e,dept d where
+        s.addCode=e.empCode and d.deptId=s.deptId
+        <if test="emp.rolesId==4">
+            and (s.states=#{serve.states}  or s.states=#{serve1.states})
+            and s.empCode=#{serve.empCode}
+        </if>
+        <if test="emp.rolesId==3">
+            and (s.states=#{serve.states})
+        </if>
+        and s.deptId=#{serve.deptId}
+        ORDER BY s.addTime desc
+        LIMIT #{pageIndex},#{pageSize}
+    </select>
+
     <!--添加服务-->
     <insert id="addServe" parameterType="Serve">
         insert into serve(addCode,details,states,empCode,meet,userName,phone,

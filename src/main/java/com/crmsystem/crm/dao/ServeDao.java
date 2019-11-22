@@ -1,5 +1,6 @@
 package com.crmsystem.crm.dao;
 
+import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.Serve;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,6 +15,13 @@ import java.util.List;
  * @description:服务表Dao接口
  **/
 public interface ServeDao {
+    //首页显示待办服务
+    List<Serve> findServeOnIndex(@Param("emp") Emp emp,
+                                 @Param("serve")Serve serve,
+                                 @Param("serve1")Serve serve1,
+                                 @Param("pageIndex") Integer pageIndex,
+                                 @Param("pageSize") Integer pageSize);
+
     //添加服务
     int addServe(Serve serve);
     //分页过滤查看服务

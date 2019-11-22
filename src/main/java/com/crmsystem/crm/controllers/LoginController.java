@@ -2,6 +2,7 @@ package com.crmsystem.crm.controllers;
 
 import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.Notice;
+import com.crmsystem.crm.entity.Serve;
 import com.crmsystem.crm.service.*;
 import com.crmsystem.crm.util.Myfinal;
 import com.crmsystem.crm.util.NoticeUtil;
@@ -34,6 +35,8 @@ public class LoginController {
     RightService rightService;
     @Resource
     SystemService systemService;
+    @Resource
+    ServeService serveService;
     //显示登录
     @RequestMapping(value = "login.html",method = RequestMethod.GET)
     public String login()
@@ -94,19 +97,44 @@ public class LoginController {
 
     //普通用户显示首页框架
     @RequestMapping(value = "sys/home.html",method = RequestMethod.GET)
-    public String home(Model model)
+    public String home(Model model,HttpSession session)
     {
         //获取首页公告显示
         NoticeUtil notice=new NoticeUtil();
         List<NoticeUtil> noticeList = noticeService.findNoticePage(Myfinal.pageSize,1,notice);
         model.addAttribute("noticeList",noticeList);
+        //获取当前登录对象
+        Emp emp = (Emp)session.getAttribute("session");
+        Serve serve=new Serve();
+        Serve serve1=new Serve();
+        if(emp.getRolesId()==3)
+        {
+            serve.setStates("已提交");
+            serve.setDeptId(emp.getDeptId());
+            List<Serve> serveList = serveService.findServeOnIndex(emp, serve,serve1, 0, Myfinal.pageSize);
+            model.addAttribute("serveList",serveList);
+            serve.setStates("已完成");
+            serve.setStates("已完成");
+            List<Serve> serveList1= serveService.findServeOnIndex(emp, serve,serve1, 0, Myfinal.pageSize);
+            model.addAttribute("serveList1",serveList1);
+            return "sys/home";
+        }
+        if(emp.getRolesId()==4)
+        {
+            serve.setStates("已分配");
+            serve1.setStates("已打回");
+            serve.setEmpCode(emp.getEmpCode());
+            serve.setDeptId(emp.getDeptId());
+            List<Serve> serveList = serveService.findServeOnIndex(emp, serve,serve1, 0, Myfinal.pageSize);
+            model.addAttribute("serveList",serveList);
+            serve.setStates("已完成");
+            serve.setStates("已完成");
+            List<Serve> serveList1= serveService.findServeOnIndex(emp, serve,serve1, 0, Myfinal.pageSize);
+            model.addAttribute("serveList1",serveList1);
+            return "sys/home";
+        }
         return "sys/home";
     }
 
-    /*//管理员显示首页框架
-    @RequestMapping(value = "sys/home1.html",method = RequestMethod.GET)
-    public String home1(Model model)
-    {
-        return "sys/home1";
-    }*/
+
 }
