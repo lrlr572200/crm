@@ -2,6 +2,7 @@ package com.crmsystem.crm.controllers;
 
 import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.Notice;
+import com.crmsystem.crm.entity.Plan;
 import com.crmsystem.crm.entity.Serve;
 import com.crmsystem.crm.service.*;
 import com.crmsystem.crm.util.Myfinal;
@@ -37,6 +38,8 @@ public class LoginController {
     SystemService systemService;
     @Resource
     ServeService serveService;
+    @Resource
+    PlanService planService;
     //显示登录
     @RequestMapping(value = "login.html",method = RequestMethod.GET)
     public String login()
@@ -76,6 +79,23 @@ public class LoginController {
                 if(grade==100)
                 {
                     return "redirect:sys/indexManager.html";
+                }
+                if(emp.getRolesId()==3)
+                {
+                    Plan plan=new Plan();
+                    plan.setDeptId(emp.getDeptId());
+                    plan.setStates("已打回");
+                    plan.setNextCode(emp.getEmpCode());
+                    Integer con = planService.findCountByStates(plan);
+                    session.setAttribute("con",con);
+                }
+                if(emp.getRolesId()==4)
+                {
+                    Plan plan=new Plan();
+                    plan.setEmpCode(emp.getEmpCode());
+                    plan.setStates("已打回");
+                    Integer con = planService.findCountByStates(plan);
+                    session.setAttribute("con",con);
                 }
                 return "redirect:sys/index.html";
             }

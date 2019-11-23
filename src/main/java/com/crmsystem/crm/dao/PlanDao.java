@@ -15,6 +15,9 @@ import java.util.List;
  * @description:销售计划表Dao接口
  **/
 public interface PlanDao {
+    //查看销售代表或经理被打回的计划数量
+    int findCountByStates(Plan plan);
+
     //销售计划分页检索查询
     List<Plan> findPlanPaging(@Param("planCondition") PlanCondition planCondition,
                               @Param("pageIndex") int pageIndex,
