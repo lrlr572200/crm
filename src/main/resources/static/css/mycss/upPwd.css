@@ -1,0 +1,104 @@
+*{
+    font: 13px/1.5 '微软雅黑', Verdana, Helvetica, Arial, sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -box-sizing: border-box;
+    padding:0;
+    margin:0;
+    list-style:none;
+    box-sizing: border-box;
+    border: 0px solid red;
+}
+/*@font-face {
+    font-family: font01;
+    src: url(../font/DATA-font01.TTF);
+}*/
+
+body,html{
+    height:100%;
+    overflow:hidden;
+}
+body{
+    margin-top: 0px;
+	background-image: url(../../images/tianlanse-009.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+a{
+    color:#2e619a;
+    text-decoration:none;
+    cursor:pointer;
+}
+.upPwd{
+    margin: 0px auto;
+    padding-top: 17px;
+    min-height: 420px;
+    max-width: 420px;
+    background-color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    /* overflow-x: hidden; */
+    box-sizing: border-box;
+    box-shadow: 3px 3px 5px #000;
+}
+input[type=text],
+input[type=file],
+input[type=password],
+input[type=email], select {
+    border: 1px solid #DCDEE0;
+    vertical-align: middle;
+    border-radius: 3px;
+    height: 50px;
+    padding: 0px 16px;
+    font-size: 14px;
+    color: #555555;
+    outline:none;
+    width:100%;
+}
+input[type=text]:focus,
+input[type=file]:focus,
+input[type=password]:focus,
+input[type=email]:focus, select:focus {
+    border: 1px solid #27A9E3;
+}
+
+input[type=submit],
+input[type=button]{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px 80px;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #2a83cf;
+    border-radius: 3px;
+    border: none;
+    -webkit-appearance: none;
+    outline:none;
+    width:100%;
+    letter-spacing: 15px;
+}
+hr.hr15 {
+    height: 15px;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+hr.hr20 {
+    height: 20px;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    color: #2e619a;
+}
+
+span{
+	color: red;
+}

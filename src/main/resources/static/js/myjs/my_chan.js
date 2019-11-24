@@ -13,7 +13,7 @@ function findSource(){
             $("#source").html(str);
         },
         error:function(data){//当访问时候，404，500 等非200的错误状态码
-            location.href="../../../templates/sys/err.html";
+            location.href="/sys/err.html";
         }
     })
 }

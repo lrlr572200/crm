@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>修改密码</title>
+    <link href="/css/mycss/upPwd.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div class="upPwd">
+        <form method="post" name="myform" id="myform">
+            <input name="action" value="upPwd" type="hidden">
+            <input name="username" placeholder="用户名" required="" type="text" id="user" th:value="${session.session.empCode}" readonly="readonly"><span id="spuser"></span>
+            <hr class="hr15">
+            <input name="password" placeholder="旧密码" required="" type="password" id="pass"><span id="sppass"></span>
+            <input type="hidden" name="oldpassword" id="oldPwd" th:value="${session.session.getPassword()}">
+            <hr class="hr15">
+            <input name="newpassword" placeholder="新密码" required="" type="password" id="newpass"><span id="spnewpass"></span>
+            <hr class="hr15">
+            <input name="repassword" placeholder="确定密码" required="" type="password" id="repass"><span id="spRepass"></span>
+            <hr class="hr15">
+            <input value="确定" style="width:50%; height: 45px;" type="button" onclick="upPwd_btn()">
+            <hr class="hr20">
+            <a onClick="alert('请联系管理员')">忘记密码</a>
+        </form>
+    </div>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/upPwd.js"></script>
+</body>
+</html>

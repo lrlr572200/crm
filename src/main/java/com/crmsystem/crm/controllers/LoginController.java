@@ -41,7 +41,7 @@ public class LoginController {
     @Resource
     PlanService planService;
     //显示登录
-    @RequestMapping(value = "login.html",method = RequestMethod.GET)
+    @RequestMapping(value = "/login.html",method = RequestMethod.GET)
     public String login()
     {
         return "login";
@@ -56,7 +56,7 @@ public class LoginController {
     }
 
     //处理登录
-    @RequestMapping(value = "login.html",method = RequestMethod.POST)
+    @RequestMapping(value = "/login.html",method = RequestMethod.POST)
     public String login(String empCode, String password, Model model,HttpSession session)
     {
         Emp emp = empService.login(empCode, password);

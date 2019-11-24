@@ -314,6 +314,24 @@ public class EmpController {
         return sign;
     }
 
+    //跳转修改密码网页
+    @RequestMapping(value = "sys/upPwd.html")
+    public  String doUppwd(){
+        return "sys/upPwd";
+    }
+
+    //异步修改密码
+    @RequestMapping(value = "/upPwd.ajax")
+    @ResponseBody
+    public Object doUpdatePwd(Emp emp){
+        if(emp==null ||"".equals(emp)){
+            emp=new Emp();
+        }
+        int sign=empService.updEmpById(emp);
+        return sign;
+
+    }
+
 
 
 }
