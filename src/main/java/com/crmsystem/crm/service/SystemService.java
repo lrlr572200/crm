@@ -1,6 +1,9 @@
 package com.crmsystem.crm.service;
 
+import com.crmsystem.crm.entity.System;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @program: crm
@@ -15,4 +18,19 @@ public interface SystemService {
     String findChanValue(String name);
     //修改机会分配变量
     int updateChanValue(String value,String name);
+
+    //查看定时任务
+    List<System> findTimedTask(System system,Integer pageIndex,Integer pageSize);
+
+    //统计条数
+    int findCot(System system);
+
+    //修改系统变量
+    int updSystem(System system);
+
+    //根据编号查找系统变量
+    System findTheSystem(Integer id);
+
+    //无分页条件查找系统变量
+    List<System> findAllSystem(System system);
 }

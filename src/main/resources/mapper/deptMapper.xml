@@ -13,4 +13,20 @@
     <select id="findDept"  resultType="Dept">
         SELECT deptId,deptname,parentId FROM dept
     </select>
+
+    <!--动态查找部门-->
+    <select id="findDynDept" resultType="Dept" parameterType="Dept">
+        SELECT deptId,deptname,parentId FROM dept
+        <where>
+            <if test="dept.deptId!=null  and dept.deptId!='' ">
+                and deptId=#{dept.deptId}
+            </if>
+            <if test="dept.deptname!=null and dept.deptname!='' ">
+                and deptname=#{dept.deptname}
+            </if>
+            <if test="dept.parentId!=null and dept.parentId!=''">
+                and parentId=#{dept.parentId}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -33,4 +33,10 @@ public class DeptServiceImpl implements DeptService {
     public List<Dept> findDept() {
         return deptDao.findDept();
     }
+
+    //动态查找部门
+    @Override
+    public List<Dept> findDynDept(Dept dept) {
+        return deptDao.findDynDept(dept);
+    }
 }

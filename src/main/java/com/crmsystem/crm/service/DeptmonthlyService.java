@@ -1,6 +1,7 @@
 package com.crmsystem.crm.service;
 
 import com.crmsystem.crm.entity.Deptmonthly;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @program: crm
@@ -17,4 +18,7 @@ public interface DeptmonthlyService {
     int addDeptMonthly(Deptmonthly monthly);
     //获取当前月份的部门报表
     Deptmonthly findDeptMonthlyByYM(Deptmonthly monthly);
+
+    //统计部门月报
+    long deptSaleSum(Integer year,Integer month,Integer deptId);
 }

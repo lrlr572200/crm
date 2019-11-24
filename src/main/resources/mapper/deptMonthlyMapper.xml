@@ -20,4 +20,13 @@
         INSERT into deptmonthly(`year`,`month`,sumMoney,deptId,basis,ratio)
         VALUES(#{year},#{month},#{sumMoney},#{deptId},#{basis},#{ratio})
     </insert>
+
+    <!--统计部门月报-->
+    <select id="deptSaleSum" resultType="long">
+        SELECT SUM(sumMoney)
+        FROM `order` JOIN emp ON emp.`empCode`=`order`.`empCode`
+        WHERE MONTH(`addTime`)=#{month}
+        AND YEAR(`addTime`)=#{year} AND emp.deptId=#{deptId}
+    </select>
+
 </mapper>

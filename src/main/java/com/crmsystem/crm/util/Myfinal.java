@@ -28,7 +28,11 @@ public class Myfinal {
 
 
     //初始密码的设置
-    public static String PWD="123456";
+    public static final String PWD="123456";
+
+    //定时任务的状态常量
+    public static final String CLOSE="CRON_CLOSE";  //关闭
+    public static final String OPEN="CRON_OPEN"; //开启
 
 
 }

@@ -20,4 +20,7 @@ public interface DeptDao {
     //条件查询部门
     List<Dept> findDept();
 
+    //动态查找部门
+    List<Dept> findDynDept(@Param("dept") Dept dept);
+
 }

@@ -18,4 +18,9 @@ public interface DeptmonthlyDao {
     Deptmonthly findDeptMonthlyByYM(Deptmonthly monthly);
     //创建部门月报表
     int addDeptMonthly(Deptmonthly monthly);
+
+    //统计部门月报
+    long deptSaleSum(@Param("year") Integer year,
+                     @Param("month") Integer month,
+                     @Param("deptId") Integer deptId);
 }

@@ -36,4 +36,10 @@ public class DeptmonthlyServiceImpl implements DeptmonthlyService {
     public Deptmonthly findDeptMonthlyByYM(Deptmonthly monthly) {
         return deptmonthlyDao.findDeptMonthlyByYM(monthly);
     }
+
+    //统计部门月报
+    @Override
+    public long deptSaleSum(Integer year, Integer month, Integer deptId) {
+        return deptmonthlyDao.deptSaleSum(year,month,deptId);
+    }
 }

@@ -1,6 +1,9 @@
 package com.crmsystem.crm.dao;
 
+import com.crmsystem.crm.entity.System;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @program: crm
@@ -15,4 +18,21 @@ public interface SystemDao {
     String findChanValue(@Param("name") String name);
     //修改机会分配变量
     int updateChanValue(@Param("value") String value,@Param("name") String name);
+
+    //查看定时任务
+    List<System> findTimedTask(@Param("system") System system,
+                               @Param("pageIndex") Integer pageIndex,
+                               @Param("pageSize") Integer pageSize);
+
+    //统计条数
+    int findCot(@Param("system") System system);
+
+    //修改系统变量
+    int updSystem(@Param("system") System system);
+
+    //根据编号查找系统变量
+    System findTheSystem(@Param("id")Integer id);
+
+    //无分页条件查找系统变量
+    List<System> findAllSystem(@Param("system")System system);
 }

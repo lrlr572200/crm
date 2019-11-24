@@ -20,4 +20,7 @@ public interface DeptService {
 
     //条件查询部门
     List<Dept> findDept();
+
+    //动态查找部门
+    List<Dept> findDynDept(Dept dept);
 }

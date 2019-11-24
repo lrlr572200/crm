@@ -13,4 +13,72 @@
     <update id="updateChanValue">
         update system set value=#{value} where name=#{name};
     </update>
+
+    <!--查看定时任务-->
+    <select id="findTimedTask"  resultType="System">
+        SELECT id,`name`,`value`,`declare` FROM system
+        <where>
+            <if test="system.declare!=null and system.declare!='' ">
+                and `declare` like CONCAT('',#{system.declare},'%')
+            </if>
+            <if test="system.id!=null">
+                and id=#{system.id}
+            </if>
+        </where>
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+    <!--统计条数-->
+    <select id="findCot" resultType="int" parameterType="System">
+        select count(0) from system
+        <where>
+            <if test="system.declare!=null and system.declare!='' ">
+                and `declare` like CONCAT('',#{system.declare},'%')
+            </if>
+            <if test="system.id!=null">
+                and id=#{system.id}
+            </if>
+        </where>
+    </select>
+
+    <!--修改系统变量-->
+    <update id="updSystem" parameterType="System">
+        update system
+        <trim prefix="set" suffixOverrides=",">
+            <if test="system.name!=null and system.name!='' ">
+                `name`=#{system.name},
+            </if>
+            <if test="system.value!=null and system.value!='' ">
+                `value`=#{system.value},
+            </if>
+            <if test="system.declare!=null and system.declare!='' ">
+                `declare`=#{system.declare},
+            </if>
+        </trim>
+        where id=#{system.id}
+    </update>
+
+    <!--根据编号查找系统变量-->
+    <select id="findTheSystem" parameterType="int" resultType="System">
+        SELECT id,`name`,`value`,`declare` FROM system where id=#{id}
+    </select>
+
+    <!--条件检索-->
+    <select id="findAllSystem" resultType="System" parameterType="System">
+        SELECT id,`name`,`value`,`declare` FROM system
+        <where>
+            <if test="system.declare!=null and system.declare!='' ">
+                and `declare` like CONCAT('',#{system.declare},'%')
+            </if>
+            <if test="system.id!=null">
+                and id=#{system.id}
+            </if>
+            <if test="system.name!=null and system.name!='' ">
+                and `name`=#{system.name}
+            </if>
+            <if test="system.value!=null and system.value!='' ">
+                and `value`=#{system.value}
+            </if>
+        </where>
+    </select>
 </mapper>
