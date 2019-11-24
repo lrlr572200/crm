@@ -3,7 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.crmsystem.crm.dao.PlanDao">
-
+    <select id="findCountByStates" resultType="int" parameterType="Plan">
+        select count(0) from plan where states=#{states}
+        <if test="empCode != null and empCode!=''">
+            and empCode=#{empCode}
+        </if>
+        <if test="deptId != null ">
+            and deptId=#{deptId}
+        </if>
+        <if test="nextCode != null and nextCode!='' ">
+            and nextCode !=#{nextCode}
+        </if>
+    </select>
 
     <!--声明sql片段-->
     <sql id="sqlCommon">

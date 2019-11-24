@@ -7,7 +7,8 @@
 <mapper namespace="com.crmsystem.crm.dao.CareDao">
     <!--查看未过期的关怀计划-->
     <select id="findCareByNow" resultType="Care" parameterType="String">
-        SELECT * from care where careTime>NOW() and addCode=#{empCode}
+        SELECT careId,userId,main,careTime,result,states,addCode from
+         care where careTime>NOW() and addCode=#{empCode}
     </select>
     <!--修改关怀计划-->
     <update id="updateCareById" parameterType="Care">

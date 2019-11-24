@@ -34,6 +34,11 @@ public class PlanServiceImpl implements PlanService {
     public int findChanCountByCode(String empCode) {
         return planDao.findChanCountByCode(empCode);
     }
+    //查看销售代表或经理被打回的计划数量
+    @Override
+    public int findCountByStates(Plan plan) {
+        return planDao.findCountByStates(plan);
+    }
 
     //销售计划分页检索查询
     @Override

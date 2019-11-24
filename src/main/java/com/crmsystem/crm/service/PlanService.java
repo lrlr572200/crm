@@ -15,6 +15,9 @@ import java.util.List;
  * @description:销售计划表Service接口
  **/
 public interface PlanService {
+    //查看销售代表或经理被打回的计划数量
+    int findCountByStates(Plan plan);
+
     //销售计划分页检索查询
     List<Plan> findPlanPaging(PlanCondition planCondition, int pageIndex, int pageSize);
     //销售计划分页检索统计数量
