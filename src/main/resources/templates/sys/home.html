@@ -1,3 +1,137 @@
+<!--
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <link href="/css/bootstrap-table.css" rel="stylesheet" type="text/css">
+    <title>客户关系管理系统</title>
+
+
+
+</head>
+
+
+
+
+<body>
+
+<div class="article toolbar">
+    <div class="title ue-clear">
+        <h2>常用功能</h2>
+    </div>
+    <div class="content">
+        <ul class="toollist ue-clear">
+            <li>
+                <a href="/sys/Colleague.html" class="img" target="iframe"><img src="/images/icon02.png" /></a>
+                <p><a href="/sys/Colleague.html" target="iframe">通讯录</a></p>
+            </li>
+
+            <li>
+                <a href="#" class="img" target="iframe" onclick="rili()"><img src="/images/datecion01.png"/></a>
+                <p><a href="#" onclick="rili()" target="iframe">万年历</a></p>
+            </li>
+
+            <li>
+                <a href="/sys/order.html" class="img" target="iframe"><img src="/images/file02.png" /></a>
+                <p><a href="/sys/order.html" target="iframe">订单管理</a></p>
+            </li>
+            <li>
+                <a href="/sys/dossier_my.html" class="img" target="iframe"><img src="/images/myFiles.png" /></a>
+                <p><a href="/sys/dossier_my.html" target="iframe">个人档案</a></p>
+            </li>
+            <li class="add-btn">
+                <img src="/images/add.png" />
+            </li>
+        </ul>
+
+    </div>
+</div>
+<div class="article half notice">
+    <div class="wrap-l">
+        <div class="title ue-clear">
+            <h2>通知公告</h2>
+            &lt;!&ndash;<a href="/sys/notices.html" class="more" target="iframe">更多</a>&ndash;&gt;
+            &lt;!&ndash;<input type="hidden" id="msg" th:value="${message}">&ndash;&gt;
+        </div>
+        <div class="content">
+            <ul class="notice-list" th:each="notice:${noticeList}">
+                <li class="ue-clear" >
+                    <a th:href="@{/sys/anotice.html(noticeId=${notice.noticeId})}"  class="notice-title" th:text="${notice.getTheme()}"></a>
+                    <div class="notice-time" th:text="${#dates.format(notice.getPublishTime(),'yyyy-MM-dd')}"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="article half matter">
+    <div class="wrap-r">
+        <div class="title ue-clear">
+            <h2 class="title-list">
+                <ul class="ue-clear">
+                    <li class="current"><a href="javascript:;">待办工作</a></li>
+                    <li><a href="javascript:;">已办工作</a></li>
+                </ul>
+            </h2>
+                <a href="document_wait.html"  target="right">&nbsp;</a>
+        </div>
+        <div class="content">
+            <div class="matter-content current ue-clear">
+                <div class="today">
+                    <p class="year" id="year1">2019年12月</p>
+                    <p class="date" id="date1">15</p>
+                </div>
+                <ul class="matter-list">
+                    <li class="ue-clear" th:each="serve:${serveList}">
+                        <span class="matter-time" th:text="${#dates.format(serve.addTime,'MM-dd')}">12-15</span>
+                        <a href="javascript:;" class="matter-title" th:text="${serve.details}">下午2点中国移动召开2014年工作会议</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="matter-content ue-clear">
+                <div class="today">
+                    <p class="year" id="year"></p>
+                    <p class="date" id="date"></p>
+                </div>
+                <ul class="matter-list">
+                    <li class="ue-clear" th:each="serve1:${serveList1}">
+                        <span class="matter-time" th:text="${#dates.format(serve1.addTime,'MM-dd')}">12-15</span>
+                        <a href="javascript:;" class="matter-title" th:text="${serve1.details}" >领取南京政府办公室公务员津贴</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div style="clear: both"></div>
+<div class="article half duty">
+    <div class="wrap-l">
+
+    </div>
+</div>
+<div class="article half email">
+    <div class="wrap-r">
+
+    </div>
+</div>
+
+
+
+</body>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.js"></script>
+<script src="/js/bootstrap-table-zh-CN.min.js"></script>
+<script type="text/javascript" src="/js/myjs/home.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script src="/js/layer_v2.1/layer/layer.js"></script>
+
+
+
+</html>-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -73,7 +207,7 @@
                     <li><a href="javascript:;">已办工作</a></li>
                 </ul>
             </h2>
-                <a href="document_wait.html"  target="right">&nbsp;</a>
+            <a href="document_wait.html"  target="right">&nbsp;</a>
         </div>
         <div class="content">
             <div class="matter-content current ue-clear">

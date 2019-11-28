@@ -60,4 +60,10 @@ public class SystemServiceImpl implements SystemService {
     public List<System> findAllSystem(System system) {
         return systemDao.findAllSystem(system);
     }
+
+    //等值条件查找
+    @Override
+    public List<System> findEquSystem(System system) {
+        return systemDao.findEquSystem(system);
+    }
 }

@@ -70,7 +70,7 @@ public class RolesController {
         return sign;
     }
 
-    //异步验证是否有相同角色名的角色
+    /*//异步验证是否有相同角色名的角色
     @RequestMapping(value = "/roleName.json",method = RequestMethod.POST)
     @ResponseBody
     public Object verifyRoleName(@RequestParam(value = "rolesName",required = true) String rolesName){
@@ -80,7 +80,7 @@ public class RolesController {
             sign=1;
         }
         return sign;
-    }
+    }*/
 
     //编辑角色的方法
     @RequestMapping(value = "/updRole.ajax")
@@ -97,5 +97,7 @@ public class RolesController {
         int sign= rolesService.delRole(rolesId);
         return sign;
     }
+
+
 
 }

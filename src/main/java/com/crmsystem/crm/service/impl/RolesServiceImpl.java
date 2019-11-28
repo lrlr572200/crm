@@ -2,9 +2,11 @@ package com.crmsystem.crm.service.impl;
 
 import com.crmsystem.crm.dao.RightDao;
 import com.crmsystem.crm.dao.RolesDao;
+import com.crmsystem.crm.dao.SystemDao;
 import com.crmsystem.crm.entity.Emp;
 import com.crmsystem.crm.entity.Right;
 import com.crmsystem.crm.entity.Roles;
+import com.crmsystem.crm.entity.System;
 import com.crmsystem.crm.service.RolesService;
 import com.crmsystem.crm.util.RoleRight;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,8 @@ public class RolesServiceImpl implements RolesService {
     RolesDao rolesDao;
     @Resource
     RightDao rightDao;
+    @Resource
+    SystemDao systemDao;
 
     //根据角色ID查看角色名称
     @Override
@@ -62,12 +66,14 @@ public class RolesServiceImpl implements RolesService {
     @Override
     @Transactional
     public int addRole(RoleRight role) {
+
+        System system =systemDao.findTheSystem(Integer.parseInt(role.getMain()));
         int sign = rolesDao.addRole(role);
         if (sign>0){
             Roles ro = this.findRoleByName(role.getRolesName());
             RoleRight rr = new RoleRight();
-            rr.setGrade(role.getGrade());
-            rr.setMain(role.getMain());
+            rr.setGrade(Integer.parseInt(system.getValue()));
+            rr.setMain(system.getName());
             rr.setRolesId(ro.getRolesId());
             sign=rightDao.addRight(rr);
         }
@@ -83,13 +89,15 @@ public class RolesServiceImpl implements RolesService {
                 && !"".equals(role.getRolesId()) && !"".equals(role.getRolesName())){
             sign=rolesDao.updRole(role);
             if (sign>0){
-                Right right = new Right();
-                right.setRolesId(role.getRolesId());
-                Right rg = rightDao.findRight(right); //根据角色ID获取权限
+                Right r = new Right();
+                r.setRolesId(role.getRolesId());
+                Right daoRight = rightDao.findRight(r);
+                System system =systemDao.findTheSystem(Integer.parseInt(role.getMain()));
                 Right updRg = new Right();
-                updRg.setRightId(rg.getRightId());
-                updRg.setMain(role.getMain());
-                updRg.setGrade(role.getGrade());
+                updRg.setRightId(daoRight.getRightId());
+                updRg.setRolesId(role.getRolesId());
+                updRg.setGrade(Integer.parseInt(system.getValue()));
+                updRg.setMain(system.getName());
                 sign=rightDao.updRighrt(updRg);
             }
 
@@ -109,5 +117,11 @@ public class RolesServiceImpl implements RolesService {
             sign=rightDao.delRight(right.getRightId());
         }
         return sign;
+    }
+
+    //数量统计计数SQL
+    @Override
+    public int findRoleCountByName(String rolesName) {
+        return rolesDao.findRoleCountByName(rolesName);
     }
 }

@@ -59,4 +59,9 @@
         delete from roles where rolesId=#{rolesId}
     </delete>
 
+    <!--数量统计计数SQL，根据角色名-->
+    <select id="findRoleCountByName" parameterType="String" resultType="int">
+        SELECT COUNT(0) FROM roles WHERE rolesName=#{rolesName}
+    </select>
+
 </mapper>

@@ -35,4 +35,8 @@ public interface SystemDao {
 
     //无分页条件查找系统变量
     List<System> findAllSystem(@Param("system")System system);
+
+    //等值条件查找
+    List<System> findEquSystem(@Param("system")System system);
+
 }

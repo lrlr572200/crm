@@ -29,7 +29,10 @@ public interface RolesDao {
     //统计数量
     int findRoleRightCot(@Param("main") String main);
 
-    //添加角色
+    //数量统计计数SQL
+    int findRoleCountByName(@Param("rolesName") String rolesName);
+
+  //添加角色
     int addRole(@Param("role") RoleRight role);
 
     //根据角色查找角色

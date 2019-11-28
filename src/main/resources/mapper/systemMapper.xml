@@ -81,4 +81,25 @@
             </if>
         </where>
     </select>
+
+    <!--等值条件检索-->
+    <select id="findEquSystem" resultType="System" parameterType="System">
+        SELECT id,`name`,`value`,`declare` FROM system
+        <where>
+            <if test="system.declare!=null and system.declare!='' ">
+                and `declare` = #{system.declare}
+            </if>
+            <if test="system.id!=null">
+                and id=#{system.id}
+            </if>
+            <if test="system.name!=null and system.name!='' ">
+                and `name`=#{system.name}
+            </if>
+            <if test="system.value!=null and system.value!='' ">
+                and `value`=#{system.value}
+            </if>
+        </where>
+    </select>
+
+
 </mapper>

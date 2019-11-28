@@ -33,4 +33,7 @@ public interface SystemService {
 
     //无分页条件查找系统变量
     List<System> findAllSystem(System system);
+
+    //等值条件查找
+    List<System> findEquSystem(System system);
 }

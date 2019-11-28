@@ -64,4 +64,6 @@ public class ServeServiceImpl implements ServeService {
     public int updServe(Serve serve) {
         return serveDao.updServe(serve);
     }
+
+
 }

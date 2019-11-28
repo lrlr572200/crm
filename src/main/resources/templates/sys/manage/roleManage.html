@@ -62,20 +62,15 @@
                         </select>
                         <div id="mainInfor" style="color: red"></div>
                     </div>
-                    <div class="form-group">
-                        <label >权限等级</label>
-                        <select name="grade" id="grade" class="form-control">
-                            <option value="">全部</option>
-                        </select>
-                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"
-                        onclick="updRole()" style="display: none" id="upd">提交</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal"
-                        onclick="addRole()" id="add">确定</button>
-                <button type="button" class="btn btn-primary" id="saveConfirmBtn"
+                <button type="button"
+                        onclick="updRole()" style="display: none;background-color: lightskyblue;width: 50px;height: 30px;font-size: 15px;" id="upd">提交</button>
+                <button type="button" style="background-color: lightskyblue;width: 50px;height: 30px;font-size: 15px;"
+                        onclick="addRole()"  id="add">确定</button>
+                <button type="button" style="width: 50px;height: 30px;font-size: 15px;"
                         onclick="quit()">退出</button>
             </div>
 

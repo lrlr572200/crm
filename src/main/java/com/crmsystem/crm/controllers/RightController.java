@@ -1,7 +1,10 @@
 package com.crmsystem.crm.controllers;
 
 import com.crmsystem.crm.entity.Right;
+import com.crmsystem.crm.entity.System;
 import com.crmsystem.crm.service.RightService;
+import com.crmsystem.crm.service.SystemService;
+import com.crmsystem.crm.util.RoleRight;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,15 +29,17 @@ public class RightController {
 
     @Resource
     private RightService rightService;
+    @Resource
+    private SystemService systemService;
 
 
 
     //获取权限等级分组
     @RequestMapping("/getRightMain.ajax")
     @ResponseBody
-    public Object getMain(){
-        List<String> mainList = rightService.findRightMain();
-        return mainList;
+    public Object getMain(System system){
+        List<System> systemList =systemService.findEquSystem(system);
+        return systemList;
     }
 
     //异步获取权限等级，根据权限内容
@@ -53,13 +58,6 @@ public class RightController {
         return grade;
     }
 
-    //异步显示全部权限等级的方法
-    @RequestMapping(value = "/findAllRight.ajax")
-    @ResponseBody
-    public Object getRight(){
-        Map<Object,Object> map = new HashMap<Object, Object>();
 
-        return map;
-    }
 
 }

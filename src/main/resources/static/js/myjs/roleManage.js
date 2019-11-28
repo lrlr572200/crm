@@ -71,37 +71,8 @@ function togo() {
     $('#table').bootstrapTable("refresh");
 }
 
-var sg;
-//失去焦点验证是否有相同角色
-$("#rolesName").blur(function () {
-    var rolesName = $("#rolesName").val();
-    if (rolesName == null || rolesName == '') {
-        $("#arrInfor").html("不能为空！");
-    }else {
-        var data = {"rolesName":rolesName};
-        $.post("/sys/roleName.json",data,function (sign) {
-            sg = sign;
-            if (sign > 0) {
-                $("#arrInfor").html("不能出现同名角色名！");
-            }
-        },"json");
-    }
-});
 
-//失去焦点验证赋权操作
-$("#main2").blur(function () {
-    var main = $("#main2").val();
-    if (main==null || main=='' ){
-        $("#mainInfor").html("不能为空！");
-    }
-});
-
-function chename() {
-
-}
-
-
-//添加
+//添加按钮
 function add() {
     $("#rolesName").val("");
     $("#main2").val("");
@@ -114,38 +85,7 @@ function add() {
     $("#saveModal").modal('show');
 }
 
-//确定添加
-function addRole() {
-    $("#saveModal").modal('hide');
-    var rolesName = $("#rolesName").val();
-    var main = $("#main2").val();
-    var grade = $("#grade").val();
-    if (grade==100){
-        $("#info-modal").html("不可添加管理员！")
-        $("#alertModel").modal('show');
-    }else if (sg>0){
-        $("#info-modal").html("不可添加同名角色！")
-        $("#alertModel").modal('show');
-    }else if (main==null || rolesName==null || grade==null || main=='' || rolesName=='' ){
-        $("#info-modal").html("不能为空！")
-        $("#alertModel").modal('show');
-    } else {
-        var data= {"rolesName":rolesName,"main":main,"grade":grade};
-        $.post("/sys/addRole.ajax",data,function (data) {
-            if (data>0){
-                //刷新表格并回到第一页
-                $('#table').bootstrapTable("refreshOptions",{pageNumber:1})
-                $('#table').bootstrapTable("refresh");
-            }else{
-                $("#info-modal").html("添加失败！")
-                $("#alertModel").modal('show');
-            }
-        },"json");
-    }
-
-}
-
-//添加返回
+//添加返回按钮
 function quit() {
     $("#rolesName").val("");
     $("#main2").val("");
@@ -154,6 +94,79 @@ function quit() {
     $("#arrInfor").html("");
     $("#saveModal").modal('hide');
 }
+
+var row;
+//编辑按钮
+function edit(obj) {
+    $("#rolesName").val("");
+    $("#main2").val("");
+    $("#grade").val("");
+    $("#arrInfor").html("");
+    $("#mainInfor").html("");
+    row = $("#table").bootstrapTable("getRowByUniqueId",obj);
+    var rolesName = $("#rolesName").val(row.rolesName);
+    $("#main2 option[value="+row.main+"]").prop("selected","selected");
+    $("#grade").html("<option value=\""+row.grade+"\">"+row.grade+"</option>");
+    $("#myModalLabel").html("编辑角色");
+    $("#upd").show();
+    $("#add").hide();
+    $("#saveModal").modal("show");
+}
+
+
+//表单验证
+function checkName() {
+    //obj=0 表示添加  obj=1 表示修改
+    var flg = true;
+    var rolesName = $("#rolesName").val();
+    if (rolesName == null || rolesName == '') {
+        flg=false;
+        $("#arrInfor").html("不能为空！");
+    }
+    return flg;
+}
+
+function checkRight() {
+    var flg = true;
+    var main = $("#main2").val();
+    if (main == null || main=='') {
+        flg=false;
+        $("#mainInfor").html("不能为空！");
+    }
+    return flg;
+}
+
+//确定添加按钮
+function addRole() {
+
+    var rolesName = $("#rolesName").val();
+    var main = $("#main2").val();
+    if ((checkRight() == true) && (checkName() == true)) {
+        $("#saveModal").modal('hide');
+        var data = {"id":main};
+        $.post("/sys/getsys.json",data,function (sys) {
+            if (sys.value==100){
+                $("#info-modal").html("不可添加管理员！")
+                $("#alertModel").modal('show');
+            }else {
+
+                var dat = {"rolesName":rolesName,"main":main};
+                $.post("/sys/addRole.ajax",dat,function (fig) {
+                    if (fig>0){
+                        //刷新表格并回到第一页
+                        $('#table').bootstrapTable("refreshOptions",{pageNumber:1})
+                        $('#table').bootstrapTable("refresh");
+                    }else{
+                        $("#info-modal").html("添加失败！")
+                        $("#alertModel").modal('show');
+                    }
+                },"json");
+            }
+        },"json");
+    }
+}
+
+
 
 //删除
 function del(obj) {
@@ -181,68 +194,55 @@ function del(obj) {
     },"json");
 }
 
-var row;
-//编辑
-function edit(obj) {
-    $("#rolesName").val("");
-    $("#main2").val("");
-    $("#grade").val("");
-    $("#arrInfor").html("");
-    $("#mainInfor").html("");
-    row = $("#table").bootstrapTable("getRowByUniqueId",obj);
-    var rolesName = $("#rolesName").val(row.rolesName);
-    $("#main2 option[value="+row.main+"]").prop("selected","selected");
-    $("#grade").html("<option value=\""+row.grade+"\">"+row.grade+"</option>");
-    $("#myModalLabel").html("编辑角色");
-    $("#upd").show();
-    $("#add").hide();
-    $("#saveModal").modal("show");
-}
-
 
 //确认编辑
 function updRole() {
-    $("#saveModal").modal('hide');
+
     var rolesName = $("#rolesName").val();
     var main = $("#main2").val();
-    var grade = $("#grade").val();
-    if (row.grade==100){
-        $("#info-modal").html("不可修改管理员！")
-        $("#alertModel").modal('show');
-    }else if (sg>0){
-        $("#info-modal").html("已有同名角色，不可提交！")
-        $("#alertModel").modal('show');
-    }else if (main==null || rolesName==null || grade==null || main=='' || rolesName=='' ){
-        $("#info-modal").html("不能为空！")
-        $("#alertModel").modal('show');
-    } else {
-        var rolesId = row.rolesId;
-        var data = {"rolesId":rolesId,"rolesName":rolesName,"main":main,"grade":grade};
-        $.post("/sys/updRole.ajax",data,function (sign) {
-            if (sign>0){
-                //刷新表格并回到第一页
-                $('#table').bootstrapTable("refreshOptions",{pageNumber:1})
-                $('#table').bootstrapTable("refresh");
-            }else {
-                $("#info-modal").html("编辑失败！")
+    if ((checkRight() == true) && (checkName() == true)) {
+        $("#saveModal").modal('hide');
+        var data = {"id":main};
+        $.post("/sys/getsys.json",data,function (sys) {
+            if (sys.value==100){
+                $("#info-modal").html("不可编辑管理员！")
                 $("#alertModel").modal('show');
+            }else {
+                var rolesId = row.rolesId;
+                var dat = {"rolesId":rolesId,"rolesName":rolesName,"main":main};
+                $.post("/sys/updRole.ajax",dat,function (fig) {
+                    if (fig>0){
+                        //刷新表格并回到第一页
+                        $('#table').bootstrapTable("refreshOptions",{pageNumber:1})
+                        $('#table').bootstrapTable("refresh");
+                    }else{
+                        $("#info-modal").html("编辑失败！")
+                        $("#alertModel").modal('show');
+                    }
+                },"json");
             }
         },"json");
     }
 }
 
+
+
 //获得角色权限下拉框
 function getGrade() {
-    var strA="<option value=\"\">全部</option>";
+    var declare = "ROLE_KEY";
     $.ajax({
         type:"GET",//请求类型
         url:"/sys/getRightMain.ajax",//请求的url
+        data:"declare="+declare,
         dataType:"json",//ajax接口（请求url）返回的数据类型
         success:function(data){//data：返回数据（json对象）
+            var strA;
+            var strB="<option value=''>全部</option>";
             for(var i=0;i<data.length;i++){
-                strA+="<option value=\""+data[i]+"\">"+data[i]+"</option>";
+                strA+="<option value=\""+data[i].id+"\">"+data[i].name+"</option>";
+                strB+="<option value=\""+data[i].name+"\">"+data[i].name+"</option>";
             }
-            $("#main").html(strA);
+            $("#main").html(strB);
             $("#main2").html(strA);
         },
         error:function(data){//当访问时候，404，500 等非200的错误状态码
@@ -252,25 +252,3 @@ function getGrade() {
 }
 getGrade();
 
-//权限等级和权限的级联
-$("#main2").change(function(){
-    var main = $("#main2").val();
-    if(main!='' && main!=null ){
-        $.ajax({
-            type:"GET",//请求类型
-            url:"/sys/getMain.json",//请求的url
-            data:"main="+main,
-            dataType:"json",//ajax接口（请求url）返回的数据类型
-            success:function(data){//data：返回数据（json对象）
-                var strB="<option value=\""+data.grade+"\">"+data.grade+"</option>";
-                $("#grade").html(strB);
-            },
-            error:function(data){//当访问时候，404，500 等非200的错误状态码
-                location.href="/sys/err.html";
-            }
-        });//异步结束
-    }else {
-        var strA="<option value=\"\">全部</option>";
-        $("#grade").html(strA);
-    }
-});

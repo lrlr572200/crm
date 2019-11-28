@@ -38,4 +38,7 @@ public interface RolesService {
 
     //删除角色的方法
     int delRole(Integer rolesId);
+
+    //数量统计计数SQL
+    int findRoleCountByName(String rolesName);
 }

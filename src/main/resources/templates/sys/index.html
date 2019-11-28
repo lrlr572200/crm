@@ -14,12 +14,12 @@
     <div id="hd">
         <div class="hd-wrap ue-clear">
             <div class="top-light"></div>
-            <div class="login-info ue-clear">
+            <div class="ue-clear">
                 <div class="welcome ue-clear"><span>欢迎您,</span><span class="user-name" th:text="${session.session.empName}">Admin</span></div>
-                <div class="login-msg ue-clear">
+                <div class="ue-clear">
                     <a class="msg-txt" >消息</a>
                     <span th:if="${session.con}>0">
-                    <a  class="msg-num" th:text="${session.con}">10</a>
+                    <a  class="msg-num" th:text="${session.con}">0</a>
                     </span>
                     <span th:if="${session.con}==0">
                     <a ></a>
@@ -42,7 +42,7 @@
                     <li class="office current"><div class="nav-header"><a href="home.html" target="iframe" class="ue-clear"><span>首页</span><i class="icon"></i></a></div></li>
                     <li class="land"><div class="nav-header"><a href="JavaScript:;" class="ue-clear" ><span>日常办公</span><i class="icon hasChild"></i></a></div>
                         <ul class="subnav">
-                            <li><a href="/sys/chan.html" target="iframe">机会管理</a></li>
+                            <li  ><a href="/sys/chan.html" target="iframe">机会管理</a></li>
                             <li><a href="/sys/serve.html" target="iframe">服务管理</a></li>
                             <li><a href="/sys/order.html" target="iframe">订单管理</a></li>
                             <li><a href="/sys/deptMonthly.html" target="iframe">部门月报</a></li>
