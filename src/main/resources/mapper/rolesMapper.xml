@@ -11,7 +11,7 @@
         select rolesName from roles where rolesId=#{rolesId}
     </select>
 
-    <!--条件查看角色-->
+    <!--查看全部角色-->
     <select id="findRole"  resultType="Roles">
         SELECT rolesId,rolesName FROM roles
     </select>

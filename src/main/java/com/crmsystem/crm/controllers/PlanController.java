@@ -167,7 +167,6 @@ public class PlanController {
         plan.setPlanYear(plan1.getPlanYear());
         plan.setPlanMonth(plan1.getPlanMonth());
         plan.setDeptId(plan1.getDeptId());
-        plan.setStates(plan1.getStates());
         int sign = planService.updPlan(plan);
         return sign;
     }
@@ -184,6 +183,16 @@ public class PlanController {
     @RequestMapping(value = "/deptPlan.ajax",method = RequestMethod.GET)
     public String getDeptPlan(){
         return "sys/emp/dept_plan";
+    }
+
+    @RequestMapping(value = "findDynPlan.json")
+    @ResponseBody
+    public Object doDynPlan(PlanCondition planCondition){
+        if (planCondition==null ){
+            planCondition=new PlanCondition();
+        }
+        List<Plan> plans = planService.findDynPlan(planCondition);
+        return  plans;
     }
 
 }

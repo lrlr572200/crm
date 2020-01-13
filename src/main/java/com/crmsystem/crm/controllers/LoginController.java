@@ -87,15 +87,21 @@ public class LoginController {
                     plan.setStates("已打回");
                     plan.setNextCode(emp.getEmpCode());
                     Integer con = planService.findCountByStates(plan);
+                    if (con==null || "".equals(con)){
+                        con=0;
+                    }
                     session.setAttribute("con",con);
-                }
-                if(emp.getRolesId()==4)
-                {
+                }else if(emp.getRolesId()==4){
                     Plan plan=new Plan();
                     plan.setEmpCode(emp.getEmpCode());
                     plan.setStates("已打回");
                     Integer con = planService.findCountByStates(plan);
+                    if (con==null || "".equals(con)){
+                        con=0;
+                    }
                     session.setAttribute("con",con);
+                }else {
+                    session.setAttribute("con",0);
                 }
                 return "redirect:sys/index.html";
             }

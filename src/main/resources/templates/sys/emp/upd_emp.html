@@ -72,9 +72,14 @@
                         <td>角色：<span style="color:red;">*</span></td>
                         <td colspan = "3" style="text-align: left">
                             <input type="hidden" name="role" id="role" th:value="${emp.rolesId}" >
-                            <select name="rolesId" id="rolesId">
-
-                            </select>
+                            <div th:if="${emp.rolesId}==1">
+                                <select name="rolesId" id="rolesId2" disabled="disabled">
+                                </select>
+                            </div>
+                            <div th:if="${emp.rolesId}!=1">
+                                <select name="rolesId" id="rolesId" >
+                                </select>
+                            </div>
                             <div class="notnull" id="roleDiv"></div>
                         </td>
                     </tr>
@@ -89,11 +94,19 @@
                         </td>
                         <td>在职状态：<span style="color:red;">*</span></td>
                         <td colspan = "3" style="text-align: left">
-                            <select name="states" id="states" class="long_text" th:field="${emp.states}" th:value="${emp.states}" >
-                                <option th:selected="${emp.states=='试用期'}" value="试用期"  >试用期</option>
-                                <option th:selected="${emp.states=='在职'}" value="在职"   >在职</option>
-                                <option th:selected="${emp.states=='离职'}" value="离职"  >离职</option>
-                            </select>
+                            <div th:if="${emp.rolesId}==1">
+                                <select name="states" id="states2"  >
+                                    <option selected="selected" value="在职" >在职</option>
+                                </select>
+                            </div>
+                            <div th:if="${emp.rolesId}!=1">
+                                <select name="states" id="states" class="long_text" th:field="${emp.states}" th:value="${emp.states}" >
+                                    <option th:selected="${emp.states=='试用期'}" value="试用期"  >试用期</option>
+                                    <option th:selected="${emp.states=='在职'}" value="在职"   >在职</option>
+                                    <option th:selected="${emp.states=='离职'}" value="离职"  >离职</option>
+                                </select>
+                            </div>
+
                             <div class="notnull" id="statesDiv"></div>
                         </td>
                     </tr>

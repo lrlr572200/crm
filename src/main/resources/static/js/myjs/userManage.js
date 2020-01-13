@@ -201,12 +201,20 @@ function del() {
                 stp=1;
                 return;
             }
+            if(this.roleName=="系统管理员"){
+                empCodeArr=[];
+                stp=2;
+                return;
+            }
             empCodeArr.push(this.empCode);// 获得到的整条数据中的主键列
         });
         if (stp==1){
             $("#info-modal").html("不能删除自己！")
             $("#alertModel").modal('show');
-        } else if (stp == 0) {
+        } else if (stp==2){
+            $("#info-modal").html("不能删除管理员！")
+            $("#alertModel").modal('show');
+        }else if (stp == 0) {
             deleteMs(empCodeArr);
         }
     }

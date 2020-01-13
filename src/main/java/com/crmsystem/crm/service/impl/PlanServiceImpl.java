@@ -89,4 +89,9 @@ public class PlanServiceImpl implements PlanService {
         return planDao.findPlanById(planId);
     }
 
+    //动态查找销售计划
+    @Override
+    public List<Plan> findDynPlan(PlanCondition planCondition) {
+        return planDao.findDynPlan(planCondition);
+    }
 }

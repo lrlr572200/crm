@@ -46,7 +46,7 @@
         <div class="clear"></div>
     </div>
 </div>
-<div class="table-operate ue-clear" id="nave">
+<div class="table-operate ue-clear" id="nave" th:if="${session.grade}<=5">
     <a href="#" class="add"  onclick="add()">添加</a>
 
 </div>
@@ -87,6 +87,7 @@
                         <input type="text" class="form-control" name="createEmpName"
                                th:value="${session.session.empName}" id="createEmpName"  readonly="readonly"
                                style="display: inline;font-size: 15px">
+                        <p style="color: red" id="nameInfo"></p>
                     </div>
                     <div class="form-group">
                         <label style="font-size: 15px">计划销售额</label>
@@ -107,8 +108,10 @@
                         id="save" onclick="addPan(0)">保存</button>
                 <button type="button" class="btn btn-primary"  style="width: 50px"
                         id="refer"  onclick="addPan(1)">提交</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 50px"
+                        id="updRefer1" onclick="updPann(0)">保存</button>
                 <button type="button" class="btn btn-primary"  style="width: 50px"
-                        id="updRefer"  onclick="updPann()">提交</button>
+                        id="updRefer"  onclick="updPann(1)">提交</button>
             </div>
 
         </div>

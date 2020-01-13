@@ -66,7 +66,9 @@ function getUserInfo(obj) {
 getUserInfo(1);
 
 
-
+function updinfo(obj) {
+    alert(obj);
+}
 
 
 

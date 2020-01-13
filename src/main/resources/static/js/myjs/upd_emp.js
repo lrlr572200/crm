@@ -90,6 +90,7 @@ function getRoles() {
                 }
             }
             $("#rolesId").html(strA);
+            $("#rolesId2").html(strA);
         },
         error:function(data){//当访问时候，404，500 等非200的错误状态码
             location.href="/sys/err.html";
@@ -180,10 +181,14 @@ function checkDeptId() { //部门
 
 function checkRole() { //角色
     var rolesId = $("#rolesId");
+    var rolesId2 = $("#rolesId2");
     var roleDiv = $("#roleDiv");
     roleDiv.html("");
     if (rolesId.val()==""){
         roleDiv.html("职位不能为空！");
+        return false;
+    }else if (rolesId.val()=="1"){
+        roleDiv.html("不能添加系统管理员！");
         return false;
     }
     return true;
@@ -252,6 +257,7 @@ $("#myForm").submit(function () {
     if (!checkEmail()){flag=false};
     if (flag==true){
         $("#alert").removeAttr("disabled");
+        $("#rolesId2").removeAttr("disabled");
     }
     return flag;
 });

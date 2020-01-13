@@ -44,4 +44,7 @@ public interface PlanService {
     //根据编号查找销售计划
     Plan findPlanById(Integer planId);
 
+    //动态查找销售计划
+    List<Plan> findDynPlan(PlanCondition planCondition);
+
 }

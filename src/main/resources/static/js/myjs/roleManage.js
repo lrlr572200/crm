@@ -98,19 +98,25 @@ function quit() {
 var row;
 //编辑按钮
 function edit(obj) {
-    $("#rolesName").val("");
-    $("#main2").val("");
-    $("#grade").val("");
-    $("#arrInfor").html("");
-    $("#mainInfor").html("");
-    row = $("#table").bootstrapTable("getRowByUniqueId",obj);
-    var rolesName = $("#rolesName").val(row.rolesName);
-    $("#main2 option[value="+row.main+"]").prop("selected","selected");
-    $("#grade").html("<option value=\""+row.grade+"\">"+row.grade+"</option>");
-    $("#myModalLabel").html("编辑角色");
-    $("#upd").show();
-    $("#add").hide();
-    $("#saveModal").modal("show");
+    if(obj==1){
+        $("#info-modal").html("不可编辑管理员！")
+        $("#alertModel").modal('show');
+    }else {
+        $("#rolesName").val("");
+        $("#main2").val("");
+        $("#grade").val("");
+        $("#arrInfor").html("");
+        $("#mainInfor").html("");
+        row = $("#table").bootstrapTable("getRowByUniqueId",obj);
+        var rolesName = $("#rolesName").val(row.rolesName);
+        $("#main2 option[value="+row.main+"]").prop("selected","selected");
+        $("#grade").html("<option value=\""+row.grade+"\">"+row.grade+"</option>");
+        $("#myModalLabel").html("编辑角色");
+        $("#upd").show();
+        $("#add").hide();
+        $("#saveModal").modal("show");
+    }
+
 }
 
 
@@ -202,10 +208,11 @@ function updRole() {
     var main = $("#main2").val();
     if ((checkRight() == true) && (checkName() == true)) {
         $("#saveModal").modal('hide');
+        //如果为系统管理员，则不可编辑
         var data = {"id":main};
         $.post("/sys/getsys.json",data,function (sys) {
             if (sys.value==100){
-                $("#info-modal").html("不可编辑管理员！")
+                $("#info-modal").html("不可授予管理员权限！")
                 $("#alertModel").modal('show');
             }else {
                 var rolesId = row.rolesId;

@@ -15,7 +15,10 @@
     <table border="0" cellpadding="0" cellspacing="0" id="per-info">
         <tr height="70px">
             <td  colspan="6">
-                <p id="title-p"><span id="name" th:text="${emp.getEmpName()}"></span>
+                <p id="title-p">
+                    <span id="name" th:text="${emp.getEmpName()}"></span>&nbsp;&nbsp;
+                    <span  th:data-name="${emp.getEmpCode()}" th:onclick="updinfo(this.getAttribute('data-name'));">
+                        <!--<img src="/images/updbi.jpg" style="width: 15px">--></span>
                 </p>
             </td>
             <td width="132px" colspan="2">

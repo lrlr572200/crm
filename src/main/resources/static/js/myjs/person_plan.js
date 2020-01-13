@@ -98,15 +98,6 @@ $('#table').bootstrapTable({
 
 });
 
-//置空的方法
-function ff() {
-    $("#plan_Year").val("");
-    $("#plan_Month").val("");
-    $("#planMoney").val("");
-    $("#state").val("");
-    $("#planAdd").val("");
-    $("#content").val("");
-}
 
 
 //点击条件检索按钮
@@ -116,31 +107,38 @@ function but(){
     $('#table').bootstrapTable("refresh");
 }
 
+
+
 //添加的方法
 function add() {
-
-    var date1=new Date();
-    var data={"planYear":date1.getFullYear(),"planMonth":date1.getMonth()};
-    $.post("/sys/plan.ajax",data,function (map) {
-        if (map.total>0){
-            $("#info-modal").html("已有当前月份的计划！");
-            $("#alertModel").modal('show');
-        }else{
-            //显示模态框的方法
-            $("#saveModal").modal().on("shown.bs.modal",function () {
-                ff();
+        var date1=new Date();
+        var data={"planYear":date1.getFullYear(),"planMonth":date1.getMonth()};
+        $.post("/sys/findDynPlan.json",data,function (map) {
+            if (map.length>0){
+                $("#info-modal").html("已有当前月份的计划！");
+                $("#alertModel").modal('show');
+            }else{
                 $("#myModalLabel").html("添加销售计划");
-                $("#updRefer").hide();
+                $("#state").val("新创建");
                 var date=new Date();
                 var yyyy=date.getFullYear();//年
                 var MM=date.getMonth();//月
                 MM=eval(MM+"+"+"1");
-                $("#state").val("新创建");
                 $("#plan_Year").val(yyyy);
                 $("#plan_Month").val(MM);
-            });
-        }
-    },"json");
+                $("#updRefer").hide();
+                $("#updRefer1").hide();
+                $("#save").show();
+                $("#refer").show();
+                $("#planAdd").val("");
+                $("#content").val("");
+                $("#planMoney").val("");
+
+                //显示模态框的方法
+                $("#saveModal").modal('show');
+            }
+        },"json");
+
 
 }
 
@@ -164,18 +162,25 @@ function addPan(obj) {
     }
     var deptId = $("#deptId").val();
     var rolesId = $("#rolesId").val();
-    var data = {"planYear":planYear,"planMonth":planMonth,"states":states,
-        "planMoney":planMoney,"planAdd":planAdd,"content":content,"deptId":deptId,"rolesId":rolesId};
-    $.post("/sys/addPlan.ajax",data,function (sign) {
-        if (sign>0){
-            //刷新表格
-            $('#table').bootstrapTable("refreshOptions",{pageNumber:1})
-            $('#table').bootstrapTable("refresh");
-        } else{
-            $("#info-modal").html("创建失败！");
-            $("#alertModel").modal('show');
-        }
-    },"json");//异步添加
+    var empCode = $("#empCode").val();
+    if (planMoney==null || planAdd==null || content==null || content=='' || planAdd=='' || planMoney=='' ){
+        $("#info-modal").html("不能有空值！");
+        $("#alertModel").modal('show');
+    }else {
+        var data = {"empCode":empCode,"planYear":planYear,"planMonth":planMonth,"states":states,
+            "planMoney":planMoney,"planAdd":planAdd,"content":content,"deptId":deptId,"rolesId":rolesId};
+        $.post("/sys/addPlan.ajax",data,function (sign) {
+            if (sign>0){
+                //刷新表格
+                $('#table').bootstrapTable("refreshOptions",{pageNumber:1})
+                $('#table').bootstrapTable("refresh");
+            } else{
+                $("#info-modal").html("创建失败！");
+                $("#alertModel").modal('show');
+            }
+        },"json");//异步添加
+    }
+
 }
 
 var planid;
@@ -186,43 +191,54 @@ function edit(planId,states) {
         $("#info-modal").html("当前状态的计划单不可修改！");
         $("#alertModel").modal('show');
     }else{
-        ff();
+        $("#save").hide();
+        $("#refer").hide();
+        $("#updRefer").show();
+        $("#updRefer1").show();
+        $("#myModalLabel").html("编辑我的计划");
+        var row = $("#table").bootstrapTable("getRowByUniqueId",planId);
+        $("#plan_Year").val(row.planYear);
+        $("#plan_Month").val(row.planMonth);
+        $("#planMoney").val(row.planMoney);
+        $("#state").val(row.states);
+        $("#planAdd").val(row.planAdd);
+        $("#content").val(row.content);
+        planid = row.planId;
         //显示模态框的方法
-        $("#saveModal").modal().on("shown.bs.modal",function () {
-            $("#save").hide();
-            $("#refer").hide();
-            $("#updRefer").show();
-            $("#myModalLabel").html("编辑我的计划");
-            var row = $("#table").bootstrapTable("getRowByUniqueId",planId);
-            $("#plan_Year").val(row.planYear);
-            $("#plan_Month").val(row.planMonth);
-            $("#planMoney").val(row.planMoney);
-            $("#state").val(row.states);
-            $("#planAdd").val(row.planAdd);
-            $("#content").val(row.content);
-            planid = row.planId;
-        })
+        $("#saveModal").modal('show');
     }
 
 }
 
 //修改时——模态框中的提交按钮方法
-function updPann() {
+function updPann(obj) {
     $("#saveModal").modal('hide');
     var planMoney =$("#planMoney").val();
     var planAdd = $("#planAdd").val();
     var content = $("#content").val();
-    var data = {"planMoney":planMoney,"planAdd":planAdd,"content":content,"planId":planid};
-    $.post("/sys/updPlan.ajax",data,function (sign) {
-        if (sign>0){
-            //刷新表格
-            $('#table').bootstrapTable("refreshOptions",{pageNumber:1})
-            $('#table').bootstrapTable("refresh");
-        } else{
-            $("#info-modal").html("修改失败！");
-            $("#alertModel").modal('show');
-        }
-    },"json");//异步修改
+    var states ;
+    if (obj==0){
+        states = $("#state").val();
+    } else if (obj==1){
+        states = "已提交";
+    }
+    if (planMoney==null || planAdd==null || content==null || content=='' || planAdd=='' || planMoney=='' ){
+        $("#info-modal").html("不能有空值！");
+        $("#alertModel").modal('show');
+    }else {
+        var data = {"planMoney":planMoney,"planAdd":planAdd,"content":content,"planId":planid,"states":states};
+        $.post("/sys/updPlan.ajax",data,function (sign) {
+            if (sign>0){
+                //刷新表格
+                $('#table').bootstrapTable("refreshOptions",{pageNumber:1})
+                $('#table').bootstrapTable("refresh");
+            } else{
+                $("#info-modal").html("修改失败！");
+                $("#alertModel").modal('show');
+            }
+        },"json");//异步修改
+    }
+
 }
 
 var id ;

@@ -157,6 +157,9 @@ function checkRole() { //角色
     if (rolesId.val()==""){
         roleDiv.html("职位不能为空！");
         return false;
+    }else if (rolesId.val()=="1"){
+        roleDiv.html("不能添加系统管理员！");
+        return false;
     }
     return true;
 }

@@ -85,6 +85,18 @@
         ORDER BY planYear DESC,planmonth DESC limit #{pageIndex},#{pageSize} ;
     </select>
 
+    <!--动态查找销售计划-->
+    <select id="findDynPlan" resultType="Plan" parameterType="Plan">
+        SELECT planId,content,empCode,(SELECT e.empName FROM emp e WHERE e.empCode=plan.`empCode` ) AS createEmpName,
+        planMoney,planYear,planMonth,states,nextCode,(SELECT e.empName FROM emp e WHERE e.empCode=plan.`nextCode` ) AS auditEmpName,
+        deptId,(SELECT d.deptName FROM dept d WHERE d.deptId=plan.`deptId`) AS deptName,planAdd,salesMoney,realMoney,
+        checkGrade,remark FROM plan
+        <where>
+            <!-- 引用sql片段 -->
+            <include refid="sqlCommon"></include>
+        </where>
+    </select>
+
     <!--计算销售计划条数的动态sql语句-->
     <select id="planCount" resultType="int">
         select count(planId) from plan

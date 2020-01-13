@@ -48,4 +48,7 @@ public interface PlanDao {
     //根据编号查找销售计划
     Plan findPlanById(@Param("planId") Integer planId);
 
+    //动态查找销售计划
+    List<Plan> findDynPlan(@Param("planCondition") PlanCondition planCondition);
+
 }
